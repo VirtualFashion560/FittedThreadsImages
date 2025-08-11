@@ -69,6 +69,7 @@ line-height: 1.5;
 animation: fadeInUp 1.5s ease forwards;
 animation-delay: 0.6s;
 opacity: 0;
+text-align: center;
 }
 
 .slogans span {
@@ -84,10 +85,10 @@ display: none;
 #upload-label {
 background: linear-gradient(135deg, #7ca52b, #d9c84a);
 color: white;
-padding: 0.6em 1.5em;
+padding: 0.6em 1.5em; /* smaller padding */
 border: none;
 border-radius: 12px;
-font-size: 1.2rem;
+font-size: 1.2rem; /* smaller font */
 cursor: pointer;
 font-family: 'Poppins', sans-serif;
 font-weight: 700;
@@ -123,6 +124,40 @@ display: block;
 animation: fadeInUp 1s ease forwards;
 }
 
+.instructions {
+margin-top: 3em;
+max-width: 420px;
+background: rgba(255 255 255 / 0.3);
+border-radius: 12px;
+padding: 1.6em 2em;
+color: #4a6b3b;
+font-weight: 600;
+font-size: 1.1rem;
+text-align: left;
+box-shadow: 0 2px 8px rgba(74, 107, 59, 0.3);
+font-family: 'Poppins', sans-serif;
+line-height: 1.6;
+animation: fadeInUp 1.5s ease forwards;
+animation-delay: 1.2s;
+opacity: 0;
+}
+
+.instructions h2 {
+font-family: 'Pacifico', cursive;
+color: #7ca52b;
+font-size: 1.8rem;
+margin-bottom: 0.6em;
+}
+
+.instructions ol {
+margin: 0;
+padding-left: 1.2em;
+}
+
+.instructions li {
+margin-bottom: 0.8em;
+}
+
 @keyframes fadeInUp {
 0% {
 opacity: 0;
@@ -138,7 +173,7 @@ transform: translateY(0);
 <body>
 
 <h1>Fitted Threads</h1>
-<p class="main-description">Discover the perfect outfit for any occasion with our AI-powered fashion app. Upload a photo, Try on clothes and get personalized recommendations - all at your fingertips</p>
+<p class="main-description">Discover the perfect outfit for any occasion with our AI-powered fashion app. Upload a photo, Try on clothes and get personalized recommendations.</p>
 
 <div class="slogans" aria-label="Slogans">
 <span>Elevate Your Threads</span>
@@ -150,6 +185,15 @@ transform: translateY(0);
 <label for="upload" id="upload-label">Let's Get Started</label>
 
 <img id="preview" alt="Image preview will appear here" />
+
+<section class="instructions" aria-label="How to use Fitted Threads">
+<h2>How to Use</h2>
+<ol>
+<li>Tap "Let's Get Started" to upload or take a photo.</li>
+<li>Choose a selfie or an image of clothing you'd like to try on.</li>
+<li>Explore virtual try-on options and discover your perfect style.</li>
+</ol>
+</section>
 
 <script>
 const upload = document.getElementById('upload');
