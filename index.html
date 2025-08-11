@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Fitted Threads Landing Page</title>
+
+<!-- Animate.css -->
+<link
+rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+/>
+
+<!-- Google Fonts: Poppins, Comic Neue & Fredoka One -->
+<link
+href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&family=Fredoka+One&family=Poppins:wght@400;700&display=swap"
+rel="stylesheet"
+/>
+
+<style>
+body {
+margin: 0;
+min-height: 100vh;
+background: linear-gradient(135deg, #b8a58c, #d6c5a8);
+color: #4b3b2b;
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+font-family: 'Poppins', sans-serif;
+text-align: center;
+padding: 20px;
+position: relative;
+overflow: hidden;
+}
+
+h1 {
+font-weight: 700;
+font-size: 3rem;
+margin-bottom: 0.5em;
+color: #6b5541;
+animation: bounceInDown 1s ease forwards, fadeIn 1.5s ease forwards;
+position: relative;
+z-index: 2;
+}
+
+@keyframes slideFadeUp {
+0% {
+opacity: 0;
+transform: translateY(15px);
+}
+100% {
+opacity: 1;
+transform: translateY(0);
+}
+}
+
+p {
+font-weight: 400;
+font-size: 1.3rem;
+max-width: 400px;
+margin-bottom: 2em;
+color: #4b3b2b;
+animation: slideFadeUp 1s ease forwards;
+animation-delay: 0.8s;
+opacity: 0;
+position: relative;
+z-index: 2;
+}
+
+/* Hide native file input */
+#upload {
+display: none;
+}
+
+/* Button styles */
+#upload-label {
+background: linear-gradient(135deg, #a67c52, #c9a66b);
+color: white;
+padding: 1em 2.5em;
+border: none;
+border-radius: 12px;
+font-size: 1.5rem;
+cursor: pointer;
+font-family: 'Poppins', sans-serif;
+font-weight: 700;
+box-shadow: 0 2px 8px rgba(166, 124, 82, 0.7);
+transition: transform 0.2s ease, box-shadow 0.3s ease;
+user-select: none;
+z-index: 2;
+position: relative;
+}
+
+@keyframes glowPulse {
+0%, 100% {
+box-shadow: 0 6px 20px rgba(166, 124, 82, 0.9);
+}
+50% {
+box-shadow: 0 10px 30px rgba(255, 165, 0, 1);
+}
+}
+
+#upload-label:hover {
+animation: glowPulse 2s ease-in-out infinite;
+transform: scale(1.07);
+}
+
+/* Image preview */
+img#preview {
+display: none;
+margin-top: 1.5em;
+max-width: 300px;
+border: 2px solid #6b5541;
+border-radius: 8px;
+box-shadow: 0 2px 10px rgba(107, 85, 65, 0.5);
+position: relative;
+z-index: 2;
+}
+
+@keyframes fadeZoomIn {
+0% {
+opacity: 0;
+transform: scale(0.85);
+}
+100% {
+opacity: 1;
+transform: scale(1);
+}
+}
+
+img#preview.show {
+animation: fadeZoomIn 0.6s ease forwards;
+}
+
+/* Rotating clothing/accessory cluster */
+.background-items {
+position: absolute;
+top: 30%;
+left: 50%;
+transform: translateX(-50%);
+width: 120px;
+height: 120px;
+pointer-events: none;
+overflow: visible;
+z-index: 1;
+}
+
+.rotating-item {
+position: absolute;
+top: 0;
+left: 0;
+width: 120px;
+height: 120px;
+opacity: 0;
+animation: fadeRotate 20s linear infinite;
+user-select: none;
+filter: drop-shadow(0 2px 2px rgba(0,0,0,0.1));
+object-fit: contain;
+border-radius: 12px;
+background: rgba(255 255 255 / 0.15);
+padding: 5px;
+}
+
+@keyframes fadeRotate {
+0% {
+opacity: 0;
+transform: rotate(0deg);
+}
+5% {
+opacity: 1;
+transform: rotate(5deg);
+}
+25% {
+opacity: 1;
+transform: rotate(-5deg);
+}
+45% {
+opacity: 0;
+transform: rotate(0deg);
+}
+100% {
+opacity: 0;
+transform: rotate(0deg);
+}
+}
+</style>
+</head>
+<body>
+
+<!-- Rotating clothing/accessory images in background -->
+<div class="background-items">
+<img src="https://i.imgur.com/6R8RmP3.png" alt="Hat" class="rotating-item" style="animation-delay: 0s" />
+<img src="https://i.imgur.com/RcLrjM1.png" alt="Sunglasses" class="rotating-item" style="animation-delay: 5s" />
+<img src="https://i.imgur.com/2uSzWfC.png" alt="Shirt" class="rotating-item" style="animation-delay: 10s" />
+<img src="https://i.imgur.com/JjXqkqV.png" alt="Shoe" class="rotating-item" style="animation-delay: 15s" />
+</div>
+
+<h1>
+Welcome to Fitted Threads
+</h1>
+<p>
+Try on your favorite styles virtually with AI-powered fashion.
+</p>
+
+<!-- Hidden file input -->
+<input type="file" accept="image/*" capture="environment" id="upload" />
+<!-- Custom upload button -->
+<label for="upload" id="upload-label">Let's Get Started</label>
+
+<!-- Image preview -->
+<img id="preview" alt="Image preview will appear here" />
+
+<script>
+const upload = document.getElementById('upload');
+const preview = document.getElementById('preview');
+
+upload.addEventListener('change', () => {
+const file = upload.files[0];
+if (!file) {
+preview.src = '';
+preview.style.display = 'none';
+preview.classList.remove('show');
+return;
+}
+const reader = new FileReader();
+reader.onload = () => {
+preview.src = reader.result;
+preview.style.display = 'block';
+preview.classList.add('show');
+};
+reader.readAsDataURL(file);
+});
+</script>
+</body>
+</html>
