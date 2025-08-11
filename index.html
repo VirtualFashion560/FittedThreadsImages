@@ -18,6 +18,11 @@ rel="stylesheet"
 />
 
 <style>
+/* Global box-sizing */
+*, *::before, *::after {
+box-sizing: border-box;
+}
+
 body {
 margin: 0;
 min-height: 100vh;
@@ -143,24 +148,29 @@ z-index: 1;
 display: grid;
 grid-template-columns: repeat(2, 120px);
 grid-template-rows: repeat(2, 120px);
+grid-auto-flow: row;
 gap: 20px 30px;
 justify-content: center;
 align-content: center;
+background: transparent;
 }
 
 .rotating-item {
 width: 120px;
 height: 120px;
 border-radius: 12px;
-background: rgba(255 255 255 / 0.15);
+background: rgba(255 255 255 / 0.25);
 padding: 5px;
 filter: drop-shadow(0 2px 3px rgba(0,0,0,0.1));
 object-fit: contain;
+max-width: 100%;
+max-height: 100%;
 position: relative;
 opacity: 1;
 transition: opacity 1s ease;
 transform-origin: center;
 animation: gentleRotate 10s ease-in-out infinite;
+display: block;
 }
 
 @keyframes gentleRotate {
@@ -172,10 +182,30 @@ animation: gentleRotate 10s ease-in-out infinite;
 <body>
 
 <div class="background-items">
-<img src="https://i.imgur.com/QksLWur.png" alt="Hat" class="rotating-item" id="item1" />
-<img src="https://i.imgur.com/bFPmhz3.png" alt="Sunglasses" class="rotating-item" id="item2" />
-<img src="https://i.imgur.com/3z7J47j.png" alt="Shirt" class="rotating-item" id="item3" />
-<img src="https://i.imgur.com/mv96NUx.png" alt="Shoes" class="rotating-item" id="item4" />
+<img
+src="https://cdn.pixabay.com/photo/2017/08/07/12/36/hat-2609270_1280.png"
+alt="Hat"
+class="rotating-item"
+id="item1"
+/>
+<img
+src="https://cdn.pixabay.com/photo/2017/02/01/22/02/sunglasses-2022160_1280.png"
+alt="Sunglasses"
+class="rotating-item"
+id="item2"
+/>
+<img
+src="https://cdn.pixabay.com/photo/2018/11/03/20/05/t-shirt-3790309_1280.png"
+alt="Shirt"
+class="rotating-item"
+id="item3"
+/>
+<img
+src="https://cdn.pixabay.com/photo/2016/03/31/20/12/shoes-1293129_1280.png"
+alt="Shoes"
+class="rotating-item"
+id="item4"
+/>
 </div>
 
 <h1>
@@ -211,49 +241,19 @@ preview.classList.add('show');
 reader.readAsDataURL(file);
 });
 
+// Alternate sets of images for background cycling
 const imageSets = [
 [
-"https://i.imgur.com/QksLWur.png",
-"https://i.imgur.com/bFPmhz3.png",
-"https://i.imgur.com/3z7J47j.png",
-"https://i.imgur.com/mv96NUx.png",
+"https://cdn.pixabay.com/photo/2017/08/07/12/36/hat-2609270_1280.png",
+"https://cdn.pixabay.com/photo/2017/02/01/22/02/sunglasses-2022160_1280.png",
+"https://cdn.pixabay.com/photo/2018/11/03/20/05/t-shirt-3790309_1280.png",
+"https://cdn.pixabay.com/photo/2016/03/31/20/12/shoes-1293129_1280.png",
 ],
 [
-"https://i.imgur.com/Z6hRUHF.png",
-"https://i.imgur.com/Q9MeYbE.png",
-"https://i.imgur.com/fR4o5aX.png",
-"https://i.imgur.com/9k7BpMe.png",
+"https://cdn.pixabay.com/photo/2016/11/29/10/07/scarf-1869443_1280.png",
+"https://cdn.pixabay.com/photo/2017/09/02/12/12/bag-2707553_1280.png",
+"https://cdn.pixabay.com/photo/2016/04/25/18/32/jacket-1358984_1280.png",
+"https://cdn.pixabay.com/photo/2017/06/06/01/29/gloves-2371481_1280.png",
 ],
 [
-"https://i.imgur.com/3L8NUnk.png",
-"https://i.imgur.com/1qFvDqz.png",
-"https://i.imgur.com/VH7qvPZ.png",
-"https://i.imgur.com/L1J9RsH.png",
-],
-];
-
-const items = [
-document.getElementById('item1'),
-document.getElementById('item2'),
-document.getElementById('item3'),
-document.getElementById('item4'),
-];
-
-let currentSet = 0;
-
-function cycleImages() {
-items.forEach(img => img.style.opacity = 0);
-
-setTimeout(() => {
-currentSet = (currentSet + 1) % imageSets.length;
-items.forEach((img, i) => {
-img.src = imageSets[currentSet][i];
-img.style.opacity = 1;
-});
-}, 1000);
-}
-
-setInterval(cycleImages, 6000);
-</script>
-</body>
-</html>
+"https://cdn.pixabay.com/photo/2018/07/04/18/47/cap-3510385_128
