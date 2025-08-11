@@ -45,9 +45,12 @@ z-index: 0;
 
 .floating-text {
 position: absolute;
-font-family: 'Fredoka One', cursive;
+font-family: 'Comic Neue', cursive;
 font-weight: 700;
-color: rgba(107, 85, 65, 0.15);
+color: rgba(75, 59, 43, 0.4); /* Darker warm brown with higher opacity */
+text-shadow:
+1px 1px 3px rgba(255 255 255 / 0.9),
+0 0 10px rgba(75, 59, 43, 0.4);
 user-select: none;
 white-space: nowrap;
 animation-timing-function: ease-in-out;
@@ -110,17 +113,17 @@ animation-delay: 22s;
 
 @keyframes slideRight {
 0% { left: -25%; opacity: 0; }
-10% { opacity: 0.2; }
-50% { left: 110%; opacity: 0.15; }
-90% { opacity: 0.2; }
+10% { opacity: 0.5; }
+50% { left: 110%; opacity: 0.4; }
+90% { opacity: 0.5; }
 100% { left: 110%; opacity: 0; }
 }
 
 @keyframes slideLeft {
 0% { left: 110%; opacity: 0; }
-10% { opacity: 0.2; }
-50% { left: -25%; opacity: 0.15; }
-90% { opacity: 0.2; }
+10% { opacity: 0.5; }
+50% { left: -25%; opacity: 0.4; }
+90% { opacity: 0.5; }
 100% { left: -25%; opacity: 0; }
 }
 
