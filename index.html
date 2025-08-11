@@ -5,12 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Fitted Threads Landing Page</title>
 
-<!-- Animate.css -->
-<link
-rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
-/>
-
 <!-- Google Fonts -->
 <link
 href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&family=Fredoka+One&family=Poppins:wght@400;700&display=swap"
@@ -44,20 +38,9 @@ font-weight: 700;
 font-size: 3rem;
 margin-bottom: 0.5em;
 color: #6b5541;
-animation: bounceInDown 1s ease forwards, fadeIn 1.5s ease forwards;
 position: relative;
 z-index: 2;
-}
-
-@keyframes slideFadeUp {
-0% {
-opacity: 0;
-transform: translateY(15px);
-}
-100% {
-opacity: 1;
-transform: translateY(0);
-}
+font-family: 'Fredoka One', cursive;
 }
 
 p {
@@ -66,11 +49,9 @@ font-size: 1.3rem;
 max-width: 400px;
 margin-bottom: 2em;
 color: #4b3b2b;
-animation: slideFadeUp 1s ease forwards;
-animation-delay: 0.8s;
-opacity: 0;
 position: relative;
 z-index: 2;
+font-family: 'Comic Neue', cursive;
 }
 
 #upload {
@@ -92,19 +73,11 @@ transition: transform 0.2s ease, box-shadow 0.3s ease;
 user-select: none;
 z-index: 2;
 position: relative;
-}
-
-@keyframes glowPulse {
-0%, 100% {
-box-shadow: 0 6px 20px rgba(166, 124, 82, 0.9);
-}
-50% {
-box-shadow: 0 10px 30px rgba(255, 165, 0, 1);
-}
+display: inline-block;
 }
 
 #upload-label:hover {
-animation: glowPulse 2s ease-in-out infinite;
+box-shadow: 0 10px 30px rgba(255, 165, 0, 1);
 transform: scale(1.07);
 }
 
@@ -119,21 +92,7 @@ position: relative;
 z-index: 2;
 }
 
-@keyframes fadeZoomIn {
-0% {
-opacity: 0;
-transform: scale(0.85);
-}
-100% {
-opacity: 1;
-transform: scale(1);
-}
-}
-
-img#preview.show {
-animation: fadeZoomIn 0.6s ease forwards;
-}
-
+/* Background grid container */
 .background-items {
 position: absolute;
 top: 30%;
@@ -148,13 +107,12 @@ z-index: 1;
 display: grid;
 grid-template-columns: repeat(2, 120px);
 grid-template-rows: repeat(2, 120px);
-grid-auto-flow: row;
 gap: 20px 30px;
 justify-content: center;
 align-content: center;
-background: transparent;
 }
 
+/* Each rotating item */
 .rotating-item {
 width: 120px;
 height: 120px;
@@ -166,11 +124,16 @@ object-fit: contain;
 max-width: 100%;
 max-height: 100%;
 position: relative;
-opacity: 1;
+opacity: 0;
 transition: opacity 1s ease;
 transform-origin: center;
 animation: gentleRotate 10s ease-in-out infinite;
 display: block;
+}
+
+/* Show active */
+.rotating-item.active {
+opacity: 1;
 }
 
 @keyframes gentleRotate {
@@ -185,35 +148,27 @@ display: block;
 <img
 src="https://cdn.pixabay.com/photo/2017/08/07/12/36/hat-2609270_1280.png"
 alt="Hat"
-class="rotating-item"
-id="item1"
+class="rotating-item active"
 />
 <img
 src="https://cdn.pixabay.com/photo/2017/02/01/22/02/sunglasses-2022160_1280.png"
 alt="Sunglasses"
-class="rotating-item"
-id="item2"
+class="rotating-item active"
 />
 <img
 src="https://cdn.pixabay.com/photo/2018/11/03/20/05/t-shirt-3790309_1280.png"
 alt="Shirt"
-class="rotating-item"
-id="item3"
+class="rotating-item active"
 />
 <img
 src="https://cdn.pixabay.com/photo/2016/03/31/20/12/shoes-1293129_1280.png"
 alt="Shoes"
-class="rotating-item"
-id="item4"
+class="rotating-item active"
 />
 </div>
 
-<h1>
-Welcome to Fitted Threads
-</h1>
-<p>
-Try on your favorite styles virtually with AI-powered fashion.
-</p>
+<h1>Fitted Threads</h1>
+<p>Try on your favorite styles virtually with AI-powered fashion.</p>
 
 <input type="file" accept="image/*" capture="environment" id="upload" />
 <label for="upload" id="upload-label">Let's Get Started</label>
@@ -221,6 +176,7 @@ Try on your favorite styles virtually with AI-powered fashion.
 <img id="preview" alt="Image preview will appear here" />
 
 <script>
+// Show preview on file select
 const upload = document.getElementById('upload');
 const preview = document.getElementById('preview');
 
@@ -241,19 +197,31 @@ preview.classList.add('show');
 reader.readAsDataURL(file);
 });
 
-// Alternate sets of images for background cycling
-const imageSets = [
-[
-"https://cdn.pixabay.com/photo/2017/08/07/12/36/hat-2609270_1280.png",
-"https://cdn.pixabay.com/photo/2017/02/01/22/02/sunglasses-2022160_1280.png",
-"https://cdn.pixabay.com/photo/2018/11/03/20/05/t-shirt-3790309_1280.png",
-"https://cdn.pixabay.com/photo/2016/03/31/20/12/shoes-1293129_1280.png",
-],
-[
-"https://cdn.pixabay.com/photo/2016/11/29/10/07/scarf-1869443_1280.png",
-"https://cdn.pixabay.com/photo/2017/09/02/12/12/bag-2707553_1280.png",
-"https://cdn.pixabay.com/photo/2016/04/25/18/32/jacket-1358984_1280.png",
-"https://cdn.pixabay.com/photo/2017/06/06/01/29/gloves-2371481_1280.png",
-],
-[
-"https://cdn.pixabay.com/photo/2018/07/04/18/47/cap-3510385_128
+// Background images fade in/out cycling
+const items = document.querySelectorAll('.rotating-item');
+
+// We'll fade out all except 2 at once and rotate sets every 5s
+const sets = [
+[0, 1], // Hat, Sunglasses
+[2, 3], // Shirt, Shoes
+];
+
+let currentSetIndex = 0;
+
+function showSet(index) {
+items.forEach((item, i) => {
+if (sets[index].includes(i)) {
+item.classList.add('active');
+} else {
+item.classList.remove('active');
+}
+});
+}
+
+setInterval(() => {
+currentSetIndex = (currentSetIndex + 1) % sets.length;
+showSet(currentSetIndex);
+}, 5000);
+</script>
+</body>
+</html>
