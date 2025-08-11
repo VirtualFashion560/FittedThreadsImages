@@ -11,7 +11,7 @@ rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
 />
 
-<!-- Google Fonts: Poppins, Comic Neue & Fredoka One -->
+<!-- Google Fonts -->
 <link
 href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&family=Fredoka+One&family=Poppins:wght@400;700&display=swap"
 rel="stylesheet"
@@ -68,12 +68,10 @@ position: relative;
 z-index: 2;
 }
 
-/* Hide native file input */
 #upload {
 display: none;
 }
 
-/* Button styles */
 #upload-label {
 background: linear-gradient(135deg, #a67c52, #c9a66b);
 color: white;
@@ -105,7 +103,6 @@ animation: glowPulse 2s ease-in-out infinite;
 transform: scale(1.07);
 }
 
-/* Image preview */
 img#preview {
 display: none;
 margin-top: 1.5em;
@@ -132,20 +129,23 @@ img#preview.show {
 animation: fadeZoomIn 0.6s ease forwards;
 }
 
-/* Background clothing cluster container */
 .background-items {
 position: absolute;
 top: 30%;
 left: 50%;
 transform: translateX(-50%);
 width: 280px;
-height: 140px;
+height: 280px;
 pointer-events: none;
 overflow: visible;
 z-index: 1;
-display: flex;
-justify-content: space-around;
-align-items: center;
+
+display: grid;
+grid-template-columns: repeat(2, 120px);
+grid-template-rows: repeat(2, 120px);
+gap: 20px 30px;
+justify-content: center;
+align-content: center;
 }
 
 .rotating-item {
@@ -171,12 +171,11 @@ animation: gentleRotate 10s ease-in-out infinite;
 </head>
 <body>
 
-<!-- Rotating cluster container -->
 <div class="background-items">
-<img src="https://i.imgur.com/3k4HCvF.png" alt="Hat" class="rotating-item" id="item1" />
-<img src="https://i.imgur.com/bB0rtxQ.png" alt="Sunglasses" class="rotating-item" id="item2" />
-<img src="https://i.imgur.com/FPm4bWv.png" alt="Shirt" class="rotating-item" id="item3" />
-<img src="https://i.imgur.com/3CvWzSN.png" alt="Shoe" class="rotating-item" id="item4" />
+<img src="https://i.imgur.com/QksLWur.png" alt="Hat" class="rotating-item" id="item1" />
+<img src="https://i.imgur.com/bFPmhz3.png" alt="Sunglasses" class="rotating-item" id="item2" />
+<img src="https://i.imgur.com/3z7J47j.png" alt="Shirt" class="rotating-item" id="item3" />
+<img src="https://i.imgur.com/mv96NUx.png" alt="Shoes" class="rotating-item" id="item4" />
 </div>
 
 <h1>
@@ -186,12 +185,9 @@ Welcome to Fitted Threads
 Try on your favorite styles virtually with AI-powered fashion.
 </p>
 
-<!-- Hidden file input -->
 <input type="file" accept="image/*" capture="environment" id="upload" />
-<!-- Custom upload button -->
 <label for="upload" id="upload-label">Let's Get Started</label>
 
-<!-- Image preview -->
 <img id="preview" alt="Image preview will appear here" />
 
 <script>
@@ -215,25 +211,24 @@ preview.classList.add('show');
 reader.readAsDataURL(file);
 });
 
-// Array of clothing/accessory image URLs for cycling
 const imageSets = [
 [
-"https://i.imgur.com/3k4HCvF.png", // Hat
-"https://i.imgur.com/bB0rtxQ.png", // Sunglasses
-"https://i.imgur.com/FPm4bWv.png", // Shirt
-"https://i.imgur.com/3CvWzSN.png", // Shoe
+"https://i.imgur.com/QksLWur.png",
+"https://i.imgur.com/bFPmhz3.png",
+"https://i.imgur.com/3z7J47j.png",
+"https://i.imgur.com/mv96NUx.png",
 ],
 [
-"https://i.imgur.com/DKzULMO.png", // Jacket
-"https://i.imgur.com/hY4bQps.png", // Scarf
-"https://i.imgur.com/hRmxjVi.png", // Purse
-"https://i.imgur.com/cwlXBfj.png", // Boots
+"https://i.imgur.com/Z6hRUHF.png",
+"https://i.imgur.com/Q9MeYbE.png",
+"https://i.imgur.com/fR4o5aX.png",
+"https://i.imgur.com/9k7BpMe.png",
 ],
 [
-"https://i.imgur.com/lLijeyk.png", // Dress
-"https://i.imgur.com/BGLPtcL.png", // Watch
-"https://i.imgur.com/JHbJcI7.png", // Necklace
-"https://i.imgur.com/O1x8y0B.png", // Cap
+"https://i.imgur.com/3L8NUnk.png",
+"https://i.imgur.com/1qFvDqz.png",
+"https://i.imgur.com/VH7qvPZ.png",
+"https://i.imgur.com/L1J9RsH.png",
 ],
 ];
 
@@ -247,10 +242,7 @@ document.getElementById('item4'),
 let currentSet = 0;
 
 function cycleImages() {
-// Fade out images
-items.forEach(img => {
-img.style.opacity = 0;
-});
+items.forEach(img => img.style.opacity = 0);
 
 setTimeout(() => {
 currentSet = (currentSet + 1) % imageSets.length;
@@ -258,11 +250,10 @@ items.forEach((img, i) => {
 img.src = imageSets[currentSet][i];
 img.style.opacity = 1;
 });
-}, 1000); // fadeout duration
-
+}, 1000);
 }
 
-setInterval(cycleImages, 7000); // cycle every 7 seconds
+setInterval(cycleImages, 6000);
 </script>
 </body>
 </html>
