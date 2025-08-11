@@ -12,7 +12,6 @@ rel="stylesheet"
 />
 
 <style>
-/* Global box-sizing */
 *, *::before, *::after {
 box-sizing: border-box;
 }
@@ -33,14 +32,107 @@ position: relative;
 overflow: hidden;
 }
 
+/* Background floating text container */
+.background-text-container {
+position: fixed;
+top: 0; left: 0;
+width: 100vw;
+height: 100vh;
+pointer-events: none;
+overflow: hidden;
+z-index: 0;
+}
+
+.floating-text {
+position: absolute;
+font-family: 'Fredoka One', cursive;
+font-weight: 700;
+color: rgba(107, 85, 65, 0.15);
+user-select: none;
+white-space: nowrap;
+animation-timing-function: ease-in-out;
+animation-iteration-count: infinite;
+}
+
+.float1 {
+font-size: 6rem;
+top: 10%;
+left: -20%;
+animation-name: slideRight;
+animation-duration: 20s;
+}
+
+.float2 {
+font-size: 5rem;
+top: 40%;
+left: 100%;
+animation-name: slideLeft;
+animation-duration: 18s;
+animation-delay: 5s;
+}
+
+.float3 {
+font-size: 4rem;
+top: 70%;
+left: -25%;
+animation-name: slideRight;
+animation-duration: 22s;
+animation-delay: 10s;
+}
+
+/* New floating texts */
+.float4 {
+font-size: 3.5rem;
+top: 55%;
+left: 100%;
+animation-name: slideLeft;
+animation-duration: 24s;
+animation-delay: 14s;
+}
+
+.float5 {
+font-size: 3.8rem;
+top: 20%;
+left: -25%;
+animation-name: slideRight;
+animation-duration: 19s;
+animation-delay: 18s;
+}
+
+.float6 {
+font-size: 4.2rem;
+top: 80%;
+left: 100%;
+animation-name: slideLeft;
+animation-duration: 21s;
+animation-delay: 22s;
+}
+
+@keyframes slideRight {
+0% { left: -25%; opacity: 0; }
+10% { opacity: 0.2; }
+50% { left: 110%; opacity: 0.15; }
+90% { opacity: 0.2; }
+100% { left: 110%; opacity: 0; }
+}
+
+@keyframes slideLeft {
+0% { left: 110%; opacity: 0; }
+10% { opacity: 0.2; }
+50% { left: -25%; opacity: 0.15; }
+90% { opacity: 0.2; }
+100% { left: -25%; opacity: 0; }
+}
+
 h1 {
 font-weight: 700;
-font-size: 3rem;
+font-size: 3.5rem;
 margin-bottom: 0.5em;
 color: #6b5541;
-position: relative;
-z-index: 2;
 font-family: 'Fredoka One', cursive;
+animation: fadeInUp 1.5s ease forwards;
+position: relative;
+z-index: 1;
 }
 
 p {
@@ -49,9 +141,12 @@ font-size: 1.3rem;
 max-width: 400px;
 margin-bottom: 2em;
 color: #4b3b2b;
-position: relative;
-z-index: 2;
 font-family: 'Comic Neue', cursive;
+animation: fadeInUp 1.5s ease forwards;
+animation-delay: 0.3s;
+opacity: 0;
+position: relative;
+z-index: 1;
 }
 
 #upload {
@@ -71,9 +166,12 @@ font-weight: 700;
 box-shadow: 0 2px 8px rgba(166, 124, 82, 0.7);
 transition: transform 0.2s ease, box-shadow 0.3s ease;
 user-select: none;
-z-index: 2;
 position: relative;
 display: inline-block;
+animation: fadeInUp 1.5s ease forwards;
+animation-delay: 0.6s;
+opacity: 0;
+z-index: 1;
 }
 
 #upload-label:hover {
@@ -89,82 +187,39 @@ border: 2px solid #6b5541;
 border-radius: 8px;
 box-shadow: 0 2px 10px rgba(107, 85, 65, 0.5);
 position: relative;
-z-index: 2;
-}
-
-/* Background grid container */
-.background-items {
-position: absolute;
-top: 30%;
-left: 50%;
-transform: translateX(-50%);
-width: 280px;
-height: 280px;
-pointer-events: none;
-overflow: visible;
 z-index: 1;
-
-display: grid;
-grid-template-columns: repeat(2, 120px);
-grid-template-rows: repeat(2, 120px);
-gap: 20px 30px;
-justify-content: center;
-align-content: center;
 }
 
-/* Each rotating item */
-.rotating-item {
-width: 120px;
-height: 120px;
-border-radius: 12px;
-background: rgba(255 255 255 / 0.25);
-padding: 5px;
-filter: drop-shadow(0 2px 3px rgba(0,0,0,0.1));
-object-fit: contain;
-max-width: 100%;
-max-height: 100%;
-position: relative;
-opacity: 0;
-transition: opacity 1s ease;
-transform-origin: center;
-animation: gentleRotate 10s ease-in-out infinite;
+img#preview.show {
 display: block;
+animation: fadeInUp 1s ease forwards;
 }
 
-/* Show active */
-.rotating-item.active {
+@keyframes fadeInUp {
+0% {
+opacity: 0;
+transform: translateY(20px);
+}
+100% {
 opacity: 1;
+transform: translateY(0);
 }
-
-@keyframes gentleRotate {
-0%, 100% { transform: rotate(-5deg); }
-50% { transform: rotate(5deg); }
 }
 </style>
 </head>
 <body>
 
-<div class="background-items">
-<img
-src="https://cdn.pixabay.com/photo/2017/08/07/12/36/hat-2609270_1280.png"
-alt="Hat"
-class="rotating-item active"
-/>
-<img
-src="https://cdn.pixabay.com/photo/2017/02/01/22/02/sunglasses-2022160_1280.png"
-alt="Sunglasses"
-class="rotating-item active"
-/>
-<img
-src="https://cdn.pixabay.com/photo/2018/11/03/20/05/t-shirt-3790309_1280.png"
-alt="Shirt"
-class="rotating-item active"
-/>
-<img
-src="https://cdn.pixabay.com/photo/2016/03/31/20/12/shoes-1293129_1280.png"
-alt="Shoes"
-class="rotating-item active"
-/>
+<div class="background-text-container" aria-hidden="true">
+<span class="floating-text float1">Style</span>
+<span class="floating-text float2">Fashion</span>
+<span class="floating-text float3">Trendy</span>
+<span class="floating-text float1" style="top: 55%; animation-delay: 12s;">AI Try-On</span>
+<span class="floating-text float2" style="top: 25%; animation-delay: 15s;">Virtual</span>
+
+<!-- New phrases -->
+<span class="floating-text float4">Unlock the power of virtual styling</span>
+<span class="floating-text float5">Elevate your confidence</span>
+<span class="floating-text float6">Discover your perfect fit</span>
 </div>
 
 <h1>Fitted Threads</h1>
@@ -176,7 +231,6 @@ class="rotating-item active"
 <img id="preview" alt="Image preview will appear here" />
 
 <script>
-// Show preview on file select
 const upload = document.getElementById('upload');
 const preview = document.getElementById('preview');
 
@@ -184,44 +238,16 @@ upload.addEventListener('change', () => {
 const file = upload.files[0];
 if (!file) {
 preview.src = '';
-preview.style.display = 'none';
 preview.classList.remove('show');
 return;
 }
 const reader = new FileReader();
 reader.onload = () => {
 preview.src = reader.result;
-preview.style.display = 'block';
 preview.classList.add('show');
 };
 reader.readAsDataURL(file);
 });
-
-// Background images fade in/out cycling
-const items = document.querySelectorAll('.rotating-item');
-
-// We'll fade out all except 2 at once and rotate sets every 5s
-const sets = [
-[0, 1], // Hat, Sunglasses
-[2, 3], // Shirt, Shoes
-];
-
-let currentSetIndex = 0;
-
-function showSet(index) {
-items.forEach((item, i) => {
-if (sets[index].includes(i)) {
-item.classList.add('active');
-} else {
-item.classList.remove('active');
-}
-});
-}
-
-setInterval(() => {
-currentSetIndex = (currentSetIndex + 1) % sets.length;
-showSet(currentSetIndex);
-}, 5000);
 </script>
 </body>
 </html>
