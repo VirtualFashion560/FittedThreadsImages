@@ -132,67 +132,51 @@ img#preview.show {
 animation: fadeZoomIn 0.6s ease forwards;
 }
 
-/* Rotating clothing/accessory cluster */
+/* Background clothing cluster container */
 .background-items {
 position: absolute;
 top: 30%;
 left: 50%;
 transform: translateX(-50%);
-width: 120px;
-height: 120px;
+width: 280px;
+height: 140px;
 pointer-events: none;
 overflow: visible;
 z-index: 1;
+display: flex;
+justify-content: space-around;
+align-items: center;
 }
 
 .rotating-item {
-position: absolute;
-top: 0;
-left: 0;
 width: 120px;
 height: 120px;
-opacity: 0;
-animation: fadeRotate 20s linear infinite;
-user-select: none;
-filter: drop-shadow(0 2px 2px rgba(0,0,0,0.1));
-object-fit: contain;
 border-radius: 12px;
 background: rgba(255 255 255 / 0.15);
 padding: 5px;
+filter: drop-shadow(0 2px 3px rgba(0,0,0,0.1));
+object-fit: contain;
+position: relative;
+opacity: 1;
+transition: opacity 1s ease;
+transform-origin: center;
+animation: gentleRotate 10s ease-in-out infinite;
 }
 
-@keyframes fadeRotate {
-0% {
-opacity: 0;
-transform: rotate(0deg);
-}
-5% {
-opacity: 1;
-transform: rotate(5deg);
-}
-25% {
-opacity: 1;
-transform: rotate(-5deg);
-}
-45% {
-opacity: 0;
-transform: rotate(0deg);
-}
-100% {
-opacity: 0;
-transform: rotate(0deg);
-}
+@keyframes gentleRotate {
+0%, 100% { transform: rotate(-5deg); }
+50% { transform: rotate(5deg); }
 }
 </style>
 </head>
 <body>
 
-<!-- Rotating clothing/accessory images in background -->
+<!-- Rotating cluster container -->
 <div class="background-items">
-<img src="https://i.imgur.com/6R8RmP3.png" alt="Hat" class="rotating-item" style="animation-delay: 0s" />
-<img src="https://i.imgur.com/RcLrjM1.png" alt="Sunglasses" class="rotating-item" style="animation-delay: 5s" />
-<img src="https://i.imgur.com/2uSzWfC.png" alt="Shirt" class="rotating-item" style="animation-delay: 10s" />
-<img src="https://i.imgur.com/JjXqkqV.png" alt="Shoe" class="rotating-item" style="animation-delay: 15s" />
+<img src="https://i.imgur.com/3k4HCvF.png" alt="Hat" class="rotating-item" id="item1" />
+<img src="https://i.imgur.com/bB0rtxQ.png" alt="Sunglasses" class="rotating-item" id="item2" />
+<img src="https://i.imgur.com/FPm4bWv.png" alt="Shirt" class="rotating-item" id="item3" />
+<img src="https://i.imgur.com/3CvWzSN.png" alt="Shoe" class="rotating-item" id="item4" />
 </div>
 
 <h1>
@@ -230,6 +214,55 @@ preview.classList.add('show');
 };
 reader.readAsDataURL(file);
 });
+
+// Array of clothing/accessory image URLs for cycling
+const imageSets = [
+[
+"https://i.imgur.com/3k4HCvF.png", // Hat
+"https://i.imgur.com/bB0rtxQ.png", // Sunglasses
+"https://i.imgur.com/FPm4bWv.png", // Shirt
+"https://i.imgur.com/3CvWzSN.png", // Shoe
+],
+[
+"https://i.imgur.com/DKzULMO.png", // Jacket
+"https://i.imgur.com/hY4bQps.png", // Scarf
+"https://i.imgur.com/hRmxjVi.png", // Purse
+"https://i.imgur.com/cwlXBfj.png", // Boots
+],
+[
+"https://i.imgur.com/lLijeyk.png", // Dress
+"https://i.imgur.com/BGLPtcL.png", // Watch
+"https://i.imgur.com/JHbJcI7.png", // Necklace
+"https://i.imgur.com/O1x8y0B.png", // Cap
+],
+];
+
+const items = [
+document.getElementById('item1'),
+document.getElementById('item2'),
+document.getElementById('item3'),
+document.getElementById('item4'),
+];
+
+let currentSet = 0;
+
+function cycleImages() {
+// Fade out images
+items.forEach(img => {
+img.style.opacity = 0;
+});
+
+setTimeout(() => {
+currentSet = (currentSet + 1) % imageSets.length;
+items.forEach((img, i) => {
+img.src = imageSets[currentSet][i];
+img.style.opacity = 1;
+});
+}, 1000); // fadeout duration
+
+}
+
+setInterval(cycleImages, 7000); // cycle every 7 seconds
 </script>
 </body>
 </html>
