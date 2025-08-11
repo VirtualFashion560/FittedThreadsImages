@@ -7,7 +7,7 @@
 
 <!-- Google Fonts -->
 <link
-href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&family=Fredoka+One&family=Poppins:wght@400;700&display=swap"
+href="https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&family=Pacifico&family=Poppins:wght@400;700&display=swap"
 rel="stylesheet"
 />
 
@@ -32,113 +32,18 @@ position: relative;
 overflow: hidden;
 }
 
-/* Background floating text container */
-.background-text-container {
-position: fixed;
-top: 0; left: 0;
-width: 100vw;
-height: 100vh;
-pointer-events: none;
-overflow: hidden;
-z-index: 0;
-}
-
-.floating-text {
-position: absolute;
-font-family: 'Comic Neue', cursive;
-font-weight: 700;
-color: rgba(75, 59, 43, 0.4); /* Darker warm brown with higher opacity */
-text-shadow:
-1px 1px 3px rgba(255 255 255 / 0.9),
-0 0 10px rgba(75, 59, 43, 0.4);
-user-select: none;
-white-space: nowrap;
-animation-timing-function: ease-in-out;
-animation-iteration-count: infinite;
-}
-
-.float1 {
-font-size: 6rem;
-top: 10%;
-left: -20%;
-animation-name: slideRight;
-animation-duration: 20s;
-}
-
-.float2 {
-font-size: 5rem;
-top: 40%;
-left: 100%;
-animation-name: slideLeft;
-animation-duration: 18s;
-animation-delay: 5s;
-}
-
-.float3 {
-font-size: 4rem;
-top: 70%;
-left: -25%;
-animation-name: slideRight;
-animation-duration: 22s;
-animation-delay: 10s;
-}
-
-/* New floating texts */
-.float4 {
-font-size: 3.5rem;
-top: 55%;
-left: 100%;
-animation-name: slideLeft;
-animation-duration: 24s;
-animation-delay: 14s;
-}
-
-.float5 {
-font-size: 3.8rem;
-top: 20%;
-left: -25%;
-animation-name: slideRight;
-animation-duration: 19s;
-animation-delay: 18s;
-}
-
-.float6 {
-font-size: 4.2rem;
-top: 80%;
-left: 100%;
-animation-name: slideLeft;
-animation-duration: 21s;
-animation-delay: 22s;
-}
-
-@keyframes slideRight {
-0% { left: -25%; opacity: 0; }
-10% { opacity: 0.5; }
-50% { left: 110%; opacity: 0.4; }
-90% { opacity: 0.5; }
-100% { left: 110%; opacity: 0; }
-}
-
-@keyframes slideLeft {
-0% { left: 110%; opacity: 0; }
-10% { opacity: 0.5; }
-50% { left: -25%; opacity: 0.4; }
-90% { opacity: 0.5; }
-100% { left: -25%; opacity: 0; }
-}
-
 h1 {
-font-weight: 700;
-font-size: 3.5rem;
-margin-bottom: 0.5em;
-color: #6b5541;
-font-family: 'Fredoka One', cursive;
+font-family: 'Pacifico', cursive;
+font-weight: 400;
+font-size: 3.8rem;
+margin-bottom: 0.3em;
+color: #4a6b3b; /* deep green */
 animation: fadeInUp 1.5s ease forwards;
 position: relative;
 z-index: 1;
 }
 
-p {
+p.main-description {
 font-weight: 400;
 font-size: 1.3rem;
 max-width: 400px;
@@ -152,33 +57,53 @@ position: relative;
 z-index: 1;
 }
 
+.slogans {
+margin-top: -1em;
+margin-bottom: 2.5em;
+max-width: 350px;
+font-family: 'Poppins', sans-serif;
+color: #a67c52; /* warm yellow/brown */
+font-weight: 600;
+font-size: 1.15rem;
+line-height: 1.5;
+animation: fadeInUp 1.5s ease forwards;
+animation-delay: 0.6s;
+opacity: 0;
+}
+
+.slogans span {
+display: block;
+margin: 0.4em 0;
+color: #7ca52b; /* fresh green */
+}
+
 #upload {
 display: none;
 }
 
 #upload-label {
-background: linear-gradient(135deg, #a67c52, #c9a66b);
+background: linear-gradient(135deg, #7ca52b, #d9c84a);
 color: white;
 padding: 1em 2.5em;
 border: none;
 border-radius: 12px;
-font-size: 1.5rem;
+font-size: 1.6rem;
 cursor: pointer;
 font-family: 'Poppins', sans-serif;
 font-weight: 700;
-box-shadow: 0 2px 8px rgba(166, 124, 82, 0.7);
+box-shadow: 0 2px 8px rgba(124, 165, 43, 0.7);
 transition: transform 0.2s ease, box-shadow 0.3s ease;
 user-select: none;
 position: relative;
 display: inline-block;
 animation: fadeInUp 1.5s ease forwards;
-animation-delay: 0.6s;
+animation-delay: 0.9s;
 opacity: 0;
 z-index: 1;
 }
 
 #upload-label:hover {
-box-shadow: 0 10px 30px rgba(255, 165, 0, 1);
+box-shadow: 0 10px 30px rgba(217, 200, 74, 1);
 transform: scale(1.07);
 }
 
@@ -186,9 +111,9 @@ img#preview {
 display: none;
 margin-top: 1.5em;
 max-width: 300px;
-border: 2px solid #6b5541;
+border: 2px solid #4a6b3b;
 border-radius: 8px;
-box-shadow: 0 2px 10px rgba(107, 85, 65, 0.5);
+box-shadow: 0 2px 10px rgba(74, 107, 59, 0.5);
 position: relative;
 z-index: 1;
 }
@@ -212,21 +137,14 @@ transform: translateY(0);
 </head>
 <body>
 
-<div class="background-text-container" aria-hidden="true">
-<span class="floating-text float1">Style</span>
-<span class="floating-text float2">Fashion</span>
-<span class="floating-text float3">Trendy</span>
-<span class="floating-text float1" style="top: 55%; animation-delay: 12s;">AI Try-On</span>
-<span class="floating-text float2" style="top: 25%; animation-delay: 15s;">Virtual</span>
-
-<!-- New phrases -->
-<span class="floating-text float4">Unlock the power of virtual styling</span>
-<span class="floating-text float5">Elevate your confidence</span>
-<span class="floating-text float6">Discover your perfect fit</span>
-</div>
-
 <h1>Fitted Threads</h1>
-<p>Try on your favorite styles virtually with AI-powered fashion.</p>
+<p class="main-description">Try on your favorite styles virtually with AI-powered fashion.</p>
+
+<div class="slogans" aria-label="Slogans">
+<span>Elevate your style</span>
+<span>Build your confidence</span>
+<span>Unlock the power of virtual styling</span>
+</div>
 
 <input type="file" accept="image/*" capture="environment" id="upload" />
 <label for="upload" id="upload-label">Let's Get Started</label>
