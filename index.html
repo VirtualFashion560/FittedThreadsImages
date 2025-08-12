@@ -9,23 +9,48 @@
 <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
 
 <style>
+/* Light & Dark mode colors */
+:root {
+--bg-light: linear-gradient(135deg, #b8a58c, #d6c5a8);
+--text-light: #4b3b2b;
+--accent-light: #7ca52b;
+--btn-light-hover: #6c9424;
+--instruction-bg-light: rgba(255, 255, 255, 0.8);
+
+--bg-dark: #1e1e1e;
+--text-dark: #ddd;
+--accent-dark: #88bb33;
+--btn-dark-hover: #77aa22;
+--instruction-bg-dark: rgba(40, 40, 40, 0.85);
+}
+
 body {
 margin: 0;
-background: linear-gradient(135deg, #b8a58c, #d6c5a8);
-color: #4b3b2b;
+background: var(--bg-light);
+color: var(--text-light);
 font-family: 'Poppins', sans-serif;
 text-align: center;
 padding: 20px;
+transition: background 0.4s, color 0.4s;
+}
+
+body.dark {
+background: var(--bg-dark);
+color: var(--text-dark);
 }
 
 h1 {
 font-family: 'Pacifico', cursive;
 font-size: 3.5rem;
-color: #6b5541;
+color: var(--text-light);
 margin-bottom: 0.3em;
 opacity: 0;
 transform: translateY(-20px);
 animation: fadeSlideDown 1s ease forwards;
+transition: color 0.4s;
+}
+body.dark h1 {
+color: var(--accent-dark);
 }
 
 .slogans {
@@ -33,8 +58,12 @@ margin-top: 0.5em;
 margin-bottom: 1.5em;
 font-size: 1.2rem;
 font-weight: 600;
-color: #4b3b2b;
+color: var(--text-light);
 text-align: center;
+transition: color 0.4s;
+}
+body.dark .slogans {
+color: var(--text-dark);
 }
 
 .slogans p {
@@ -51,7 +80,7 @@ display: none;
 }
 
 #upload-label {
-background: linear-gradient(135deg, #7ca52b, #d9c84a);
+background: linear-gradient(135deg, var(--accent-light), #d9c84a);
 color: white;
 padding: 0.7em 1.8em;
 border-radius: 10px;
@@ -64,17 +93,39 @@ opacity: 0;
 transform: translateY(20px);
 animation: fadeSlideUp 1s ease forwards;
 animation-delay: 2s;
+user-select: none;
+transition: background 0.3s;
 }
 
 #upload-label:hover {
-background: linear-gradient(135deg, #6c9424, #c7b73f);
+background: linear-gradient(135deg, var(--btn-light-hover), #c7b73f);
+}
+
+body.dark #upload-label {
+background: linear-gradient(135deg, var(--accent-dark), #c7b73f);
+}
+body.dark #upload-label:hover {
+background: linear-gradient(135deg, var(--btn-dark-hover), #b8b32f);
+}
+
+#preview-container {
+margin-top: 1em;
+max-width: 250px;
+border-radius: 8px;
+position: relative;
+margin-left: auto;
+margin-right: auto;
+user-select: none;
+touch-action: none; /* disable default gestures */
 }
 
 #preview {
 display: none;
-margin-top: 1em;
-max-width: 250px;
+max-width: 100%;
 border-radius: 8px;
+cursor: grab;
+transition: transform 0.3s ease;
+will-change: transform;
 }
 
 #preview.show {
@@ -82,7 +133,7 @@ display: block;
 }
 
 .instructions {
-background: rgba(255, 255, 255, 0.8);
+background: var(--instruction-bg-light);
 padding: 1.5em;
 border-radius: 8px;
 max-width: 500px;
@@ -93,16 +144,58 @@ opacity: 0;
 transform: translateY(20px);
 animation: fadeSlideUp 1s ease forwards;
 animation-delay: 2.5s;
+transition: background 0.4s, color 0.4s;
+}
+body.dark .instructions {
+background: var(--instruction-bg-dark);
+color: var(--text-dark);
 }
 
 .instructions h2 {
 text-align: center;
 margin-bottom: 0.8em;
-color: #6b5541;
+color: var(--text-light);
+transition: color 0.4s;
+}
+body.dark .instructions h2 {
+color: var(--accent-dark);
 }
 
 .instructions ol {
 padding-left: 1.2em;
+}
+
+/* Key Features Section */
+.key-features {
+background: var(--instruction-bg-light);
+padding: 1.5em;
+border-radius: 8px;
+max-width: 500px;
+margin: 1.5em auto 2em auto;
+color: #333;
+text-align: left;
+transition: background 0.4s, color 0.4s;
+}
+
+body.dark .key-features {
+background: var(--instruction-bg-dark);
+color: var(--text-dark);
+}
+
+.key-features h2 {
+text-align: center;
+margin-bottom: 0.8em;
+color: var(--text-light);
+transition: color 0.4s;
+}
+
+body.dark .key-features h2 {
+color: var(--accent-dark);
+}
+
+.key-features ul {
+padding-left: 1.2em;
+list-style-type: disc;
 }
 
 /* Animations */
@@ -113,9 +206,76 @@ to { opacity: 1; transform: translateY(0); }
 @keyframes fadeSlideUp {
 to { opacity: 1; transform: translateY(0); }
 }
+
+/* Loading Spinner */
+#loading {
+display: none;
+margin: 1em auto;
+border: 5px solid #f3f3f3;
+border-top: 5px solid var(--accent-light);
+border-radius: 50%;
+width: 40px;
+height: 40px;
+animation: spin 1s linear infinite;
+}
+body.dark #loading {
+border-top-color: var(--accent-dark);
+}
+
+@keyframes spin {
+0% { transform: rotate(0deg); }
+100% { transform: rotate(360deg); }
+}
+
+/* Dark mode toggle button */
+#dark-mode-toggle {
+position: fixed;
+top: 10px;
+right: 10px;
+background: var(--accent-light);
+border: none;
+border-radius: 20px;
+padding: 0.5em 1em;
+color: white;
+font-weight: 700;
+cursor: pointer;
+user-select: none;
+transition: background 0.3s;
+z-index: 9999;
+}
+#dark-mode-toggle:hover {
+background: var(--btn-light-hover);
+}
+body.dark #dark-mode-toggle {
+background: var(--accent-dark);
+}
+body.dark #dark-mode-toggle:hover {
+background: var(--btn-dark-hover);
+}
+
+/* Responsive typography and layout */
+@media (max-width: 480px) {
+h1 {
+font-size: 2.5rem;
+}
+.slogans {
+font-size: 1rem;
+}
+#upload-label {
+font-size: 1rem;
+padding: 0.6em 1.4em;
+}
+.instructions, .key-features {
+padding: 1em;
+max-width: 90%;
+font-size: 0.9rem;
+}
+}
 </style>
 </head>
 <body>
+
+<button id="dark-mode-toggle" aria-label="Toggle dark mode">🌙</button>
 
 <h1>Fitted Threads</h1>
 
@@ -127,7 +287,12 @@ to { opacity: 1; transform: translateY(0); }
 
 <input type="file" accept="image/*" capture="environment" id="upload" />
 <label for="upload" id="upload-label">Let's Get Started</label>
+
+<div id="preview-container">
 <img id="preview" alt="Your uploaded image" />
+</div>
+
+<div id="loading" aria-live="polite" aria-label="Loading indicator"></div>
 
 <div class="instructions">
 <h2>How to Use</h2>
@@ -135,29 +300,4 @@ to { opacity: 1; transform: translateY(0); }
 <li>Tap <strong>Let's Get Started</strong> to take a selfie or upload a photo.</li>
 <li>Our AI will process your image and let you try on outfits virtually.</li>
 <li>Browse through styles, mix & match clothing and accessories.</li>
-<li>Save your looks or share them with friends!</li>
-</ol>
-</div>
-
-<script>
-const upload = document.getElementById('upload');
-const preview = document.getElementById('preview');
-
-upload.addEventListener('change', () => {
-const file = upload.files[0];
-if (!file) {
-preview.src = '';
-preview.classList.remove('show');
-return;
-}
-const reader = new FileReader();
-reader.onload = () => {
-preview.src = reader.result;
-preview.classList.add('show');
-};
-reader.readAsDataURL(file);
-});
-</script>
-
-</body>
-</html>
+<li>Save your looks or share them with friends
