@@ -3,163 +3,157 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Fitted Threads - Info</title>
+<title>Fitted Threads</title>
 
 <!-- Google Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
 
 <style>
  body {
  margin: 0;
  background: linear-gradient(135deg, #a46237, #d9b382);
- font-family: 'Poppins', sans-serif;
  color: #4b3221;
- min-height: 100vh;
- }
-
- header {
- background: #7e521f;
- padding: 1.2rem 0;
+ font-family: 'Poppins', sans-serif;
  text-align: center;
- box-shadow: inset 0 -4px 6px rgba(0,0,0,0.2);
- }
- header h1 {
- font-family: 'Pacifico', cursive;
- font-size: 3rem;
- margin: 0;
- color: #f2e3b3;
+ padding: 20px;
+ position: relative;
+ min-height: 100vh;
+ overflow-x: hidden;
  }
 
- nav {
- background: #b58332;
- display: flex;
- justify-content: center;
- gap: 1.4rem;
- padding: 0.8rem 0;
- box-shadow: 0 4px 5px rgba(0,0,0,0.15);
+ h1 {
+ font-family: 'Pacifico', cursive;
+ font-size: 3.5rem;
+ color: #6e4b26;
+ margin-bottom: 0.3em;
  }
- nav a {
- color: #f2e3b3;
- text-decoration: none;
+
+ .slogan {
+ font-style: italic;
+ font-weight: 600;
+ color: #7a5a34;
+ font-size: 1.4rem;
+ margin-bottom: 0.8em;
+ }
+
+ .instructions, .key-features {
+ background: rgba(217, 179, 130, 0.85);
+ padding: 1.5em 2em;
+ border-radius: 12px;
+ max-width: 520px;
+ margin: 1.5em auto;
+ color: #4b3221;
+ text-align: left;
  font-weight: 600;
  font-size: 1.1rem;
- padding: 0.4rem 1rem;
- border-radius: 8px;
- transition: background-color 0.3s ease, color 0.3s ease;
- }
- nav a:hover {
- background: #6b441a;
- color: #fff;
+ box-shadow: 0 0 10px rgba(141, 102, 58, 0.3);
  }
 
- main {
- max-width: 720px;
- margin: 2rem auto 4rem;
- background: rgba(217, 179, 130, 0.85);
- border-radius: 14px;
- padding: 2rem 2.5rem;
- box-shadow: 0 0 15px rgba(141, 102, 58, 0.35);
- color: #4b3221;
- }
-
- section {
- margin-bottom: 3rem;
- }
-
- h2 {
- font-family: 'Pacifico', cursive;
- font-size: 2.8rem;
- margin-top: 0;
- margin-bottom: 1rem;
- color: #6e4b26;
- scroll-margin-top: 100px;
- }
-
- p {
- font-weight: 600;
- font-size: 1.15rem;
- line-height: 1.5;
- }
-
- ul {
- font-weight: 600;
- font-size: 1.15rem;
- margin-left: 1.5rem;
- line-height: 1.5;
- }
-
- footer {
- background: #7e521f;
- color: #f2e3b3;
+ .instructions h2, .key-features h2 {
  text-align: center;
- padding: 1rem 1rem 2rem;
- font-size: 0.9rem;
- box-shadow: inset 0 3px 5px rgba(0,0,0,0.15);
+ margin-bottom: 1em;
+ color: #6e4b26;
+ font-weight: 700;
+ font-size: 1.8rem;
  }
 
- @media (max-width: 480px) {
- main {
- margin: 1rem 1rem 3rem;
- padding: 1.5rem 1.5rem;
+ .instructions ol, .key-features ul {
+ padding-left: 1.4em;
  }
- nav {
- gap: 0.8rem;
- flex-wrap: wrap;
+
+ /* Footer styles */
+ footer.cutoff-footer {
+ background: linear-gradient(135deg, #7e521f, #b58332);
+ color: white;
+ clip-path: polygon(0 15%, 100% 0%, 100% 100%, 0% 100%);
+ padding: 1.5em 1em 2em;
+ margin-top: 3em;
+ text-align: center;
+ box-shadow: inset 0 3px 5px rgba(0,0,0,0.15);
+ font-size: 0.85rem;
  }
- nav a {
- font-size: 1rem;
- padding: 0.3rem 0.8rem;
+
+ .footer-links {
+ margin-bottom: 1em;
  }
+
+ .footer-links a {
+ color: white;
+ text-decoration: none;
+ margin: 0 12px;
+ font-weight: 600;
+ transition: color 0.3s ease;
+ }
+
+ .footer-links a:hover {
+ color: #d9b382;
+ }
+
+ .social {
+ display: flex;
+ justify-content: center;
+ gap: 20px;
+ }
+
+ .social-link {
+ color: white;
+ font-size: 1.8rem;
+ transition: color 0.3s ease;
+ }
+
+ .social-link:hover {
+ color: #d9b382;
+ }
+
+ .social-link svg {
+ width: 30px;
+ height: 30px;
+ vertical-align: middle;
  }
 </style>
 </head>
 <body>
 
-<header>
- <h1>Fitted Threads</h1>
-</header>
+<h1>Fitted Threads</h1>
+<p class="slogan">Find Your Inspiration</p>
+<p class="slogan">Build Your Confidence</p>
+<p class="slogan">Elevate Your Threads</p>
 
-<nav role="navigation" aria-label="Info navigation">
- <a href="index.html">Home</a>
- <a href="#privacy">Privacy Policy</a>
- <a href="#terms">Terms &amp; Conditions</a>
- <a href="#about">About Us</a>
- <a href="#contact">Contact Us</a>
-</nav>
+<div class="instructions" role="region" aria-labelledby="how-to-use-title">
+ <h2 id="how-to-use-title">How to Use</h2>
+ <ol>
+ <li>Tap the <strong>+</strong> icon at the top right corner to upload a photo or take a selfie.</li>
+ <li>Our AI will process your image and let you virtually try on outfits.</li>
+ <li>Explore styles, mix &amp; match clothing and accessories.</li>
+ <li>Save your favorite looks or share them with friends!</li>
+ </ol>
+</div>
 
-<main>
- <section id="privacy" tabindex="-1">
- <h2>Privacy Policy</h2>
- <p>Your privacy means everything to us at Fitted Threads. We only collect the information necessary to provide you with a seamless virtual try-on experience, including photos you upload and basic usage data. We never share your personal data with third parties without your explicit consent.</p>
- <p>All uploaded photos are securely stored and used solely to help you discover your perfect style. You can delete your data anytime by contacting us below.</p>
- </section>
-
- <section id="terms" tabindex="-1">
- <h2>Terms &amp; Conditions</h2>
- <p>By using Fitted Threads, you agree to use our app responsibly and respectfully. Our AI styling service is designed for fun and inspiration but should not replace professional fashion advice.</p>
- <p>We strive to keep the service available and accurate, but we cannot guarantee perfect results or 100% uptime. Please use at your own discretion and report any issues to us.</p>
- </section>
-
- <section id="about" tabindex="-1">
- <h2>About Us</h2>
- <p>Fitted Threads was created with one goal: to empower you to explore fashion effortlessly using the power of AI. Our passionate team combines technology and style to bring you a friendly, easy-to-use app that makes outfit discovery fun and personalized.</p>
- <p>We believe everyone deserves to feel confident and inspired in their clothing. Thank you for choosing Fitted Threads on your style journey!</p>
- </section>
-
- <section id="contact" tabindex="-1">
- <h2>Contact Us</h2>
- <p>Have questions, feedback, or want to say hello? We’d love to hear from you! Reach out anytime:</p>
+<div class="key-features" role="region" aria-labelledby="key-features-title">
+ <h2 id="key-features-title">Key Features</h2>
  <ul>
- <li>Email: <a href="mailto:support@fittedthreads.com" style="color:#6e4b26; font-weight: 700;">support@fittedthreads.com</a></li>
- <li>Instagram: <a href="https://instagram.com/fittedthreads" target="_blank" rel="noopener" style="color:#6e4b26; font-weight: 700;">@fittedthreads</a></li>
- <li>Facebook: <a href="https://facebook.com/fittedthreads" target="_blank" rel="noopener" style="color:#6e4b26; font-weight: 700;">Fitted Threads</a></li>
+ <li>AI-powered virtual outfit try-ons</li>
+ <li>Extensive catalog of trendy styles</li>
+ <li>Mix &amp; match clothing and accessories</li>
+ <li>Save and share your favorite looks</li>
+ <li>User-friendly interface for effortless styling</li>
  </ul>
- </section>
-</main>
+</div>
 
-<footer>
- &copy; 2025 Fitted Threads. All rights reserved.
-</footer>
+<footer class="cutoff-footer" role="contentinfo" aria-label="Footer">
+ <nav class="footer-links" aria-label="Footer navigation links">
+ <a href="https://yourdomain.com/privacy-policy" target="_blank" rel="noopener">Privacy Policy</a>|
+ <a href="https://yourdomain.com/terms" target="_blank" rel="noopener">Terms &amp; Conditions</a>|
+ <a href="https://yourdomain.com/about-us" target="_blank" rel="noopener">About Us</a>|
+ <a href="https://yourdomain.com/contact" target="_blank" rel="noopener">Contact Us</a>
+ </nav>
 
-</body>
-</html>
+ <nav class="social" aria-label="Follow us on social media">
+ <a href="https://facebook.com/fittedthreads" target="_blank" rel="noopener" class="social-link" aria-label="Facebook">
+ <svg role="img" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><title>Facebook</title><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.877v-6.987h-2.54V12h2.54v-2.173c0-2.507 1.492-3.89 3.777-3.89 1.094 0 2.238.196 2.238.196v2.46h-1.26c-1.243 0-1.63.772-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.987C18.343 21.128 22 16.991 22 12z"/></svg>
+ </a>
+ <a href="https://instagram.com/fittedthreads" target="_blank" rel="noopener" class="social-link" aria-label="Instagram">
+ <svg role="img" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><title>Instagram</title><path d="M7.75 2h8.5C19.55 2 22 4.45 22 7.75v8.5c0 3.3-2.45 5.75-5.75 5.75h-8.5C4.45 22 2 19.55 2 16.25v-8.5C2 4.45 4.45 2 7.75 2zm0 2C5.68 4 4 5.68 4 7.75v8.5C4 18.32 5.68 20 7.75 20h8.5c2.07 0 3.75-1.68 3.75-3.75v-8.5C20 5.68 18.32 4 16.25 4h-8.5zm8.25 2.5a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5zM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"/></svg>
+ </a>
+ <a href="https://twitter.com/fittedthreads" target="_blank" rel="noopener" class="social-link" aria-label="Twitter">
+ <svg role="img" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><title>Twitter</title><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64
