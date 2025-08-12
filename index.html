@@ -64,85 +64,58 @@ opacity: 0;
 transform: translateY(20px);
 animation: fadeSlideUp 1s ease forwards;
 animation-delay: 2s;
-user-select: none;
 }
 
 #upload-label:hover {
 background: linear-gradient(135deg, #6c9424, #c7b73f);
 }
 
-#preview-container {
+#preview {
+display: none;
 margin-top: 1em;
 max-width: 250px;
 border-radius: 8px;
-position: relative;
-margin-left: auto;
-margin-right: auto;
-user-select: none;
-touch-action: none;
-}
-
-#preview {
-display: none;
-max-width: 100%;
-border-radius: 8px;
-cursor: grab;
-transition: transform 0.3s ease;
-will-change: transform;
 }
 
 #preview.show {
 display: block;
 }
 
-.instructions {
-background: rgba(255, 255, 255, 0.8);
+.instructions, .key-features {
+background: rgba(255, 255, 255, 0.6);
 padding: 1.5em;
 border-radius: 8px;
 max-width: 500px;
-margin: 0 auto;
-color: #333;
+margin: 1em auto;
+color: #4b3b2b;
 text-align: left;
 opacity: 0;
 transform: translateY(20px);
 animation: fadeSlideUp 1s ease forwards;
+}
+
+.instructions {
 animation-delay: 2.5s;
 }
 
-.instructions h2 {
-text-align: center;
-margin-bottom: 0.8em;
-color: #6b5541;
-}
-
-.instructions ol {
-padding-left: 1.2em;
-}
-
-/* Key Features Section */
 .key-features {
-background: rgba(255, 255, 255, 0.8);
-padding: 1.5em;
-border-radius: 8px;
-max-width: 500px;
-margin: 1.5em auto 2em auto;
-color: #333;
-text-align: left;
-opacity: 0;
-transform: translateY(20px);
-animation: fadeSlideUp 1s ease forwards;
 animation-delay: 3s;
 }
 
-.key-features h2 {
+.instructions h2, .key-features h2 {
 text-align: center;
 margin-bottom: 0.8em;
 color: #6b5541;
 }
 
-.key-features ul {
+.instructions ol, .key-features ul {
 padding-left: 1.2em;
-list-style-type: disc;
+margin: 0;
+}
+
+.key-features ul {
+list-style: disc inside;
+font-weight: 600;
 }
 
 /* Animations */
@@ -154,39 +127,111 @@ to { opacity: 1; transform: translateY(0); }
 to { opacity: 1; transform: translateY(0); }
 }
 
-/* Loading Spinner */
-#loading {
-display: none;
-margin: 1em auto;
-border: 5px solid #f3f3f3;
-border-top: 5px solid #7ca52b;
-border-radius: 50%;
-width: 40px;
-height: 40px;
-animation: spin 1s linear infinite;
-}
+/* Footer styles */
 
-@keyframes spin {
-0% { transform: rotate(0deg); }
-100% { transform: rotate(360deg); }
-}
-
-/* Responsive typography and layout */
-@media (max-width: 480px) {
-h1 {
-font-size: 2.5rem;
-}
-.slogans {
-font-size: 1rem;
-}
-#upload-label {
-font-size: 1rem;
-padding: 0.6em 1.4em;
-}
-.instructions, .key-features {
-padding: 1em;
-max-width: 90%;
+.cutoff-footer {
+position: relative;
+background: #6b5541; /* warm brown */
+color: #d6c5a8; /* light beige */
+text-align: center;
+padding: 2.5em 1em 2em;
+margin-top: 3em;
+overflow: hidden;
 font-size: 0.9rem;
+user-select: none;
+}
+
+.cutoff-footer::before {
+content: '';
+position: absolute;
+top: -60px;
+left: 0;
+width: 100%;
+height: 60px;
+background: linear-gradient(135deg, #b8a58c, #d6c5a8);
+clip-path: polygon(0 100%, 100% 0, 100% 100%, 0% 100%);
+pointer-events: none;
+z-index: 1;
+}
+
+.footer-content {
+position: relative;
+z-index: 2;
+max-width: 600px;
+margin: 0 auto;
+}
+
+.cutoff-footer h3 {
+margin-bottom: 0.5em;
+font-weight: 600;
+color: #d6c5a8cc;
+text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+}
+
+.social {
+margin-bottom: 1.2em;
+display: flex;
+justify-content: center;
+gap: 2em;
+}
+
+.social-link {
+display: inline-block;
+color: #d6c5a8;
+transition: color 0.3s ease;
+}
+
+.social-link:hover,
+.social-link:focus {
+color: #ffffff;
+outline: none;
+}
+
+.social-link svg {
+width: 28px;
+height: 28px;
+vertical-align: middle;
+filter: drop-shadow(0 0 1px rgba(0,0,0,0.4));
+}
+
+.footer-nav ul {
+list-style: none;
+padding: 0;
+margin: 0 0 1.5em 0;
+display: flex;
+justify-content: center;
+flex-wrap: wrap;
+gap: 1.8em;
+}
+
+.footer-nav a {
+color: #d6c5a8cc;
+text-decoration: none;
+font-weight: 500;
+transition: color 0.3s ease;
+}
+
+.footer-nav a:hover,
+.footer-nav a:focus {
+color: #fff;
+outline: none;
+text-decoration: underline;
+}
+
+.cutoff-footer p {
+margin: 0;
+font-weight: 400;
+color: #d6c5a899;
+font-size: 0.85rem;
+}
+
+/* Responsive tweaks */
+@media (max-width: 480px) {
+.social {
+gap: 1.2em;
+}
+.footer-nav ul {
+gap: 1em;
 }
 }
 </style>
@@ -203,12 +248,7 @@ font-size: 0.9rem;
 
 <input type="file" accept="image/*" capture="environment" id="upload" />
 <label for="upload" id="upload-label">Let's Get Started</label>
-
-<div id="preview-container">
 <img id="preview" alt="Your uploaded image" />
-</div>
-
-<div id="loading" aria-live="polite" aria-label="Loading indicator"></div>
 
 <div class="instructions">
 <h2>How to Use</h2>
@@ -223,22 +263,16 @@ font-size: 0.9rem;
 <div class="key-features">
 <h2>Key Features</h2>
 <ul>
-<li>AI-powered virtual try-on with real-time outfit preview.</li>
-<li>Drag and zoom uploaded images for detailed views.</li>
-<li>Personalized style recommendations based on your preferences.</li>
-<li>Save your favorite looks and share them effortlessly.</li>
-<li>User-friendly and intuitive interface.</li>
+<li>AI-powered virtual try-on with real-time outfit previews</li>
+<li>Wide selection of styles, clothing, and accessories</li>
+<li>Save and share your favorite looks easily</li>
+<li>Simple upload with camera or photo library</li>
 </ul>
 </div>
 
 <script>
 const upload = document.getElementById('upload');
 const preview = document.getElementById('preview');
-const loading = document.getElementById('loading');
-
-function showLoading(show) {
-loading.style.display = show ? 'block' : 'none';
-}
 
 upload.addEventListener('change', () => {
 const file = upload.files[0];
@@ -247,97 +281,47 @@ preview.src = '';
 preview.classList.remove('show');
 return;
 }
-showLoading(true);
 const reader = new FileReader();
 reader.onload = () => {
 preview.src = reader.result;
 preview.classList.add('show');
-showLoading(false);
-resetImageTransform();
 };
 reader.readAsDataURL(file);
 });
-
-// Drag & zoom variables
-let isDragging = false;
-let startX, startY;
-let currentX = 0, currentY = 0;
-let scale = 1;
-let lastScale = 1;
-
-function setTransform() {
-preview.style.transform = `translate(${currentX}px, ${currentY}px) scale(${scale})`;
-}
-
-function resetImageTransform() {
-currentX = 0;
-currentY = 0;
-scale = 1;
-lastScale = 1;
-setTransform();
-}
-
-// Mouse events for drag
-preview.addEventListener('mousedown', e => {
-e.preventDefault();
-isDragging = true;
-startX = e.clientX - currentX;
-startY = e.clientY - currentY;
-preview.style.cursor = 'grabbing';
-});
-
-window.addEventListener('mouseup', () => {
-isDragging = false;
-preview.style.cursor = 'grab';
-});
-
-window.addEventListener('mousemove', e => {
-if (!isDragging) return;
-e.preventDefault();
-currentX = e.clientX - startX;
-currentY = e.clientY - startY;
-setTransform();
-});
-
-// Touch events for drag & zoom
-let pinchStartDistance = 0;
-
-preview.addEventListener('touchstart', e => {
-if (e.touches.length === 1) {
-isDragging = true;
-startX = e.touches[0].clientX - currentX;
-startY = e.touches[0].clientY - currentY;
-} else if (e.touches.length === 2) {
-isDragging = false;
-lastScale = scale;
-pinchStartDistance = getDistance(e.touches[0], e.touches[1]);
-}
-});
-
-preview.addEventListener('touchmove', e => {
-e.preventDefault();
-if (e.touches.length === 1 && isDragging) {
-currentX = e.touches[0].clientX - startX;
-currentY = e.touches[0].clientY - startY;
-setTransform();
-} else if (e.touches.length === 2) {
-let pinchDistance = getDistance(e.touches[0], e.touches[1]);
-let pinchScale = pinchDistance / pinchStartDistance;
-scale = Math.min(Math.max(lastScale * pinchScale, 0.5), 3);
-setTransform();
-}
-});
-
-preview.addEventListener('touchend', e => {
-if (e.touches.length === 0) {
-isDragging = false;
-}
-});
-
-function getDistance(touch1, touch2) {
-return Math.hypot(touch2.clientX - touch1.clientX, touch2.clientY - touch1.clientY);
-}
 </script>
+
+<footer class="cutoff-footer" role="contentinfo">
+<div class="footer-content">
+
+<div class="social">
+<h3>Follow us on</h3>
+<a href="https://www.facebook.com/" target="_blank" rel="noopener" aria-label="Facebook" class="social-link">
+<!-- Facebook SVG icon -->
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#d6c5a8" viewBox="0 0 24 24" aria-hidden="true">
+<path d="M22.675 0h-21.35c-.733 0-1.325.592-1.325 1.325v21.351c0 .732.592 1.324 1.325 1.324h11.494v-9.294h-3.128v-3.622h3.128v-2.672c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.466.099 2.797.143v3.244l-1.918.001c-1.504 0-1.795.716-1.795 1.763v2.311h3.59l-.467 3.622h-3.123V24h6.116c.732 0 1.324-.592 1.324-1.324V1.325c0-.733-.592-1.325-1.324-1.325z"/>
+</svg>
+</a>
+<a href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Instagram" class="social-link">
+<!-- Instagram SVG icon -->
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="#d6c5a8" viewBox="0 0 24 24" aria-hidden="true">
+<path d="M7.75 2h8.5C19.55 2 22 4.45 22 7.75v8.5c0 3.3-2.45 5.75-5.75 5.75h-8.5C4.45 22 2 19.55 2 16.25v-8.5C2 4.45 4.45 2 7.75 2zm0 2C5.68 4 4 5.68 4 7.75v8.5c0 2.07 1.68 3.75 3.75 3.75h8.5c2.07 0 3.75-1.68 3.75-3.75v-8.5c0-2.07-1.68-3.75-3.75-3.75h-8.5zM12 7a5 5 0 110 10 5 5 0 010-10zm0 2a3 3 0 100 6 3 3 0 000-6zm4.75-2.75a1.25 1.25 0 110 2.5 1.25 1.25 0 010-2.5z"/>
+</svg>
+</a>
+</div>
+
+<nav class="footer-nav" aria-label="Footer navigation">
+<ul>
+<li><a href="/policy.html">Policy</a></li>
+<li><a href="/terms.html">Terms of Service</a></li>
+<li><a href="/about.html">About Us</a></li>
+<li><a href="/contact.html">Contact Us</a></li>
+</ul>
+</nav>
+
+<p class="copyright">© 2025 Fitted Threads. All rights reserved.</p>
+
+</div>
+</footer>
 
 </body>
 </html>
