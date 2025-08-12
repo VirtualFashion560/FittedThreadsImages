@@ -21,6 +21,7 @@
  overflow-x: hidden;
  }
 
+ /* Thread logo behind header and slogans */
  #thread-logo {
  position: absolute;
  top: 10px;
@@ -99,45 +100,13 @@
  border-radius: 8px;
  position: relative;
  z-index: 1;
- transition: transform 0.4s ease;
  }
 
  #preview.show {
  display: block;
  }
 
- #tryon-button {
- background: linear-gradient(135deg, #7ca52b, #d9c84a);
- color: white;
- padding: 0.6em 1.6em;
- border-radius: 10px;
- font-size: 1.1rem;
- font-weight: 700;
- cursor: pointer;
- margin-top: 1em;
- border: none;
- opacity: 0;
- transform: translateY(20px);
- animation: fadeSlideUp 1s ease forwards;
- animation-delay: 2.5s;
- position: relative;
- z-index: 1;
- }
-
- #tryon-button:hover {
- background: linear-gradient(135deg, #6c9424, #c7b73f);
- }
-
- #tryon-result {
- margin-top: 1.5em;
- max-width: 300px;
- border-radius: 10px;
- box-shadow: 0 0 10px rgba(124, 165, 43, 0.6);
- display: none;
- position: relative;
- z-index: 1;
- }
-
+ /* Sections blending with background */
  .instructions, .key-features {
  background: rgba(214, 197, 168, 0.7);
  padding: 1.5em 2em;
@@ -163,6 +132,7 @@
  padding-left: 1.4em;
  }
 
+ /* Footer with diagonal cutoff */
  footer.cutoff-footer {
  background: linear-gradient(135deg, #7ca52b, #d9c84a);
  color: white;
@@ -198,6 +168,7 @@
  color: #c7b73f;
  }
 
+ /* SVG icon size */
  .social-link svg {
  width: 30px;
  height: 30px;
@@ -231,6 +202,7 @@
  font-weight: 500;
  }
 
+ /* Animations */
  @keyframes fadeSlideDown {
  to { opacity: 1; transform: translateY(0); }
  }
@@ -250,27 +222,21 @@
 
 <h1>Fitted Threads</h1>
 
-<div class="slogans" role="region" aria-label="Slogans">
+<div class="slogans">
  <p>Elevate Your Threads</p>
  <p>Build Your Confidence</p>
  <p>Find Your Inspiration</p>
 </div>
 
 <input type="file" accept="image/*" capture="environment" id="upload" />
-<label for="upload" id="upload-label" aria-describedby="upload-desc">Let's Get Started</label>
-<p id="upload-desc" style="font-size: 0.85rem; color: #4b3b2b; margin-top: -12px; margin-bottom: 20px;">Upload or take a selfie</p>
-
-<img id="preview" alt="Your uploaded image preview" />
-
-<button id="tryon-button" disabled aria-disabled="true">Try On Outfit</button>
-
-<img id="tryon-result" alt="AI Virtual Try-On Result" />
+<label for="upload" id="upload-label">Let's Get Started</label>
+<img id="preview" alt="Your uploaded image" />
 
 <div class="instructions" role="region" aria-labelledby="how-to-use-title">
  <h2 id="how-to-use-title">How to Use</h2>
  <ol>
  <li>Tap <strong>Let's Get Started</strong> to take a selfie or upload a photo.</li>
- <li>Click <strong>Try On Outfit</strong> to see AI virtual try-on results.</li>
+ <li>Our AI will process your image and let you try on outfits virtually.</li>
  <li>Browse through styles, mix &amp; match clothing and accessories.</li>
  <li>Save your looks or share them with friends!</li>
  </ol>
@@ -300,60 +266,36 @@
  <a href="https://instagram.com/fittedthreads" target="_blank" rel="noopener" class="social-link" aria-label="Instagram">
  <svg role="img" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
  <title>Instagram</title>
- <path d="M7.75 2h8.5C19.55 2 22 4.45 22 7.75v8.5c0 3.3-2.45 5.75-5.75 5.75h-8.5C4.45 22 2 19.55 2 16.25v-8.5C2 4.45 4.45 2 7.75 2zm0 2C5.68 4 4 5.68 4 7.75v8.5c0 2.07 1.68 3.75 3.75 3.75h8.5c2.07 0 3.75-1.68 3.75-3.75v-8.5c0-2.07-1.68-3.75-3.75-3.75h-8.5zM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6zm4.75-1.75a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5z"/>
+ <path d="M7.75 2h8.5C19.55 2 22 4.45 22 7.75v8.5c0 3.3-2.45 5.75-5.75 5.75h-8.5C4.45 22 2 19.55 2 16.25v-8.5C2 4.45 4.45 2 7.75 2zm0 2C5.68 4 4 5.68 4 7.75v8.5C4 18.32 5.68 20 7.75 20h8.5c2.07 0 3.75-1.68 3.75-3.75v-8.5C20 5.68 18.32 4 16.25 4h-8.5zm8.25 2a1 1 0 110 2 1 1 0 010-2zm-4.25 1.5c2.07 0 3.75 1.68 3.75 3.75s-1.68 3.75-3.75 3.75-3.75-1.68-3.75-3.75 1.68-3.75 3.75-3.75zm0 2a1.75 1.75 0 100 3.5 1.75 1.75 0 000-3.5z"/>
  </svg>
  </a>
  <a href="https://twitter.com/fittedthreads" target="_blank" rel="noopener" class="social-link" aria-label="Twitter">
  <svg role="img" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
  <title>Twitter</title>
- <path d="M23 3a10.9 10.9 0 0 1-3.14.86 4.48 4.48 0 0 0 1.98-2.48 9.14 9.14 0 0 1-2.88 1.1 4.52 4.52 0 0 0-7.66 4.13 12.83 12.83 0 0 1-9.32-4.72 4.52 4.52 0 0 0 1.4 6.06 4.47 4.47 0 0 1-2.05-.57v.06a4.53 4.53 0 0 0 3.63 4.44 4.52 4.52 0 0 1-2.04.08 4.53 4.53 0 0 0 4.23 3.15A9.06 9.06 0 0 1 2 19.54 12.83 12.83 0 0 0 8.29 21c7.55 0 11.68-6.25 11.68-11.66 0-.18-.01-.35-.02-.53A8.18 8.18 0 0 0 23 3z"/>
+ <path d="M23.954 4.569c-.885.389-1.83.654-2.825.775 1.014-.611 1.794-1.574 2.163-2.723-.951.555-2.005.959-3.127 1.184-.897-.959-2.178-1.559-3.594-1.559-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616v.061c0 2.385 1.693 4.374 3.946 4.827-.734.199-1.523.232-2.224.084.63 1.953 2.445 3.377 4.604 3.418-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 14.307-14.42 0-.22-.004-.439-.015-.656.983-.708 1.84-1.6 2.512-2.614z"/>
  </svg>
  </a>
  </nav>
+
  <nav class="footer-nav" aria-label="Footer navigation">
  <ul>
- <li><a href="/privacy-policy.html">Privacy Policy</a></li>
- <li><a href="/terms-of-service.html">Terms of Service</a></li>
- <li><a href="/about-us.html">About Us</a></li>
- <li><a href="/contact-us.html">Contact Us</a></li>
+ <li><a href="/privacy-policy.html" target="_blank" rel="noopener">Privacy Policy</a></li>
+ <li><a href="/terms-of-service.html" target="_blank" rel="noopener">Terms of Service</a></li>
+ <li><a href="/about-us.html" target="_blank" rel="noopener">About Us</a></li>
+ <li><a href="/contact-us.html" target="_blank" rel="noopener">Contact Us</a></li>
  </ul>
  </nav>
+
  <p>© 2025 Fitted Threads. All rights reserved.</p>
  </div>
 </footer>
 
 <script>
- const upload = document.getElementById('upload');
+ const uploadInput = document.getElementById('upload');
  const preview = document.getElementById('preview');
- const tryonButton = document.getElementById('tryon-button');
- const tryonResult = document.getElementById('tryon-result');
 
- upload.addEventListener('change', () => {
- const file = upload.files[0];
- if (!file) {
- preview.src = '';
- preview.classList.remove('show');
- tryonButton.disabled = true;
- tryonButton.setAttribute('aria-disabled', 'true');
- return;
- }
- const url = URL.createObjectURL(file);
- preview.src = url;
- preview.classList.add('show');
- tryonResult.style.display = 'none';
- tryonButton.disabled = false;
- tryonButton.setAttribute('aria-disabled', 'false');
- });
+ uploadInput.addEventListener('change', () => {
+ const file = uploadInput.files[0];
+ if (!file) return;
 
- tryonButton.addEventListener('click', () => {
- if (!preview.src) return;
-
- tryonButton.disabled = true;
- tryonButton.textContent = 'Processing...';
-
- // Simulate AI try-on delay
- setTimeout(() => {
- // For demo, just flip the uploaded image horizontally as "try-on"
- tryonResult.src = preview.src;
- tryonResult.style.display = 'inline-block';
- tryonResult.style.transform = 'scaleX(-1)
+ const reader = new
