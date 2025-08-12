@@ -3,172 +3,210 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Fitted Threads - Your AI Style Companion</title>
+<title>Fitted Threads - Info</title>
+
 <!-- Google Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
 
 <style>
-body {
-margin: 0;
-background: linear-gradient(135deg, #a46237, #d9b382);
-font-family: 'Poppins', sans-serif;
-color: #4b3221;
-min-height: 100vh;
-display: flex;
-flex-direction: column;
-}
+ body {
+ margin: 0;
+ background: linear-gradient(135deg, #a46237, #d9b382);
+ font-family: 'Poppins', sans-serif;
+ color: #4b3221;
+ min-height: 100vh;
+ display: flex;
+ flex-direction: column;
+ }
 
-header {
-background: #7e521f;
-padding: 1.2rem 0;
-text-align: center;
-box-shadow: inset 0 -4px 6px rgba(0,0,0,0.2);
-}
-header h1 {
-font-family: 'Pacifico', cursive;
-font-size: 3rem;
-margin: 0;
-color: #f2e3b3;
-}
-header p {
-font-weight: 600;
-font-size: 1.25rem;
-margin: 0.4rem 0 0;
-color: #f5e8b1;
-}
+ header {
+ background: #7e521f;
+ padding: 1.2rem 0;
+ text-align: center;
+ box-shadow: inset 0 -4px 6px rgba(0,0,0,0.2);
+ }
+ header h1 {
+ font-family: 'Pacifico', cursive;
+ font-size: 3rem;
+ margin: 0;
+ color: #f2e3b3;
+ }
 
-nav {
-background: #b58332;
-display: flex;
-justify-content: center;
-gap: 1.4rem;
-padding: 0.8rem 0;
-box-shadow: 0 4px 5px rgba(0,0,0,0.15);
-}
-nav a {
-color: #f2e3b3;
-text-decoration: none;
-font-weight: 600;
-font-size: 1.1rem;
-padding: 0.4rem 1rem;
-border-radius: 8px;
-transition: background-color 0.3s ease, color 0.3s ease;
-}
-nav a:hover {
-background: #6b441a;
-color: #fff;
-}
+ main {
+ max-width: 720px;
+ margin: 2rem auto 4rem;
+ background: rgba(217, 179, 130, 0.85);
+ border-radius: 14px;
+ padding: 2rem 2.5rem;
+ box-shadow: 0 0 15px rgba(141, 102, 58, 0.35);
+ color: #4b3221;
+ flex-grow: 1;
+ }
 
-main {
-flex-grow: 1;
-max-width: 720px;
-margin: 2rem auto 4rem;
-background: rgba(217, 179, 130, 0.85);
-border-radius: 14px;
-padding: 2rem 2.5rem;
-box-shadow: 0 0 15px rgba(141, 102, 58, 0.35);
-color: #4b3221;
-}
+ section {
+ margin-bottom: 3rem;
+ }
 
-h2 {
-font-family: 'Pacifico', cursive;
-font-size: 2.8rem;
-margin-top: 0;
-margin-bottom: 1rem;
-color: #6e4b26;
-}
+ h2 {
+ font-family: 'Pacifico', cursive;
+ font-size: 2.8rem;
+ margin-top: 0;
+ margin-bottom: 1rem;
+ color: #6e4b26;
+ scroll-margin-top: 100px;
+ }
 
-p {
-font-weight: 600;
-font-size: 1.15rem;
-line-height: 1.5;
-margin-bottom: 1.5rem;
-}
+ p {
+ font-weight: 600;
+ font-size: 1.15rem;
+ line-height: 1.5;
+ }
 
-.features {
-display: flex;
-flex-direction: column;
-gap: 1.4rem;
-margin-top: 1rem;
-}
+ ul {
+ font-weight: 600;
+ font-size: 1.15rem;
+ margin-left: 1.5rem;
+ line-height: 1.5;
+ }
 
-.feature {
-background: #a66d24cc;
-padding: 1rem 1.4rem;
-border-radius: 12px;
-box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
-}
-.feature h3 {
-margin: 0 0 0.5rem 0;
-font-family: 'Pacifico', cursive;
-font-size: 1.6rem;
-color: #e7c577;
-}
-.feature p {
-margin: 0;
-}
+ footer.cutoff-footer {
+ background: linear-gradient(135deg, #7e521f, #b58332);
+ color: white;
+ clip-path: polygon(0 15%, 100% 0%, 100% 100%, 0% 100%);
+ padding: 1.5em 1em 3em;
+ text-align: center;
+ box-shadow: inset 0 3px 5px rgba(0,0,0,0.15);
+ font-size: 0.9rem;
+ }
 
-footer {
-background: #7e521f;
-color: #f2e3b3;
-text-align: center;
-padding: 1rem 1rem 2rem;
-font-size: 0.9rem;
-box-shadow: inset 0 3px 5px rgba(0,0,0,0.15);
-}
+ .footer-nav {
+ margin-top: 1em;
+ display: flex;
+ justify-content: center;
+ flex-wrap: wrap;
+ gap: 10px;
+ max-width: 480px;
+ margin-left: auto;
+ margin-right: auto;
+ align-items: center;
+ }
+ .footer-nav ul {
+ list-style: none;
+ padding: 0;
+ margin: 0;
+ display: flex;
+ gap: 10px;
+ }
+ .footer-nav li {
+ }
+ .footer-nav a {
+ display: inline-flex;
+ align-items: center;
+ gap: 6px;
+ background: rgba(255 255 255 / 0.15);
+ color: white;
+ padding: 8px 14px;
+ border-radius: 12px;
+ font-weight: 600;
+ text-decoration: none;
+ transition: background-color 0.3s ease, color 0.3s ease;
+ font-size: 0.85rem;
+ }
+ .footer-nav a:hover {
+ background: rgba(255 255 255 / 0.35);
+ color: #6e4b26;
+ }
 
-@media (max-width: 480px) {
-main {
-margin: 1rem 1rem 3rem;
-padding: 1.5rem 1.5rem;
-}
-nav {
-gap: 0.8rem;
-}
-nav a {
-font-size: 1rem;
-padding: 0.3rem 0.8rem;
-}
-}
+ /* Social icon styling */
+ .footer-nav svg {
+ width: 18px;
+ height: 18px;
+ fill: currentColor;
+ }
+
+ @media (max-width: 480px) {
+ main {
+ margin: 1rem 1rem 3rem;
+ padding: 1.5rem 1.5rem;
+ }
+ .footer-nav {
+ max-width: 100%;
+ gap: 6px;
+ }
+ .footer-nav a {
+ font-size: 0.8rem;
+ padding: 6px 10px;
+ gap: 4px;
+ }
+ .footer-nav svg {
+ width: 16px;
+ height: 16px;
+ }
+ }
 </style>
 </head>
 <body>
 
 <header>
-<h1>Fitted Threads</h1>
-<p>Your AI Style Companion</p>
+ <h1>Fitted Threads</h1>
 </header>
 
-<nav role="navigation" aria-label="Main navigation">
-<a href="index.html" aria-current="page">Home</a>
-<a href="info.html#privacy">Privacy Policy</a>
-<a href="info.html#terms">Terms &amp; Conditions</a>
-<a href="info.html#about">About Us</a>
-<a href="info.html#contact">Contact Us</a>
-</nav>
-
 <main>
-<h2>Fitted Threads</h2>
-<p>Discover a smarter way to explore styles with our AI-powered virtual try-on app. Upload your photo to see how different outfits and accessories look on you instantly.</p>
+ <section id="privacy" tabindex="-1">
+ <h2>Privacy Policy</h2>
+ <p>Your privacy means everything to us at Fitted Threads. We only collect the information necessary to provide you with a seamless virtual try-on experience, including photos you upload and basic usage data. We never share your personal data with third parties without your explicit consent.</p>
+ <p>All uploaded photos are securely stored and used solely to help you discover your perfect style. You can delete your data anytime by contacting us below.</p>
+ </section>
 
-<div class="features">
-<div class="feature">
-<h3>Virtual Try-Ons Made Easy</h3>
-<p>See yourself in new clothes without leaving your home — just upload a photo and let the app do the rest.</p>
-</div>
-<div class="feature">
-<h3>Personalized Style Suggestions</h3>
-<p>Our AI curates outfits tailored to your taste and preferences for effortless styling inspiration.</p>
-</div>
-<div class="feature">
-<h3>Save and Share Your Looks</h3>
-<p>Keep your favorite styles handy and share your new outfits with friends and family.</p>
-</div>
-</div>
+ <section id="terms" tabindex="-1">
+ <h2>Terms &amp; Conditions</h2>
+ <p>By using Fitted Threads, you agree to use our app responsibly and respectfully. Our AI styling service is designed for fun and inspiration but should not replace professional fashion advice.</p>
+ <p>We strive to keep the service available and accurate, but we cannot guarantee perfect results or 100% uptime. Please use at your own discretion and report any issues to us.</p>
+ </section>
+
+ <section id="about" tabindex="-1">
+ <h2>About Us</h2>
+ <p>Fitted Threads was created with one goal: to empower you to explore fashion effortlessly using the power of AI. Our passionate team combines technology and style to bring you a friendly, easy-to-use app that makes outfit discovery fun and personalized.</p>
+ <p>We believe everyone deserves to feel confident and inspired in their clothing. Thank you for choosing Fitted Threads on your style journey!</p>
+ </section>
+
+ <section id="contact" tabindex="-1">
+ <h2>Contact Us</h2>
+ <p>Have questions, feedback, or want to say hello? We’d love to hear from you! Reach out anytime:</p>
+ <ul>
+ <li>Email: <a href="mailto:support@fittedthreads.com" style="color:#6e4b26; font-weight: 700;">support@fittedthreads.com</a></li>
+ <li>Instagram: <a href="https://instagram.com/fittedthreads" target="_blank" rel="noopener" style="color:#6e4b26; font-weight: 700;">@fittedthreads</a></li>
+ <li>Facebook: <a href="https://facebook.com/fittedthreads" target="_blank" rel="noopener" style="color:#6e4b26; font-weight: 700;">Fitted Threads</a></li>
+ </ul>
+ </section>
 </main>
 
-<footer>
-&copy; 2025 Fitted Threads. All rights reserved.
+<footer class="cutoff-footer" role="contentinfo" aria-label="Footer">
+ <nav class="footer-nav" aria-label="Footer navigation">
+ <ul>
+ <li><a href="#privacy">Privacy Policy</a></li>
+ <li><a href="#terms">Terms &amp; Conditions</a></li>
+ <li><a href="#about">About Us</a></li>
+ <li><a href="#contact">Contact Us</a></li>
+ <li>
+ <a href="https://instagram.com/fittedthreads" target="_blank" rel="noopener" aria-label="Instagram">
+ <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+ <path d="M7.75 2h8.5A5.75 5.75 0 0122 7.75v8.5A5.75 5.75 0 0116.25 22h-8.5A5.75 5.75 0 012 16.25v-8.5A5.75 5.75 0 017.75 2zm0 2A3.75 3.75 0 004 7.75v8.5A3.75 3.75 0 007.75 20h8.5a3.75 3.75 0 003.75-3.75v-8.5A3.75 3.75 0 0016.25 4h-8.5zm8.5 2.25a1 1 0 110 2 1 1 0 010-2zM12 7a5 5 0 110 10 5 5 0 010-10zm0 2a3 3 0 100 6 3 3 0 000-6z"/>
+ </svg>
+ Instagram
+ </a>
+ </li>
+ <li>
+ <a href="https://facebook.com/fittedthreads" target="_blank" rel="noopener" aria-label="Facebook">
+ <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+ <path d="M22 12a10 10 0 10-11.5 9.9v-7h-2v-3h2v-2c0-2 1-3 3-3h2v3h-1c-1 0-1 .5-1 1v2h3l-1 3h-2v7A10 10 0 0022 12z"/>
+ </svg>
+ Facebook
+ </a>
+ </li>
+ </ul>
+ </nav>
+ <p style="margin-top: 1rem;">&copy; 2025 Fitted Threads. All rights reserved.</p>
 </footer>
 
 </body>
