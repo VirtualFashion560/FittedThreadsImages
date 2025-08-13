@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fitted Threads</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Fitted Threads - Home</title>
 
 <!-- Google Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
@@ -17,7 +17,6 @@
  text-align: center;
  padding: 20px;
  min-height: 100vh;
- overflow-x: hidden;
  }
 
  h1 {
@@ -35,35 +34,42 @@
  margin-bottom: 0.8em;
  }
 
- #preview-image {
- max-width: 300px;
- max-height: 400px;
- margin: 1.5em auto;
- display: none;
- border-radius: 10px;
- box-shadow: 0 0 15px rgba(0,0,0,0.3);
- transform: scaleX(-1); /* Mirror effect */
- }
-
- .buttons {
- margin-top: 1em;
- }
-
- .buttons button {
- font-size: 1.2rem;
- padding: 0.7em 1.5em;
- margin: 0 0.5em;
+ button {
+ background: #7a5a34;
+ color: white;
  border: none;
+ padding: 12px 20px;
+ margin: 10px 5px;
  border-radius: 8px;
+ font-size: 1rem;
  cursor: pointer;
- font-weight: 700;
- background-color: #6e4b26;
- color: #fff;
- transition: background 0.3s ease;
  }
 
- .buttons button:hover {
- background-color: #7a5a34;
+ button:hover {
+ background: #a46237;
+ }
+
+ .preview-container {
+ margin: 1.5em auto;
+ max-width: 400px;
+ }
+
+ #previewImage {
+ width: 100%;
+ border-radius: 12px;
+ transform: scaleX(-1); /* Mirror effect */
+ display: none;
+ box-shadow: 0 0 15px rgba(141, 102, 58, 0.3);
+ }
+
+ .how-to, .key-features {
+ text-align: left;
+ max-width: 600px;
+ margin: 2em auto;
+ }
+
+ .how-to ol, .key-features ul {
+ padding-left: 2em;
  }
 
  footer.cutoff-footer {
@@ -117,6 +123,7 @@
  height: 28px;
  vertical-align: middle;
  }
+
 </style>
 </head>
 <body>
@@ -126,21 +133,46 @@
 <p class="slogan">Build Your Confidence</p>
 <p class="slogan">Elevate Your Threads</p>
 
-<img id="preview-image" src="" alt="Preview">
-
-<div class="buttons">
- <button id="start-btn">Let's Get Started</button>
- <button id="retake-btn" style="display:none;">Retake</button>
- <button id="continue-btn" style="display:none;">Continue</button>
+<!-- Photo Upload -->
+<input type="file" id="photoInput" accept="image/*" style="margin-bottom:10px;">
+<div class="preview-container">
+ <img id="previewImage" alt="Your uploaded photo preview">
 </div>
 
-<footer class="cutoff-footer">
+<div id="actionButtons" style="display:none;">
+ <button id="retakeBtn">Retake</button>
+ <button id="continueBtn">Continue</button>
+</div>
+
+<!-- How to Use -->
+<div class="how-to">
+ <h2>How to Use</h2>
+ <ol>
+ <li>Tap "Let's Get Started" to take or upload your photo.</li>
+ <li>Adjust or retake your photo if needed.</li>
+ <li>Tap "Continue" to try on your outfit.</li>
+ </ol>
+</div>
+
+<!-- Key Features -->
+<div class="key-features">
+ <h2>Key Features</h2>
+ <ul>
+ <li>Instant AI outfit try-on</li>
+ <li>Save your favorite looks</li>
+ <li>High-quality mirror preview</li>
+ <li>Share your style with friends</li>
+ </ul>
+</div>
+
+<footer class="cutoff-footer" role="contentinfo" aria-label="Footer">
  <ul class="footer-links">
  <li><a href="privacy.html">Privacy Policy</a></li>
  <li><a href="terms.html">Terms &amp; Conditions</a></li>
  <li><a href="about.html">About Us</a></li>
  <li><a href="contact.html">Contact Us</a></li>
  </ul>
+
  <div class="social">
  <a href="https://facebook.com/fittedthreads" target="_blank" rel="noopener" class="social-link" aria-label="Facebook">
  <svg role="img" viewBox="0 0 24 24" fill="currentColor"><title>Facebook</title><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.877v-6.987h-2.54V12h2.54v-2.173c0-2.507 1.492-3.89 3.777-3.89 1.094 0 2.238.196 2.238.196v2.46h-1.26c-1.243 0-1.63.772-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.987C18.343 21.128 22 16.991 22 12z"/></svg>
@@ -155,31 +187,38 @@
 </footer>
 
 <script>
-const startBtn = document.getElementById('start-btn');
-const retakeBtn = document.getElementById('retake-btn');
-const continueBtn = document.getElementById('continue-btn');
-const previewImage = document.getElementById('preview-image');
+const photoInput = document.getElementById('photoInput');
+const previewImage = document.getElementById('previewImage');
+const actionButtons = document.getElementById('actionButtons');
+const retakeBtn = document.getElementById('retakeBtn');
+const continueBtn = document.getElementById('continueBtn');
 
-function openFilePicker() {
- const input = document.createElement('input');
- input.type = 'file';
- input.accept = 'image/*';
- input.onchange = e => {
- const file = e.target.files[0];
- if(file) {
- previewImage.src = URL.createObjectURL(file);
+function showPreview(file) {
+ const reader = new FileReader();
+ reader.onload = function(e) {
+ previewImage.src = e.target.result;
  previewImage.style.display = 'block';
- startBtn.style.display = 'none';
- retakeBtn.style.display = 'inline-block';
- continueBtn.style.display = 'inline-block';
+ actionButtons.style.display = 'block';
+ photoInput.style.display = 'none'; // hide upload button
+ localStorage.setItem('uploadedImage', e.target.result); // save for tryon.html
  }
- };
- input.click();
+ reader.readAsDataURL(file);
 }
 
-startBtn.addEventListener('click', openFilePicker);
+photoInput.addEventListener('change', e => {
+ if(e.target.files && e.target.files[0]) {
+ showPreview(e.target.files[0]);
+ }
+});
 
-retakeBtn.addEventListener('click', openFilePicker);
+retakeBtn.addEventListener('click', () => {
+ previewImage.src = '';
+ previewImage.style.display = 'none';
+ actionButtons.style.display = 'none';
+ photoInput.value = '';
+ photoInput.style.display = 'inline-block';
+ localStorage.removeItem('uploadedImage');
+});
 
 continueBtn.addEventListener('click', () => {
  window.location.href = 'tryon.html';
