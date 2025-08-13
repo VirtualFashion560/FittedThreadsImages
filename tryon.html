@@ -1,32 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Fitted Threads - Try On</title>
 
-<!-- Google Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
 
 <style>
- body { margin:0; background:linear-gradient(135deg,#a46237,#d9b382); color:#4b3221; font-family:'Poppins',sans-serif; text-align:center; padding:20px; min-height:100vh; }
- h1 { font-family:'Pacifico',cursive; font-size:3rem; color:#6e4b26; margin-bottom:0.3em; }
- .slogan { font-style:italic; font-weight:600; color:#7a5a34; font-size:1.3rem; margin-bottom:1em; }
- .image-container { display:flex; justify-content:center; gap:20px; flex-wrap:wrap; margin:20px 0; }
- .image-box img { width:250px; height:250px; object-fit:cover; border-radius:12px; border:2px solid #6e4b26; }
- .ai-container { margin-top:30px; }
- .ai-container img { width:250px; height:250px; object-fit:cover; border-radius:12px; border:2px dashed #6e4b26; }
- .btn { padding:10px 25px; margin:10px; font-size:1.1rem; font-weight:600; border:none; border-radius:8px; cursor:pointer; background-color:#6e4b26; color:#fff; transition:0.3s; }
- .btn:hover { background-color:#7a5a34; }
- footer.cutoff-footer { background:linear-gradient(135deg,#7e521f,#b58332); color:white; clip-path: polygon(0 10%, 100% 0%, 100% 100%, 0% 100%); padding:2em 1em; margin-top:3em; text-align:center; font-size:0.9rem; }
- .footer-links { list-style:none; padding:0; margin:0 0 1.5em 0; }
- .footer-links li { margin:5px 0; }
- .footer-links a { color:white; text-decoration:none; font-weight:500; }
- .footer-links a:hover { color:#d9b382; }
- .social { margin-top:1em; }
- .social-link { display:inline-block; margin:0 10px; color:white; transition:color 0.3s ease; font-size:1.5rem; }
- .social-link:hover { color:#d9b382; }
- .social-link svg { width:28px; height:28px; vertical-align:middle; }
+body { margin:0; background:linear-gradient(135deg,#a46237,#d9b382); color:#4b3221; font-family:'Poppins',sans-serif; text-align:center; padding:20px; min-height:100vh; }
+h1 { font-family:'Pacifico',cursive; font-size:3rem; color:#6e4b26; margin-bottom:0.3em; }
+.slogan { font-style:italic; font-weight:600; color:#7a5a34; font-size:1.3rem; margin-bottom:1em; }
+
+.image-container { display:flex; justify-content:center; gap:20px; flex-wrap:wrap; margin:20px 0; }
+.image-box img { width:250px; height:250px; object-fit:cover; border-radius:12px; border:2px solid #6e4b26; }
+.ai-container { margin-top:30px; }
+.ai-container img { width:250px; height:250px; object-fit:cover; border-radius:12px; border:2px dashed #6e4b26; }
+
+.btn { padding:10px 25px; margin:10px; font-size:1.1rem; font-weight:600; border:none; border-radius:8px; cursor:pointer; background-color:#6e4b26; color:#fff; transition:0.3s; }
+.btn:hover { background-color:#7a5a34; }
+
+/* Horizontal scroll catalog */
+.catalog-wrapper { overflow-x:auto; padding:10px 0; margin-top:30px; }
+.catalog { display:flex; gap:15px; flex-wrap:nowrap; }
+.catalog-item { flex:0 0 auto; width:120px; height:120px; border-radius:10px; overflow:hidden; cursor:pointer; border:2px solid #6e4b26; transition:0.3s; }
+.catalog-item img { width:100%; height:100%; object-fit:cover; }
+.catalog-item:hover { border-color:#d9b382; }
+
+footer.cutoff-footer { background:linear-gradient(135deg,#7e521f,#b58332); color:white; clip-path: polygon(0 10%, 100% 0%, 100% 100%, 0% 100%); padding:2em 1em; margin-top:3em; text-align:center; font-size:0.9rem; }
+.footer-links { list-style:none; padding:0; margin:0 0 1.5em 0; }
+.footer-links li { margin:5px 0; }
+.footer-links a { color:white; text-decoration:none; font-weight:500; }
+.footer-links a:hover { color:#d9b382; }
+.social { margin-top:1em; }
+.social-link { display:inline-block; margin:0 10px; color:white; transition:color 0.3s ease; font-size:1.5rem; }
+.social-link:hover { color:#d9b382; }
+.social-link svg { width:28px; height:28px; vertical-align:middle; }
 </style>
 </head>
 <body>
@@ -36,18 +45,27 @@
 
 <!-- Uploaded Images -->
 <div class="image-container">
- <div class="image-box">
- <img id="selfImg" src="" alt="Self Image">
- </div>
- <div class="image-box">
- <img id="clothingImg" src="" alt="Clothing Image">
- </div>
+ <div class="image-box"><img id="selfImg" src="" alt="Self Image"></div>
+ <div class="image-box"><img id="clothingImg" src="" alt="Clothing Image"></div>
 </div>
 
 <!-- AI Result -->
 <div class="ai-container">
  <h2>AI Try-On Result</h2>
  <img id="aiResult" src="" alt="AI Generated Outfit">
+</div>
+
+<!-- Horizontal Scroll Clothing Catalog -->
+<div class="catalog-wrapper">
+ <div class="catalog">
+ <div class="catalog-item"><img src="clothes/shirt1.jpg" alt="Shirt 1" onclick="swapClothing(this.src)"></div>
+ <div class="catalog-item"><img src="clothes/shirt2.jpg" alt="Shirt 2" onclick="swapClothing(this.src)"></div>
+ <div class="catalog-item"><img src="clothes/jacket1.jpg" alt="Jacket 1" onclick="swapClothing(this.src)"></div>
+ <div class="catalog-item"><img src="clothes/jacket2.jpg" alt="Jacket 2" onclick="swapClothing(this.src)"></div>
+ <div class="catalog-item"><img src="clothes/dress1.jpg" alt="Dress 1" onclick="swapClothing(this.src)"></div>
+ <div class="catalog-item"><img src="clothes/dress2.jpg" alt="Dress 2" onclick="swapClothing(this.src)"></div>
+ <!-- Add more items here -->
+ </div>
 </div>
 
 <!-- Navigation -->
@@ -74,39 +92,46 @@
 </footer>
 
 <script>
- const selfImg = document.getElementById('selfImg');
- const clothingImg = document.getElementById('clothingImg');
- const aiResult = document.getElementById('aiResult');
+const selfImg = document.getElementById('selfImg');
+const clothingImg = document.getElementById('clothingImg');
+const aiResult = document.getElementById('aiResult');
 
- // Load images from localStorage
- const selfImage = localStorage.getItem('selfImage');
- const clothingImage = localStorage.getItem('clothingImage');
+let selfImage = localStorage.getItem('selfImage');
+let clothingImage = localStorage.getItem('clothingImage');
 
- if(selfImage) selfImg.src = selfImage;
- if(clothingImage) clothingImg.src = clothingImage;
+if(selfImage) selfImg.src = selfImage;
+if(clothingImage) clothingImg.src = clothingImage;
 
- async function generateAIResult() {
- if (!selfImage || !clothingImage) return;
+// Swap clothing from catalog
+function swapClothing(src) {
+ clothingImg.src = src;
+ clothingImage = src;
+ localStorage.setItem('clothingImage', clothingImage);
+ generateAIResult();
+}
 
- // Placeholder API call example
- // Replace URL and payload with your AI endpoint
+// AI generation
+async function generateAIResult() {
+ if (!selfImg.src || !clothingImg.src) return;
+ try {
  const response = await fetch('https://api.your-ai-tryon.com/generate', {
- method: 'POST',
- headers: { 'Content-Type': 'application/json' },
- body: JSON.stringify({ selfImage, clothingImage })
+ method:'POST',
+ headers:{ 'Content-Type':'application/json' },
+ body: JSON.stringify({ selfImage: selfImg.src, clothingImage: clothingImg.src })
  });
-
  const data = await response.json();
- // Assuming AI returns base64 image string
  if(data.aiResult){
  aiResult.src = data.aiResult;
  aiResult.style.width = selfImg.width + 'px';
  aiResult.style.height = selfImg.height + 'px';
  }
+ } catch(err) {
+ console.error("AI generation failed:", err);
  }
+}
 
- // Generate AI result when page loads
- generateAIResult();
+// Generate AI result on load
+generateAIResult();
 </script>
 
 </body>
