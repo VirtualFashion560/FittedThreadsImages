@@ -15,7 +15,7 @@
  color: #4b3221;
  font-family: 'Poppins', sans-serif;
  text-align: center;
- padding: 20px;
+ padding: 20px 20px 60px; /* extra bottom padding for + button */
  position: relative;
  min-height: 100vh;
  overflow-x: hidden;
@@ -59,6 +59,65 @@
 
  .instructions ol, .key-features ul {
  padding-left: 1.4em;
+ }
+
+ /* Preview container */
+ #selfie-preview {
+ max-width: 320px;
+ margin: 20px auto;
+ border-radius: 12px;
+ box-shadow: 0 0 20px rgba(141, 102, 58, 0.4);
+ background: #fff9e6;
+ min-height: 360px;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ overflow: hidden;
+ position: relative;
+ }
+
+ #selfie-preview img {
+ max-width: 100%;
+ max-height: 360px;
+ border-radius: 12px;
+ object-fit: contain;
+ }
+
+ #upload-instruction {
+ font-weight: 600;
+ color: #6e4b26;
+ padding: 1em;
+ }
+
+ /* + Button top right */
+ #upload-button {
+ position: fixed;
+ top: 20px;
+ right: 20px;
+ background: #d9b382;
+ border: none;
+ font-size: 2rem;
+ font-weight: 700;
+ color: #6e4b26;
+ width: 48px;
+ height: 48px;
+ border-radius: 50%;
+ cursor: pointer;
+ box-shadow: 0 4px 8px rgba(141,102,58,0.5);
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ transition: background-color 0.3s ease;
+ z-index: 1000;
+ }
+
+ #upload-button:hover {
+ background: #b58332;
+ color: #fff;
+ }
+
+ #file-input {
+ display: none;
  }
 
  /* Footer Styles */
@@ -113,49 +172,21 @@
  height: 28px;
  vertical-align: middle;
  }
-
- /* Upload Button Styles */
- #upload-button {
- position: fixed;
- top: 16px;
- right: 16px;
- font-size: 2.5rem;
- background: #d9b382;
- border: none;
- border-radius: 50%;
- width: 52px;
- height: 52px;
- cursor: pointer;
- color: #4b3221;
- box-shadow: 0 2px 6px rgba(0,0,0,0.15);
- display: flex;
- align-items: center;
- justify-content: center;
- }
-
- /* Preview styling */
- #selfie-preview {
- margin: 1.5em auto;
- max-width: 260px;
- border-radius: 12px;
- box-shadow: 0 4px 12px rgba(141, 102, 58, 0.6);
- display: none;
- }
- #selfie-preview img {
- width: 100%;
- height: auto;
- border-radius: 12px;
- }
 </style>
 </head>
 <body>
 
-<button aria-label="Upload or take a selfie" id="upload-button" title="Upload or take a selfie">+</button>
+<button id="upload-button" aria-label="Upload or take a selfie" title="Upload or take a selfie">+</button>
+<input type="file" id="file-input" accept="image/*" capture="environment" aria-label="Upload or take a selfie">
 
 <h1>Fitted Threads</h1>
 <p class="slogan">Find Your Inspiration</p>
 <p class="slogan">Build Your Confidence</p>
 <p class="slogan">Elevate Your Threads</p>
+
+<div id="selfie-preview" aria-live="polite" aria-busy="false" aria-label="Selfie preview">
+ <p id="upload-instruction">Tap the + button to upload or take a selfie</p>
+</div>
 
 <div class="instructions" role="region" aria-labelledby="how-to-use-title">
  <h2 id="how-to-use-title">How to Use</h2>
@@ -177,12 +208,6 @@
  <li>User-friendly interface for effortless styling</li>
  </ul>
 </div>
-
-<!-- Selfie Preview container -->
-<div id="selfie-preview" aria-live="polite"></div>
-
-<!-- Hidden file input for image upload -->
-<input type="file" id="file-input" accept="image/*" capture="user" style="display:none" />
 
 <footer class="cutoff-footer" role="contentinfo" aria-label="Footer">
  <ul class="footer-links">
@@ -209,23 +234,22 @@
  const uploadButton = document.getElementById('upload-button');
  const fileInput = document.getElementById('file-input');
  const selfiePreview = document.getElementById('selfie-preview');
+ const uploadInstruction = document.getElementById('upload-instruction');
 
  uploadButton.addEventListener('click', () => {
  fileInput.click();
  });
 
- fileInput.addEventListener('change', () => {
- const file = fileInput.files[0];
- if (file) {
+ fileInput.addEventListener('change', (event) => {
+ const file = event.target.files[0];
+ if (file && file.type.startsWith('image/')) {
  const reader = new FileReader();
- reader.onload = (e) => {
- selfiePreview.innerHTML = `<img src="${e.target.result}" alt="Your uploaded selfie preview" />`;
- selfiePreview.style.display = 'block';
+ reader.onload = e => {
+ selfiePreview.innerHTML = `<img src="${e.target.result}" alt="Uploaded selfie preview" />`;
  };
  reader.readAsDataURL(file);
  } else {
- selfiePreview.innerHTML = '';
- selfiePreview.style.display = 'none';
+ selfiePreview.innerHTML = `<p id="upload-instruction">Please upload a valid image file.</p>`;
  }
  });
 </script>
