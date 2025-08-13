@@ -1,39 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Fitted Threads - Try On</title>
+
 <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+
 <style>
-body {
+ body {
  margin: 0;
- font-family: 'Poppins', sans-serif;
  background: linear-gradient(135deg, #a46237, #d9b382);
  color: #4b3221;
+ font-family: 'Poppins', sans-serif;
  text-align: center;
  padding: 20px;
-}
+ min-height: 100vh;
+ overflow-x: hidden;
+ }
 
-h1 {
+ h1 {
  font-family: 'Pacifico', cursive;
  font-size: 3rem;
- margin-bottom: 0.3em;
  color: #6e4b26;
-}
+ margin-bottom: 0.5em;
+ }
 
-#userPhoto {
+ #userPhoto {
  width: 250px;
  height: 250px;
  object-fit: cover;
  border-radius: 50%;
  border: 6px solid #6e4b26;
  box-shadow: 0 0 15px rgba(0,0,0,0.3);
- margin-top: 20px;
-}
+ margin: 20px auto;
+ }
 
-/* Footer styles */
-footer.cutoff-footer {
+ .btn {
+ background-color: #6e4b26;
+ color: white;
+ border: none;
+ border-radius: 8px;
+ padding: 12px 25px;
+ font-size: 1.2rem;
+ font-weight: 600;
+ cursor: pointer;
+ margin: 10px;
+ transition: background 0.3s ease;
+ }
+
+ .btn:hover {
+ background-color: #d9b382;
+ color: #4b3221;
+ }
+
+ .tryon-section {
+ margin-top: 30px;
+ padding: 20px;
+ background: rgba(217, 179, 130, 0.85);
+ border-radius: 12px;
+ box-shadow: 0 0 10px rgba(141, 102, 58, 0.3);
+ max-width: 600px;
+ margin-left: auto;
+ margin-right: auto;
+ text-align: center;
+ }
+
+ .tryon-placeholder {
+ height: 250px;
+ background-color: #e0c89c;
+ border-radius: 12px;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ color: #4b3221;
+ font-weight: 700;
+ font-size: 1.2rem;
+ }
+
+ footer.cutoff-footer {
  background: linear-gradient(135deg, #7e521f, #b58332);
  color: white;
  clip-path: polygon(0 10%, 100% 0%, 100% 100%, 0% 100%);
@@ -41,56 +86,63 @@ footer.cutoff-footer {
  margin-top: 3em;
  text-align: center;
  font-size: 0.9rem;
-}
+ }
 
-.footer-links {
+ .footer-links {
  list-style: none;
  padding: 0;
  margin: 0 0 1.5em 0;
-}
+ }
 
-.footer-links li {
+ .footer-links li {
  margin: 5px 0;
-}
+ }
 
-.footer-links a {
+ .footer-links a {
  color: white;
  text-decoration: none;
  font-weight: 500;
-}
+ }
 
-.footer-links a:hover {
+ .footer-links a:hover {
  color: #d9b382;
-}
+ }
 
-.social {
+ .social {
  margin-top: 1em;
-}
+ }
 
-.social-link {
+ .social-link {
  display: inline-block;
  margin: 0 10px;
  color: white;
  transition: color 0.3s ease;
  font-size: 1.5rem;
-}
+ }
+
+ .social-link:hover {
+ color: #d9b382;
+ }
 </style>
 </head>
 <body>
 
 <h1>Fitted Threads - Try On</h1>
-<p>Here’s your uploaded photo — start styling now!</p>
 
-<!-- Display user photo -->
-<img id="userPhoto" src="" alt="Your Uploaded Photo">
+<img id="userPhoto" alt="Your uploaded photo">
 
-<!-- Add try-on options here later -->
-<section id="tryon-options">
- <h2>Mix & Match Styles</h2>
- <p>Choose outfits and accessories to see them on your photo.</p>
-</section>
+<div class="tryon-section">
+ <h2>AI Try-On</h2>
+ <div class="tryon-placeholder">
+ Your outfit previews will appear here
+ </div>
+</div>
 
-<footer class="cutoff-footer">
+<div>
+ <button class="btn" onclick="returnHome()">Return to Home</button>
+</div>
+
+<footer class="cutoff-footer" role="contentinfo" aria-label="Footer">
  <ul class="footer-links">
  <li><a href="privacy.html">Privacy Policy</a></li>
  <li><a href="terms.html">Terms &amp; Conditions</a></li>
@@ -106,16 +158,20 @@ footer.cutoff-footer {
 </footer>
 
 <script>
-// Pull photo from localStorage
-const userPhoto = document.getElementById('userPhoto');
-const storedPhoto = localStorage.getItem('userPhoto');
+ // Display uploaded photo from localStorage
+ const userPhoto = document.getElementById('userPhoto');
+ const storedPhoto = localStorage.getItem('userPhoto');
 
-if (storedPhoto) {
+ if (storedPhoto) {
  userPhoto.src = storedPhoto;
-} else {
- userPhoto.alt = "No photo uploaded yet.";
- alert("No photo found. Please go back and upload a photo first.");
-}
+ } else {
+ userPhoto.alt = "No photo uploaded yet";
+ }
+
+ // Return to home
+ function returnHome() {
+ window.location.href = 'index.html';
+ }
 </script>
 
 </body>
