@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Fitted Threads - AI Try-On</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Fitted Threads - Try On</title>
 
-<!-- Google Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
 
 <style>
@@ -30,50 +29,30 @@
  font-style: italic;
  font-weight: 600;
  color: #7a5a34;
- font-size: 1.3rem;
+ font-size: 1.2rem;
  margin-bottom: 0.8em;
  }
 
- #preview-container {
- margin: 2em auto;
- text-align: center;
- }
-
- #preview {
+ #user-photo {
  max-width: 80%;
- height: auto;
  border-radius: 12px;
  box-shadow: 0 0 10px rgba(141,102,58,0.3);
  margin-bottom: 1em;
  }
 
- #tryon-area {
- margin: 2em auto;
- padding: 1.5em;
+ .tryon-area {
  background: rgba(217, 179, 130, 0.85);
+ padding: 1.5em;
  border-radius: 12px;
  max-width: 600px;
- font-weight: 600;
- font-size: 1.1rem;
- color: #4b3221;
+ margin: 1.5em auto;
  box-shadow: 0 0 10px rgba(141,102,58,0.3);
  }
 
- button {
- background-color: #7a5a34;
- color: #fff;
- border: none;
- padding: 0.8em 1.6em;
- margin: 0.5em;
- font-size: 1rem;
- border-radius: 8px;
- cursor: pointer;
+ .tryon-area p {
  font-weight: 600;
- transition: background 0.3s ease;
- }
-
- button:hover {
- background-color: #6e4b26;
+ font-size: 1.1rem;
+ color: #4b3221;
  }
 
  footer.cutoff-footer {
@@ -105,43 +84,57 @@
  .footer-links a:hover {
  color: #d9b382;
  }
+
+ button {
+ background-color: #7a5a34;
+ color: #fff;
+ border: none;
+ padding: 0.8em 1.6em;
+ margin: 0.5em;
+ font-size: 1rem;
+ border-radius: 8px;
+ cursor: pointer;
+ font-weight: 600;
+ transition: background 0.3s ease;
+ }
+
+ button:hover {
+ background-color: #6e4b26;
+ }
 </style>
 </head>
 <body>
 
 <h1>Fitted Threads</h1>
-<p class="slogan">Try On Your Look Instantly</p>
+<p class="slogan">Try On Your Outfits</p>
 
-<!-- Preview -->
-<div id="preview-container">
- <img id="preview" alt="Your Photo Preview">
-</div>
+<!-- Display uploaded photo -->
+<img id="user-photo" alt="Your Uploaded Photo" />
 
-<!-- AI Try-On Placeholder -->
-<div id="tryon-area">
- <p>Welcome! Your uploaded photo appears above.</p>
- <p>Here, the AI try-on interface will allow you to select outfits, mix & match styles, and see yourself in new looks.</p>
- <p><em>(This is a placeholder for your AI integration.)</em></p>
+<div class="tryon-area">
+ <p> This is where virtual outfits will appear!</p>
+ <p>Mix & match clothing, accessories, and styles.</p>
+ <button onclick="window.location.href='index.html'">Back to Home</button>
 </div>
 
 <footer class="cutoff-footer">
  <ul class="footer-links">
  <li><a href="privacy.html">Privacy Policy</a></li>
- <li><a href="terms.html">Terms &amp; Conditions</a></li>
+ <li><a href="terms.html">Terms & Conditions</a></li>
  <li><a href="about.html">About Us</a></li>
  <li><a href="contact.html">Contact Us</a></li>
  </ul>
 </footer>
 
 <script>
- // Load the uploaded photo from homepage using localStorage
- const preview = document.getElementById('preview');
- const savedImage = localStorage.getItem('uploadedPhoto');
- if(savedImage){
- preview.src = savedImage;
- preview.style.display = 'block';
+ // Load uploaded photo from localStorage
+ const userPhoto = document.getElementById('user-photo');
+ const photoData = localStorage.getItem('uploadedPhoto');
+
+ if (photoData) {
+ userPhoto.src = photoData;
  } else {
- preview.style.display = 'none';
+ userPhoto.alt = "No photo uploaded yet.";
  }
 </script>
 
