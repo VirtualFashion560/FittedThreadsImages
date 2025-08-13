@@ -14,31 +14,37 @@ body {
  text-align:center; 
  padding:20px; 
  min-height:100vh; 
+ display:flex; 
+ flex-direction:column; 
+ justify-content:center; 
+ align-items:center; 
+ position:relative;
 }
 h1 { 
  font-family:'Pacifico', cursive; 
- font-size:3.5rem; 
+ font-size:3rem; 
  color:#6e4b26; 
- margin-bottom:0.3em; 
+ margin-bottom:1em; 
 }
 #user-photo { 
  max-width:300px; 
  border-radius:12px; 
- margin:1em auto; 
+ margin:1em 0; 
+ transform: scaleX(-1); /* Mirror effect */
  display:block; 
+ box-shadow: 0 4px 15px rgba(0,0,0,0.3);
 }
-.btn { 
- background:#6e4b26; 
- color:white; 
- border:none; 
- padding:10px 20px; 
- border-radius:6px; 
- margin:0.5em; 
- font-size:1rem; 
- cursor:pointer; 
+.return-home { 
+ position:absolute; 
+ top:20px; 
+ left:20px; 
+ font-size:2rem; 
+ text-decoration:none; 
+ color:#4b3221; 
+ font-weight:bold; 
 }
-.btn:hover { 
- background:#7a5a34; 
+.return-home:hover { 
+ color:#6e4b26; 
 }
 footer.cutoff-footer { 
  background: linear-gradient(135deg, #7e521f, #b58332); 
@@ -48,15 +54,17 @@ footer.cutoff-footer {
  margin-top:3em; 
  text-align:center; 
  font-size:0.9rem; 
+ width:100%;
 }
-.social-link { 
+.social-link, .policy-link { 
  display:inline-block; 
  margin:0 10px; 
  color:white; 
  transition:color 0.3s ease; 
  font-size:1.5rem; 
+ text-decoration:none;
 }
-.social-link:hover { 
+.social-link:hover, .policy-link:hover { 
  color:#d9b382; 
 }
 .social-link svg { 
@@ -64,21 +72,27 @@ footer.cutoff-footer {
  height:28px; 
  vertical-align:middle; 
 }
+.policy-links { 
+ margin-bottom:15px; 
+}
 </style>
 </head>
 <body>
+
+<!-- Return Home Arrow -->
+<a href="index.html" class="return-home" aria-label="Return to Home">&#8592;</a>
 
 <h1>Virtual Try-On</h1>
 
 <img id="user-photo" alt="Your Photo">
 
-<!-- Buttons -->
-<div>
- <button class="btn" id="retake-btn">Not Happy, Try Again</button>
- <button class="btn" onclick="window.location.href='index.html'">Return to Home</button>
-</div>
-
 <footer class="cutoff-footer">
+ <div class="policy-links">
+ <a href="privacy.html" class="policy-link">Privacy Policy</a> | 
+ <a href="terms.html" class="policy-link">Terms & Conditions</a> | 
+ <a href="about.html" class="policy-link">About Us</a> | 
+ <a href="contact.html" class="policy-link">Contact Us</a>
+ </div>
  <div class="social">
  <a href="https://facebook.com/fittedthreads" target="_blank" class="social-link" aria-label="Facebook">
  <svg role="img" viewBox="0 0 24 24" fill="currentColor"><title>Facebook</title><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.877v-6.987h-2.54V12h2.54v-2.173c0-2.507 1.492-3.89 3.777-3.89 1.094 0 2.238.196 2.238.196v2.46h-1.26c-1.243 0-1.63.772-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.987C18.343 21.128 22 16.991 22 12z"/></svg>
@@ -91,26 +105,6 @@ footer.cutoff-footer {
  </a>
  </div>
 </footer>
-
-<script>
-const userPhoto = document.getElementById('user-photo');
-const retakeBtn = document.getElementById('retake-btn');
-
-// Load photo from localStorage
-const savedPhoto = localStorage.getItem('userPhoto');
-if(savedPhoto){
- userPhoto.src = savedPhoto;
-} else {
- userPhoto.alt = 'No photo available';
- retakeBtn.style.display = 'none';
-}
-
-// Retake: clears photo and redirects back to index
-retakeBtn.addEventListener('click', () => {
- localStorage.removeItem('userPhoto');
- window.location.href = 'index.html';
-});
-</script>
 
 </body>
 </html>
