@@ -1,87 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Fitted Threads</title>
+
+<!-- Google Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+
 <style>
-body {
+ body {
  margin: 0;
- font-family: 'Poppins', sans-serif;
  background: linear-gradient(135deg, #a46237, #d9b382);
  color: #4b3221;
+ font-family: 'Poppins', sans-serif;
  text-align: center;
  padding: 20px;
-}
+ min-height: 100vh;
+ overflow-x: hidden;
+ }
 
-h1 {
+ h1 {
  font-family: 'Pacifico', cursive;
- font-size: 3rem;
- margin-bottom: 0.3em;
+ font-size: 3.5rem;
  color: #6e4b26;
-}
+ margin-bottom: 0.3em;
+ }
 
-button {
- padding: 0.8em 2em;
- font-size: 1.2rem;
- margin-top: 15px;
- background: #6e4b26;
- color: white;
- border: none;
- border-radius: 8px;
- cursor: pointer;
- transition: background 0.3s ease;
-}
+ .slogan {
+ font-style: italic;
+ font-weight: 600;
+ color: #7a5a34;
+ font-size: 1.4rem;
+ margin-bottom: 0.8em;
+ }
 
-button:hover {
- background: #8b5e32;
-}
-
-section {
- margin: 2em 0;
-}
-
-h2 {
- font-size: 2rem;
- margin-bottom: 0.5em;
-}
-
-ul, ol {
- padding-left: 1.5em;
- font-size: 1.1rem;
-}
-
-li {
- margin: 0.5em 0;
-}
-
-/* Circular mirror preview with fade-in animation */
-#previewContainer {
- display: none;
- margin: 20px auto;
- text-align: center;
- opacity: 0;
- transform: scale(0.8);
- transition: opacity 0.5s ease, transform 0.5s ease;
-}
-
-#previewContainer.show {
- display: block;
- opacity: 1;
- transform: scale(1);
-}
-
-#previewContainer img {
+ /* Image preview */
+ #previewImage {
  width: 250px;
  height: 250px;
  object-fit: cover;
  border-radius: 50%;
  border: 6px solid #6e4b26;
  box-shadow: 0 0 15px rgba(0,0,0,0.3);
-}
+ margin: 20px auto;
+ display: none; /* hidden until upload */
+ }
 
-footer.cutoff-footer {
+ /* Buttons */
+ .btn {
+ background-color: #6e4b26;
+ color: white;
+ border: none;
+ border-radius: 8px;
+ padding: 12px 25px;
+ font-size: 1.2rem;
+ font-weight: 600;
+ cursor: pointer;
+ margin: 10px;
+ transition: background 0.3s ease;
+ }
+
+ .btn:hover {
+ background-color: #d9b382;
+ color: #4b3221;
+ }
+
+ .instructions, .key-features {
+ background: rgba(217, 179, 130, 0.85);
+ padding: 1.5em 2em;
+ border-radius: 12px;
+ max-width: 520px;
+ margin: 1.5em auto;
+ color: #4b3221;
+ text-align: left;
+ font-weight: 600;
+ font-size: 1.1rem;
+ box-shadow: 0 0 10px rgba(141, 102, 58, 0.3);
+ }
+
+ .instructions h2, .key-features h2 {
+ text-align: center;
+ margin-bottom: 1em;
+ color: #6e4b26;
+ font-weight: 700;
+ font-size: 1.8rem;
+ }
+
+ .list-with-indent {
+ padding-left: 1.2em;
+ text-align: left;
+ line-height: 1.5em;
+ margin: 0 auto;
+ }
+
+ /* Footer Styles */
+ footer.cutoff-footer {
  background: linear-gradient(135deg, #7e521f, #b58332);
  color: white;
  clip-path: polygon(0 10%, 100% 0%, 100% 100%, 0% 100%);
@@ -89,81 +103,85 @@ footer.cutoff-footer {
  margin-top: 3em;
  text-align: center;
  font-size: 0.9rem;
-}
+ }
 
-.footer-links {
+ .footer-links {
  list-style: none;
  padding: 0;
  margin: 0 0 1.5em 0;
-}
+ }
 
-.footer-links li {
+ .footer-links li {
  margin: 5px 0;
-}
+ }
 
-.footer-links a {
+ .footer-links a {
  color: white;
  text-decoration: none;
  font-weight: 500;
-}
+ }
 
-.footer-links a:hover {
+ .footer-links a:hover {
  color: #d9b382;
-}
+ }
 
-.social {
+ .social {
  margin-top: 1em;
-}
+ }
 
-.social-link {
+ .social-link {
  display: inline-block;
  margin: 0 10px;
  color: white;
  transition: color 0.3s ease;
  font-size: 1.5rem;
-}
+ }
+
+ .social-link:hover {
+ color: #d9b382;
+ }
 </style>
 </head>
 <body>
 
 <h1>Fitted Threads</h1>
-<p>Experience virtual try-on with your own photos!</p>
+<p class="slogan">Find Your Inspiration</p>
+<p class="slogan">Build Your Confidence</p>
+<p class="slogan">Elevate Your Threads</p>
 
-<button id="startBtn">Let’s Get Started</button>
+<!-- Image Preview -->
+<img id="previewImage" alt="Your uploaded photo preview">
 
-<!-- Circular Live preview container -->
-<div id="previewContainer">
- <h3>Your Photo Preview:</h3>
- <img id="photoPreview" src="" alt="Photo Preview">
- <br>
- <button id="changePhotoBtn">Change Photo</button>
- <br>
- <button id="continueBtn">Continue to Try-On</button>
+<!-- Buttons -->
+<input type="file" id="fileInput" accept="image/*" capture="environment" style="display:none">
+<button class="btn" id="startBtn">Let's Get Started</button>
+<button class="btn" id="retryBtn" style="display:none">Not Happy? Try Again</button>
+<button class="btn" id="continueBtn" style="display:none">Continue to Try On</button>
+
+<!-- Instructions -->
+<div class="instructions" role="region" aria-labelledby="how-to-use-title">
+ <h2 id="how-to-use-title">How to Use</h2>
+ <ol class="list-with-indent">
+ <li>Tap <strong>Let's Get Started</strong> to take a photo or upload your image.</li>
+ <li>Our AI will process your image and let you try on outfits virtually.</li>
+ <li>Browse through styles, mix &amp; match clothing and accessories.</li>
+ <li>Save your looks or share them with friends!</li>
+ </ol>
 </div>
 
-<section id="how-to-use">
- <h2>How to Use</h2>
- <ol>
- <li>Tap “Let’s Get Started” to take a photo or upload an image.</li>
- <li>Adjust the photo if needed.</li>
- <li>Browse outfits and see them on your photo instantly.</li>
- <li>Save or share your favorite looks.</li>
- </ol>
-</section>
-
-<section id="key-features">
- <h2>Key Features</h2>
- <ul>
- <li>Instant AI try-on for tops, dresses, and accessories.</li>
- <li>Upload or snap a photo directly from your device.</li>
- <li>Save your favorite outfit combinations.</li>
- <li>Share your looks with friends and family.</li>
+<!-- Key Features -->
+<div class="key-features" role="region" aria-labelledby="key-features-title">
+ <h2 id="key-features-title">Key Features</h2>
+ <ul class="list-with-indent">
+ <li>AI-powered virtual outfit try-ons</li>
+ <li>Extensive catalog of trendy styles</li>
+ <li>Mix &amp; match clothing and accessories</li>
+ <li>Save and share your favorite looks</li>
+ <li>User-friendly interface for effortless styling</li>
  </ul>
-</section>
+</div>
 
-<input type="file" accept="image/*" capture="environment" id="photoInput" style="display:none;">
-
-<footer class="cutoff-footer">
+<footer class="cutoff-footer" role="contentinfo" aria-label="Footer">
  <ul class="footer-links">
  <li><a href="privacy.html">Privacy Policy</a></li>
  <li><a href="terms.html">Terms &amp; Conditions</a></li>
@@ -180,42 +198,51 @@ footer.cutoff-footer {
 
 <script>
 const startBtn = document.getElementById('startBtn');
-const photoInput = document.getElementById('photoInput');
-const previewContainer = document.getElementById('previewContainer');
-const photoPreview = document.getElementById('photoPreview');
-const changePhotoBtn = document.getElementById('changePhotoBtn');
+const fileInput = document.getElementById('fileInput');
+const previewImage = document.getElementById('previewImage');
+const retryBtn = document.getElementById('retryBtn');
 const continueBtn = document.getElementById('continueBtn');
 
-// Open file picker
+// Trigger file/camera input
 startBtn.addEventListener('click', () => {
- photoInput.click();
+ fileInput.click();
 });
 
-changePhotoBtn.addEventListener('click', () => {
- photoInput.click();
-});
-
-// Show circular preview with animation
-photoInput.addEventListener('change', (event) => {
- const file = event.target.files[0];
+// Handle file upload
+fileInput.addEventListener('change', () => {
+ const file = fileInput.files[0];
  if (!file) return;
 
  const reader = new FileReader();
- reader.onload = function(e) {
- photoPreview.src = e.target.result;
- previewContainer.classList.add('show');
- localStorage.setItem('userPhoto', e.target.result);
+ reader.onload = () => {
+ const dataURL = reader.result;
+ previewImage.src = dataURL;
+ previewImage.style.display = 'block';
+
+ // Show retry & continue buttons
+ retryBtn.style.display = 'inline-block';
+ continueBtn.style.display = 'inline-block';
+ startBtn.style.display = 'none';
+
+ // Save image to localStorage for tryon.html
+ localStorage.setItem('userPhoto', dataURL);
  };
  reader.readAsDataURL(file);
 });
 
-// Redirect only when user clicks "Continue to Try-On"
+// Retry button: clear photo & allow another upload
+retryBtn.addEventListener('click', () => {
+ previewImage.src = '';
+ previewImage.style.display = 'none';
+ fileInput.value = '';
+ startBtn.style.display = 'inline-block';
+ retryBtn.style.display = 'none';
+ continueBtn.style.display = 'none';
+});
+
+// Continue button: go to tryon.html
 continueBtn.addEventListener('click', () => {
- if (localStorage.getItem('userPhoto')) {
  window.location.href = 'tryon.html';
- } else {
- alert("Please upload a photo first.");
- }
 });
 </script>
 
