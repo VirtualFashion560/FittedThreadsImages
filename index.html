@@ -15,7 +15,7 @@
  color: #4b3221;
  font-family: 'Poppins', sans-serif;
  text-align: center;
- padding: 20px 20px 60px; /* extra bottom padding for + button */
+ padding: 20px;
  position: relative;
  min-height: 100vh;
  overflow-x: hidden;
@@ -61,63 +61,70 @@
  padding-left: 1.4em;
  }
 
- /* Preview container */
- #selfie-preview {
- max-width: 320px;
- margin: 20px auto;
- border-radius: 12px;
- box-shadow: 0 0 20px rgba(141, 102, 58, 0.4);
- background: #fff9e6;
- min-height: 360px;
- display: flex;
- align-items: center;
- justify-content: center;
- overflow: hidden;
- position: relative;
- }
-
- #selfie-preview img {
- max-width: 100%;
- max-height: 360px;
- border-radius: 12px;
- object-fit: contain;
- }
-
- #upload-instruction {
- font-weight: 600;
- color: #6e4b26;
- padding: 1em;
- }
-
- /* + Button top right */
- #upload-button {
- position: fixed;
- top: 20px;
- right: 20px;
- background: #d9b382;
- border: none;
- font-size: 2rem;
- font-weight: 700;
- color: #6e4b26;
- width: 48px;
- height: 48px;
- border-radius: 50%;
- cursor: pointer;
- box-shadow: 0 4px 8px rgba(141,102,58,0.5);
- display: flex;
- align-items: center;
- justify-content: center;
- transition: background-color 0.3s ease;
- z-index: 1000;
- }
-
- #upload-button:hover {
- background: #b58332;
- color: #fff;
- }
-
- #file-input {
+ /* Upload input styles */
+ #selfie-input {
  display: none;
+ }
+
+ label[for="selfie-input"] {
+ display: inline-block;
+ background: #6e4b26;
+ color: white;
+ padding: 0.6em 1.2em;
+ border-radius: 8px;
+ font-weight: 700;
+ cursor: pointer;
+ margin-bottom: 1.5em;
+ transition: background 0.3s ease;
+ }
+
+ label[for="selfie-input"]:hover {
+ background: #8a5c2e;
+ }
+
+ /* Preview container */
+ #preview-container {
+ margin: 1.5em auto;
+ max-width: 320px;
+ }
+
+ #preview {
+ max-width: 100%;
+ border-radius: 12px;
+ display: none;
+ }
+
+ #preview-buttons {
+ margin-top: 1em;
+ display: none;
+ }
+
+ #preview-buttons button {
+ padding: 0.6em 1.2em;
+ border: none;
+ border-radius: 8px;
+ font-weight: 700;
+ cursor: pointer;
+ color: white;
+ }
+
+ #start-btn {
+ background: #6e4b26;
+ margin-right: 1em;
+ transition: background 0.3s ease;
+ }
+
+ #start-btn:hover {
+ background: #8a5c2e;
+ }
+
+ #remove-btn {
+ background: #b3472f;
+ transition: background 0.3s ease;
+ }
+
+ #remove-btn:hover {
+ background: #d35a43;
  }
 
  /* Footer Styles */
@@ -176,18 +183,25 @@
 </head>
 <body>
 
-<button id="upload-button" aria-label="Upload or take a selfie" title="Upload or take a selfie">+</button>
-<input type="file" id="file-input" accept="image/*" capture="environment" aria-label="Upload or take a selfie">
-
 <h1>Fitted Threads</h1>
 <p class="slogan">Find Your Inspiration</p>
 <p class="slogan">Build Your Confidence</p>
 <p class="slogan">Elevate Your Threads</p>
 
-<div id="selfie-preview" aria-live="polite" aria-busy="false" aria-label="Selfie preview">
- <p id="upload-instruction">Tap the + button to upload or take a selfie</p>
+<!-- Upload button -->
+<label for="selfie-input" aria-label="Upload or take a selfie">+ Upload Selfie</label>
+<input type="file" accept="image/*" capture="user" id="selfie-input" aria-describedby="upload-description" />
+
+<!-- Preview container below slogans -->
+<div id="preview-container">
+ <img id="preview" alt="Uploaded selfie preview" />
+ <div id="preview-buttons">
+ <button id="start-btn" type="button">Let’s Get Started</button>
+ <button id="remove-btn" type="button">Remove</button>
+ </div>
 </div>
 
+<!-- Instructions and Key Features -->
 <div class="instructions" role="region" aria-labelledby="how-to-use-title">
  <h2 id="how-to-use-title">How to Use</h2>
  <ol>
@@ -231,28 +245,23 @@
 </footer>
 
 <script>
- const uploadButton = document.getElementById('upload-button');
- const fileInput = document.getElementById('file-input');
- const selfiePreview = document.getElementById('selfie-preview');
- const uploadInstruction = document.getElementById('upload-instruction');
+ const input = document.getElementById('selfie-input');
+ const preview = document.getElementById('preview');
+ const previewButtons = document.getElementById('preview-buttons');
+ const startBtn = document.getElementById('start-btn');
+ const removeBtn = document.getElementById('remove-btn');
 
- uploadButton.addEventListener('click', () => {
- fileInput.click();
- });
-
- fileInput.addEventListener('change', (event) => {
- const file = event.target.files[0];
- if (file && file.type.startsWith('image/')) {
+ input.addEventListener('change', function() {
+ const file = this.files[0];
+ if (file) {
  const reader = new FileReader();
- reader.onload = e => {
- selfiePreview.innerHTML = `<img src="${e.target.result}" alt="Uploaded selfie preview" />`;
- };
+ reader.onload = function(e) {
+ preview.src = e.target.result;
+ preview.style.display = 'block';
+ previewButtons.style.display = 'block';
+ }
  reader.readAsDataURL(file);
- } else {
- selfiePreview.innerHTML = `<p id="upload-instruction">Please upload a valid image file.</p>`;
  }
  });
-</script>
 
-</body>
-</html>
+ removeBtn.addEventListener('
