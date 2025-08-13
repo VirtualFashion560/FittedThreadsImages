@@ -36,35 +36,35 @@
  margin-bottom: 0.8em;
  }
 
- #preview-container {
+ .preview-container {
  margin: 1em auto;
  }
 
  #preview {
- max-width: 250px;
- max-height: 300px;
- display: block;
- margin: 0 auto 1em;
+ display: none;
+ width: 250px;
+ height: 250px;
  border-radius: 12px;
- box-shadow: 0 0 10px rgba(141, 102, 58, 0.3);
+ object-fit: cover;
  transform: scaleX(-1); /* mirror effect */
+ border: 3px solid #6e4b26;
  }
 
- .action-buttons button {
- padding: 0.8em 1.5em;
+ button {
+ padding: 0.7em 1.5em;
  margin: 0.5em;
  font-size: 1rem;
- font-weight: 600;
+ font-weight: 700;
  border: none;
  border-radius: 8px;
  cursor: pointer;
- background: #6e4b26;
  color: #fff;
- transition: background 0.3s ease;
+ background-color: #6e4b26;
+ transition: background 0.3s;
  }
 
- .action-buttons button:hover {
- background: #7a5a34;
+ button:hover {
+ background-color: #7a5a34;
  }
 
  .instructions, .key-features {
@@ -152,20 +152,20 @@
 <p class="slogan">Build Your Confidence</p>
 <p class="slogan">Elevate Your Threads</p>
 
-<div id="preview-container">
- <img id="preview" src="" alt="Photo preview" style="display:none;">
+<div class="preview-container">
+ <img id="preview" alt="Preview of uploaded photo">
 </div>
 
-<div class="action-buttons">
- <button id="start-button">Let's Get Started</button>
- <button id="retake-button" style="display:none;">Retake</button>
- <button id="continue-button" style="display:none;" onclick="location.href='tryon.html'">Continue</button>
-</div>
+<button id="startBtn">Let's Get Started</button>
+<button id="retakeBtn" style="display:none;">Retake</button>
+<button id="continueBtn" style="display:none;" onclick="location.href='tryon.html'">Continue</button>
+
+<input type="file" id="fileInput" accept="image/*" style="display:none">
 
 <div class="instructions" role="region" aria-labelledby="how-to-use-title">
  <h2 id="how-to-use-title">How to Use</h2>
  <ol>
- <li>Tap <strong>Let's Get Started</strong> to take a photo or upload.</li>
+ <li>Tap <strong>Let's Get Started</strong> to take a photo or upload your selfie.</li>
  <li>Browse through styles, mix &amp; match clothing and accessories.</li>
  <li>Save your looks or share them with friends!</li>
  </ol>
@@ -204,39 +204,33 @@
 </footer>
 
 <script>
-const startBtn = document.getElementById('start-button');
-const retakeBtn = document.getElementById('retake-button');
-const continueBtn = document.getElementById('continue-button');
+const startBtn = document.getElementById('startBtn');
+const retakeBtn = document.getElementById('retakeBtn');
+const continueBtn = document.getElementById('continueBtn');
 const preview = document.getElementById('preview');
+const fileInput = document.getElementById('fileInput');
 
 startBtn.addEventListener('click', () => {
- const input = document.createElement('input');
- input.type = 'file';
- input.accept = 'image/*';
- input.capture = 'environment';
- input.onchange = e => {
- const file = e.target.files[0];
+ fileInput.click();
+});
+
+retakeBtn.addEventListener('click', () => {
+ fileInput.click();
+});
+
+fileInput.addEventListener('change', (event) => {
+ const file = event.target.files[0];
  if (file) {
  const reader = new FileReader();
- reader.onload = function(event) {
- preview.src = event.target.result;
+ reader.onload = function(e) {
+ preview.src = e.target.result;
  preview.style.display = 'block';
  startBtn.style.display = 'none';
  retakeBtn.style.display = 'inline-block';
  continueBtn.style.display = 'inline-block';
- }
+ };
  reader.readAsDataURL(file);
  }
- };
- input.click();
-});
-
-retakeBtn.addEventListener('click', () => {
- startBtn.style.display = 'inline-block';
- retakeBtn.style.display = 'none';
- continueBtn.style.display = 'none';
- preview.style.display = 'none';
- preview.src = '';
 });
 </script>
 
