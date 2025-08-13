@@ -35,53 +35,33 @@
  margin-bottom: 0.8em;
  }
 
- #preview {
- margin: 20px auto;
- max-width: 250px;
- border-radius: 12px;
- box-shadow: 0 0 10px rgba(141, 102, 58, 0.3);
+ #photoPreview {
  display: none;
+ margin: 20px auto;
+ max-width: 300px;
+ border-radius: 12px;
+ box-shadow: 0 0 12px rgba(141, 102, 58, 0.4);
  }
 
- .start-button {
+ #startTryOn {
+ margin-top: 10px;
+ padding: 0.8em 1.5em;
+ font-size: 1.2rem;
  background: #6e4b26;
  color: #fff;
  border: none;
- padding: 15px 30px;
- font-size: 1.2rem;
- border-radius: 10px;
+ border-radius: 8px;
  cursor: pointer;
- margin-top: 15px;
  transition: background 0.3s ease;
  }
 
- .start-button:hover {
- background: #7a5a34;
+ #startTryOn:disabled {
+ background: #a48b70;
+ cursor: not-allowed;
  }
 
- .instructions, .key-features {
- background: rgba(217, 179, 130, 0.85);
- padding: 1.5em 2em;
- border-radius: 12px;
- max-width: 520px;
- margin: 1.5em auto;
- color: #4b3221;
- text-align: left;
- font-weight: 600;
- font-size: 1.1rem;
- box-shadow: 0 0 10px rgba(141, 102, 58, 0.3);
- }
-
- .instructions h2, .key-features h2 {
- text-align: center;
- margin-bottom: 1em;
- color: #6e4b26;
- font-weight: 700;
- font-size: 1.8rem;
- }
-
- .instructions ol, .key-features ul {
- padding-left: 1.4em;
+ #startTryOn:hover:not(:disabled) {
+ background: #8b5e32;
  }
 
  footer.cutoff-footer {
@@ -144,34 +124,21 @@
 <p class="slogan">Build Your Confidence</p>
 <p class="slogan">Elevate Your Threads</p>
 
-<!-- Image Preview -->
-<img id="preview" src="" alt="Preview of your photo">
+<!-- Hidden file input -->
+<input type="file" id="photoInput" accept="image/*" style="display:none;">
+<img id="photoPreview" alt="Your photo preview">
 
-<!-- Hidden File Input -->
-<input type="file" id="fileInput" accept="image/*" capture="environment" style="display:none">
-
-<!-- Let’s Get Started Button -->
-<button class="start-button" id="startBtn">Let’s Get Started</button>
+<!-- Let's Get Started button -->
+<button id="startTryOn" disabled>Let's Get Started</button>
 
 <div class="instructions" role="region" aria-labelledby="how-to-use-title">
  <h2 id="how-to-use-title">How to Use</h2>
  <ol>
- <li>Tap <strong>Let’s Get Started</strong> to take a photo or upload one.</li>
+ <li>Tap <strong>Let's Get Started</strong> to take a photo or upload an image.</li>
  <li>Our AI will process your image and let you try on outfits virtually.</li>
  <li>Browse through styles, mix &amp; match clothing and accessories.</li>
  <li>Save your looks or share them with friends!</li>
  </ol>
-</div>
-
-<div class="key-features" role="region" aria-labelledby="key-features-title">
- <h2 id="key-features-title">Key Features</h2>
- <ul>
- <li>AI-powered virtual outfit try-ons</li>
- <li>Extensive catalog of trendy styles</li>
- <li>Mix &amp; match clothing and accessories</li>
- <li>Save and share your favorite looks</li>
- <li>User-friendly interface for effortless styling</li>
- </ul>
 </div>
 
 <footer class="cutoff-footer" role="contentinfo" aria-label="Footer">
@@ -196,29 +163,34 @@
 </footer>
 
 <script>
- const startBtn = document.getElementById('startBtn');
- const fileInput = document.getElementById('fileInput');
- const preview = document.getElementById('preview');
+const photoInput = document.getElementById('photoInput');
+const previewImg = document.getElementById('photoPreview');
+const startBtn = document.getElementById('startTryOn');
 
- startBtn.addEventListener('click', () => {
- fileInput.click();
- });
-
- fileInput.addEventListener('change', () => {
- const file = fileInput.files[0];
- if(file) {
- const reader = new FileReader();
- reader.onload = () => {
- preview.src = reader.result;
- preview.style.display = 'block';
- // Automatically go to tryon.html after image is selected
- setTimeout(() => {
+// Trigger file input when button clicked
+startBtn.addEventListener('click', () => {
+ if(!previewImg.src) {
+ photoInput.click();
+ } else {
+ // Store photo data for tryon page
+ localStorage.setItem('userPhoto', previewImg.src);
  window.location.href = 'tryon.html';
- }, 500);
+ }
+});
+
+// Handle file selection
+photoInput.addEventListener('change', (event) => {
+ const file = event.target.files[0];
+ if (!file) return;
+
+ const reader = new FileReader();
+ reader.onload = function(e) {
+ previewImg.src = e.target.result;
+ previewImg.style.display = 'block';
+ startBtn.disabled = false;
  };
  reader.readAsDataURL(file);
- }
- });
+});
 </script>
 
 </body>
