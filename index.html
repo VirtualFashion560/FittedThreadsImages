@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Fitted Threads</title>
 
 <!-- Google Fonts -->
@@ -16,7 +16,6 @@
  font-family: 'Poppins', sans-serif;
  text-align: center;
  padding: 20px;
- position: relative;
  min-height: 100vh;
  overflow-x: hidden;
  }
@@ -36,60 +35,35 @@
  margin-bottom: 0.8em;
  }
 
- .preview-container {
- margin: 1em auto;
- }
-
- #preview {
+ #preview-image {
+ max-width: 300px;
+ max-height: 400px;
+ margin: 1.5em auto;
  display: none;
- width: 250px;
- height: 250px;
- border-radius: 12px;
- object-fit: cover;
- transform: scaleX(-1); /* mirror effect */
- border: 3px solid #6e4b26;
+ border-radius: 10px;
+ box-shadow: 0 0 15px rgba(0,0,0,0.3);
+ transform: scaleX(-1); /* Mirror effect */
  }
 
- button {
+ .buttons {
+ margin-top: 1em;
+ }
+
+ .buttons button {
+ font-size: 1.2rem;
  padding: 0.7em 1.5em;
- margin: 0.5em;
- font-size: 1rem;
- font-weight: 700;
+ margin: 0 0.5em;
  border: none;
  border-radius: 8px;
  cursor: pointer;
- color: #fff;
- background-color: #6e4b26;
- transition: background 0.3s;
- }
-
- button:hover {
- background-color: #7a5a34;
- }
-
- .instructions, .key-features {
- background: rgba(217, 179, 130, 0.85);
- padding: 1.5em 2em;
- border-radius: 12px;
- max-width: 520px;
- margin: 1.5em auto;
- color: #4b3221;
- text-align: left;
- font-weight: 600;
- font-size: 1.1rem;
- box-shadow: 0 0 10px rgba(141, 102, 58, 0.3);
- }
-
- .instructions h2, .key-features h2 {
- text-align: center;
- margin-bottom: 1em;
- color: #6e4b26;
  font-weight: 700;
- font-size: 1.8rem;
+ background-color: #6e4b26;
+ color: #fff;
+ transition: background 0.3s ease;
  }
 
- .instructions ol, .key-features ul {
- padding-left: 1.4em;
+ .buttons button:hover {
+ background-color: #7a5a34;
  }
 
  footer.cutoff-footer {
@@ -152,44 +126,21 @@
 <p class="slogan">Build Your Confidence</p>
 <p class="slogan">Elevate Your Threads</p>
 
-<div class="preview-container">
- <img id="preview" alt="Preview of uploaded photo">
+<img id="preview-image" src="" alt="Preview">
+
+<div class="buttons">
+ <button id="start-btn">Let's Get Started</button>
+ <button id="retake-btn" style="display:none;">Retake</button>
+ <button id="continue-btn" style="display:none;">Continue</button>
 </div>
 
-<button id="startBtn">Let's Get Started</button>
-<button id="retakeBtn" style="display:none;">Retake</button>
-<button id="continueBtn" style="display:none;" onclick="location.href='tryon.html'">Continue</button>
-
-<input type="file" id="fileInput" accept="image/*" style="display:none">
-
-<div class="instructions" role="region" aria-labelledby="how-to-use-title">
- <h2 id="how-to-use-title">How to Use</h2>
- <ol>
- <li>Tap <strong>Let's Get Started</strong> to take a photo or upload your selfie.</li>
- <li>Browse through styles, mix &amp; match clothing and accessories.</li>
- <li>Save your looks or share them with friends!</li>
- </ol>
-</div>
-
-<div class="key-features" role="region" aria-labelledby="key-features-title">
- <h2 id="key-features-title">Key Features</h2>
- <ul>
- <li>AI-powered virtual outfit try-ons</li>
- <li>Extensive catalog of trendy styles</li>
- <li>Mix &amp; match clothing and accessories</li>
- <li>Save and share your favorite looks</li>
- <li>User-friendly interface for effortless styling</li>
- </ul>
-</div>
-
-<footer class="cutoff-footer" role="contentinfo" aria-label="Footer">
+<footer class="cutoff-footer">
  <ul class="footer-links">
  <li><a href="privacy.html">Privacy Policy</a></li>
  <li><a href="terms.html">Terms &amp; Conditions</a></li>
  <li><a href="about.html">About Us</a></li>
  <li><a href="contact.html">Contact Us</a></li>
  </ul>
-
  <div class="social">
  <a href="https://facebook.com/fittedthreads" target="_blank" rel="noopener" class="social-link" aria-label="Facebook">
  <svg role="img" viewBox="0 0 24 24" fill="currentColor"><title>Facebook</title><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.877v-6.987h-2.54V12h2.54v-2.173c0-2.507 1.492-3.89 3.777-3.89 1.094 0 2.238.196 2.238.196v2.46h-1.26c-1.243 0-1.63.772-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.987C18.343 21.128 22 16.991 22 12z"/></svg>
@@ -204,33 +155,34 @@
 </footer>
 
 <script>
-const startBtn = document.getElementById('startBtn');
-const retakeBtn = document.getElementById('retakeBtn');
-const continueBtn = document.getElementById('continueBtn');
-const preview = document.getElementById('preview');
-const fileInput = document.getElementById('fileInput');
+const startBtn = document.getElementById('start-btn');
+const retakeBtn = document.getElementById('retake-btn');
+const continueBtn = document.getElementById('continue-btn');
+const previewImage = document.getElementById('preview-image');
 
-startBtn.addEventListener('click', () => {
- fileInput.click();
-});
-
-retakeBtn.addEventListener('click', () => {
- fileInput.click();
-});
-
-fileInput.addEventListener('change', (event) => {
- const file = event.target.files[0];
- if (file) {
- const reader = new FileReader();
- reader.onload = function(e) {
- preview.src = e.target.result;
- preview.style.display = 'block';
+function openFilePicker() {
+ const input = document.createElement('input');
+ input.type = 'file';
+ input.accept = 'image/*';
+ input.onchange = e => {
+ const file = e.target.files[0];
+ if(file) {
+ previewImage.src = URL.createObjectURL(file);
+ previewImage.style.display = 'block';
  startBtn.style.display = 'none';
  retakeBtn.style.display = 'inline-block';
  continueBtn.style.display = 'inline-block';
- };
- reader.readAsDataURL(file);
  }
+ };
+ input.click();
+}
+
+startBtn.addEventListener('click', openFilePicker);
+
+retakeBtn.addEventListener('click', openFilePicker);
+
+continueBtn.addEventListener('click', () => {
+ window.location.href = 'tryon.html';
 });
 </script>
 
