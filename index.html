@@ -12,14 +12,19 @@
  body { margin:0; background:linear-gradient(135deg,#a46237,#d9b382); color:#4b3221; font-family:'Poppins',sans-serif; text-align:center; padding:20px; min-height:100vh; overflow-x:hidden;}
  h1 { font-family:'Pacifico',cursive; font-size:3.5rem; color:#6e4b26; margin-bottom:0.3em; }
  .slogan { font-style:italic; font-weight:600; color:#7a5a34; font-size:1.4rem; margin-bottom:0.8em; }
- .preview-container { margin:20px auto; display:none; text-align:center; }
- .preview-box { display:inline-block; margin:10px; }
- .preview-box img { width:200px; height:auto; transform:scaleX(-1); border-radius:12px; margin-bottom:5px; }
+ 
+ .upload-section { display:flex; justify-content:center; gap:40px; margin:20px 0; flex-wrap:wrap; }
+ .upload-box { text-align:center; }
+ .preview { width:250px; height:auto; border-radius:12px; margin-top:10px; display:none; }
+ #selfPreview { transform:scaleX(-1); }
+ 
  .btn { padding:10px 25px; margin:5px; font-size:1.1rem; font-weight:600; border:none; border-radius:8px; cursor:pointer; background-color:#6e4b26; color:#fff; transition:0.3s; }
  .btn:hover { background-color:#7a5a34; }
+
  .section { background: rgba(217,179,130,0.85); padding:1.5em 2em; border-radius:12px; max-width:600px; margin:2em auto; color:#4b3221; text-align:center; box-shadow:0 0 10px rgba(141,102,58,0.3); }
  .section h2 { font-size:1.8rem; margin-bottom:1em; color:#6e4b26; }
  .section ol, .section ul { padding-left:1em; text-align:left; display:inline-block; }
+
  footer.cutoff-footer { background:linear-gradient(135deg,#7e521f,#b58332); color:white; clip-path: polygon(0 10%, 100% 0%, 100% 100%, 0% 100%); padding:2em 1em; margin-top:3em; text-align:center; font-size:0.9rem; }
  .footer-links { list-style:none; padding:0; margin:0 0 1.5em 0; }
  .footer-links li { margin:5px 0; }
@@ -38,46 +43,52 @@
 <p class="slogan">Build Your Confidence</p>
 <p class="slogan">Elevate Your Threads</p>
 
-<input type="file" id="userPhotoInput" accept="image/*" style="display:none"/>
-<input type="file" id="clothingPhotoInput" accept="image/*" style="display:none"/>
-
-<button class="btn" id="startBtn">Let’s Get Started</button>
-
-<div class="preview-container" id="previewContainer">
- <div class="preview-box">
- <p><strong>Your Photo</strong></p>
- <img id="userPreview" src="" alt="Your Photo Preview"/>
+<h2>Let's Get Started</h2>
+<div class="upload-section">
+ <!-- Self Image Upload -->
+ <div class="upload-box">
+ <p><strong>Upload Self Image</strong></p>
+ <input type="file" id="selfInput" accept="image/*" style="display:none">
+ <button class="btn" id="selfBtn">Choose Photo</button>
+ <img id="selfPreview" class="preview" alt="Self Preview">
+ <br>
+ <button class="btn" id="retakeSelf" style="display:none">Retake</button>
  </div>
- <div class="preview-box">
- <p><strong>Clothing / Accessory</strong></p>
- <img id="clothingPreview" src="" alt="Clothing Preview" style="transform:none;"/>
+
+ <!-- Clothing Image Upload -->
+ <div class="upload-box">
+ <p><strong>Upload Clothing Image</strong></p>
+ <input type="file" id="clothInput" accept="image/*" style="display:none">
+ <button class="btn" id="clothBtn">Choose Photo</button>
+ <img id="clothPreview" class="preview" alt="Clothing Preview">
+ <br>
+ <button class="btn" id="retakeCloth" style="display:none">Retake</button>
  </div>
- <br/>
- <button class="btn" id="retakeBtn">Retake</button>
- <button class="btn" id="continueBtn">Continue</button>
 </div>
+
+<!-- Continue Button -->
+<button class="btn" id="continueBtn" style="display:none; margin-top:20px;">Continue</button>
 
 <div class="section">
  <h2>How to Use</h2>
  <ol>
- <li><strong>Tap "Let’s Get Started"</strong> to upload your own photo and a clothing or accessory photo.</li>
- <li><strong>Position Yourself</strong> in your photo so your full body or torso is clearly visible.</li>
- <li><strong>Preview Both Photos</strong> to make sure lighting and angles are ideal. Retake if needed.</li>
- <li><strong>Tap "Continue"</strong> to go to the try-on page where the AI will combine them.</li>
- <li><strong>Explore Styles</strong> by mixing clothing pieces, accessories, and outfit combinations.</li>
- <li><strong>Save & Share</strong> your favorite AI-generated outfits with friends.</li>
+ <li><strong>Upload Two Photos:</strong> One of yourself and one of the clothing/accessory you want to try on.</li>
+ <li><strong>Check Your Previews:</strong> Make sure both images are clear and well-lit. Use "Retake" if needed.</li>
+ <li><strong>Tap "Continue":</strong> See AI-powered results in the try-on page.</li>
+ <li><strong>Explore Styles:</strong> Mix and match clothing, accessories, and colors.</li>
+ <li><strong>Save & Share:</strong> Share your virtual outfits or save them for later.</li>
  </ol>
 </div>
 
 <div class="section">
  <h2>Key Features</h2>
  <ul>
- <li><strong>AI-Powered Try-On:</strong> See how any clothing item looks on you instantly.</li>
- <li><strong>Dual Photo Upload:</strong> Upload yourself and a clothing/accessory item for realistic previews.</li>
- <li><strong>Easy Mix & Match:</strong> Test multiple items without changing clothes in real life.</li>
- <li><strong>Photo Management:</strong> Retake, replace, or update either photo at any time.</li>
- <li><strong>Save & Share:</strong> Keep your favorite combinations or share them for feedback.</li>
- <li><strong>Beautiful Autumn Theme:</strong> Warm, inviting design to enhance your try-on experience.</li>
+ <li><strong>Dual Upload:</strong> Add a personal photo and clothing item for realistic try-ons.</li>
+ <li><strong>AI-Powered Try-On:</strong> See exactly how clothes will look on you.</li>
+ <li><strong>Mix & Match:</strong> Try different styles instantly.</li>
+ <li><strong>Photo Controls:</strong> Retake, replace, or change images anytime.</li>
+ <li><strong>Shareable Looks:</strong> Send to friends for feedback.</li>
+ <li><strong>Easy Navigation:</strong> Simple and fast interface.</li>
  </ul>
 </div>
 
@@ -100,59 +111,81 @@
 </footer>
 
 <script>
-const startBtn = document.getElementById('startBtn');
-const userPhotoInput = document.getElementById('userPhotoInput');
-const clothingPhotoInput = document.getElementById('clothingPhotoInput');
-const previewContainer = document.getElementById('previewContainer');
-const userPreview = document.getElementById('userPreview');
-const clothingPreview = document.getElementById('clothingPreview');
-const retakeBtn = document.getElementById('retakeBtn');
+const selfBtn = document.getElementById('selfBtn');
+const clothBtn = document.getElementById('clothBtn');
+const selfInput = document.getElementById('selfInput');
+const clothInput = document.getElementById('clothInput');
+const selfPreview = document.getElementById('selfPreview');
+const clothPreview = document.getElementById('clothPreview');
+const retakeSelf = document.getElementById('retakeSelf');
+const retakeCloth = document.getElementById('retakeCloth');
 const continueBtn = document.getElementById('continueBtn');
 
-let userPhotoData = '';
-let clothingPhotoData = '';
+let selfImageData = null;
+let clothImageData = null;
 
-startBtn.addEventListener('click', () => {
- userPhotoInput.click();
-});
+function checkContinue() {
+ if (selfImageData && clothImageData) {
+ continueBtn.style.display = 'inline-block';
+ } else {
+ continueBtn.style.display = 'none';
+ }
+}
 
-userPhotoInput.addEventListener('change', (e) => {
+selfBtn.addEventListener('click', () => selfInput.click());
+clothBtn.addEventListener('click', () => clothInput.click());
+
+selfInput.addEventListener('change', (e) => {
  const file = e.target.files[0];
  if(file){
  const reader = new FileReader();
  reader.onload = function(event){
- userPhotoData = event.target.result;
- userPreview.src = userPhotoData;
- clothingPhotoInput.click();
+ selfImageData = event.target.result;
+ selfPreview.src = selfImageData;
+ selfPreview.style.display = 'block';
+ retakeSelf.style.display = 'inline-block';
+ selfBtn.style.display = 'none';
+ checkContinue();
  };
  reader.readAsDataURL(file);
  }
 });
 
-clothingPhotoInput.addEventListener('change', (e) => {
+clothInput.addEventListener('change', (e) => {
  const file = e.target.files[0];
  if(file){
  const reader = new FileReader();
  reader.onload = function(event){
- clothingPhotoData = event.target.result;
- clothingPreview.src = clothingPhotoData;
- previewContainer.style.display = 'block';
- startBtn.style.display = 'none';
+ clothImageData = event.target.result;
+ clothPreview.src = clothImageData;
+ clothPreview.style.display = 'block';
+ retakeCloth.style.display = 'inline-block';
+ clothBtn.style.display = 'none';
+ checkContinue();
  };
  reader.readAsDataURL(file);
  }
 });
 
-retakeBtn.addEventListener('click', () => {
- userPhotoInput.value = '';
- clothingPhotoInput.value = '';
- previewContainer.style.display = 'none';
- startBtn.style.display = 'inline-block';
+retakeSelf.addEventListener('click', () => {
+ selfImageData = null;
+ selfPreview.style.display = 'none';
+ retakeSelf.style.display = 'none';
+ selfBtn.style.display = 'inline-block';
+ checkContinue();
+});
+
+retakeCloth.addEventListener('click', () => {
+ clothImageData = null;
+ clothPreview.style.display = 'none';
+ retakeCloth.style.display = 'none';
+ clothBtn.style.display = 'inline-block';
+ checkContinue();
 });
 
 continueBtn.addEventListener('click', () => {
- sessionStorage.setItem('userPhoto', userPhotoData);
- sessionStorage.setItem('clothingPhoto', clothingPhotoData);
+ localStorage.setItem('selfImage', selfImageData);
+ localStorage.setItem('clothImage', clothImageData);
  window.location.href = 'tryon.html';
 });
 </script>
