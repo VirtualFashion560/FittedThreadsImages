@@ -114,7 +114,7 @@
  vertical-align: middle;
  }
 
-/* + button style */
+/* Added style for the + upload button */
 #uploadBtn {
  position: fixed;
  top: 20px;
@@ -128,6 +128,8 @@
  color: white;
  cursor: pointer;
  z-index: 1000;
+ line-height: 1;
+ font-weight: bold;
 }
 </style>
 </head>
@@ -137,6 +139,10 @@
 <p class="slogan">Find Your Inspiration</p>
 <p class="slogan">Build Your Confidence</p>
 <p class="slogan">Elevate Your Threads</p>
+
+<!-- The + button and hidden file input -->
+<button id="uploadBtn" aria-label="Upload or Take a Photo">+</button>
+<input type="file" id="fileInput" accept="image/*" capture="environment" style="display:none" />
 
 <div class="instructions" role="region" aria-labelledby="how-to-use-title">
  <h2 id="how-to-use-title">How to Use</h2>
@@ -158,10 +164,6 @@
  <li>User-friendly interface for effortless styling</li>
  </ul>
 </div>
-
-<!-- + Button and hidden file input -->
-<button id="uploadBtn">+</button>
-<input type="file" id="fileInput" accept="image/*" capture="environment" style="display:none" />
 
 <footer class="cutoff-footer" role="contentinfo" aria-label="Footer">
  <ul class="footer-links">
@@ -199,7 +201,7 @@
  const imgURL = URL.createObjectURL(file);
  console.log('Selected file:', file);
 
- // Example: open the selected image in a new tab (you can replace this)
+ // Example: Open the image in a new tab (replace this with your actual image processing)
  window.open(imgURL, '_blank');
  });
 </script>
