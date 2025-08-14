@@ -1,47 +1,30 @@
-import express from 'express';
-import bodyParser from 'body-parser';
-import fetch from 'node-fetch'; // Or native fetch in Node 18+
-import cors from 'cors';
+const express = require('express');
+const bodyParser = require('body-parser');
+const fs = require('fs');
+const fetch = require('node-fetch'); // or axios
 
 const app = express();
-const PORT = 3000;
+app.use(bodyParser.json({limit:'50mb'}));
+app.use(express.static('public')); // serve index.html & tryon.html
 
-app.use(cors());
-app.use(bodyParser.json({ limit: '20mb' })); // to handle large base64 images
-
-// Serve your frontend files
-app.use(express.static('public')); // put index.html & tryon.html in /public
-
-// AI Try-On endpoint
 app.post('/api/generate-tryon', async (req, res) => {
+const {self, clothing} = req.body;
+
 try {
-const { self, cloth } = req.body;
+// Replace this with your AI image generation API call
+// Example with OpenAI Images:
+// const aiImage = await generateAIImage(self, clothing);
+// const aiVideo = await generateAIVideo(self, clothing);
 
-if(!self || !cloth){
-return res.status(400).json({ error: 'Missing images' });
-}
-
-// Example: call to your AI API
-const aiResponse = await fetch('https://api.example.com/ai-tryon', {
-method: 'POST',
-headers: {
-'Content-Type': 'application/json',
-'Authorization': 'Bearer YOUR_API_KEY'
-},
-body: JSON.stringify({ self, cloth })
+// For demo, just return uploaded images as placeholders
+res.json({
+aiImage: self, // replace with actual AI-generated image URL/base64
+aiVideo: clothing // replace with actual AI-generated video URL
 });
-
-const aiResult = await aiResponse.json();
-
-// aiResult should contain { image: 'data:image/png;base64,...', video: 'data:video/mp4;base64,...' }
-res.json(aiResult);
-
 } catch(err){
 console.error(err);
-res.status(500).json({ error: 'Server error' });
+res.status(500).json({error:'AI generation failed.'});
 }
 });
 
-app.listen(PORT, () => {
-console.log(`Server running on http://localhost:${PORT}`);
-});
+app.listen(3000, ()=>console.log('Server running on http://localhost:3000'));
