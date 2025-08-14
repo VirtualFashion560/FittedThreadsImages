@@ -1,75 +1,46 @@
 const express = require('express');
-const fetch = require('node-fetch');
-const bodyParser = require('body-parser');
 const cors = require('cors');
+const bodyParser = require('body-parser');
+const fs = require('fs');
+const { Configuration, OpenAIApi } = require('openai');
 
 const app = express();
 app.use(cors());
-app.use(bodyParser.json());
+app.use(bodyParser.json({ limit: '50mb' }));
 app.use(express.static('public'));
 
-const REPLICATE_API_TOKEN = 'YOUR_REPLICATE_API_TOKEN_HERE';
+const configuration = new Configuration({
+apiKey: process.env.OPENAI_API_KEY, // Make sure to set this in your environment
+});
+const openai = new OpenAIApi(configuration);
 
-// Generate AI try-on photo
-app.post('/api/generate-tryon-photo', async (req, res) => {
-const { person_image, cloth_image, cloth_type } = req.body;
+app.post('/api/generate', async (req, res) => {
+const { selfImage, clothImage } = req.body;
+if (!selfImage || !clothImage) {
+return res.status(400).json({ error: 'Missing images' });
+}
 
 try {
-const response = await fetch('https://api.replicate.com/v1/predictions', {
-method: 'POST',
-headers: {
-'Authorization': `Token ${REPLICATE_API_TOKEN}`,
-'Content-Type': 'application/json'
-},
-body: JSON.stringify({
-version: "db21e45d6f2f2c2c1234567890abcdef", // Replace with your model version
-input: {
-person_image,
-cloth_image,
-cloth_type,
-output_format: "png",
-output_quality: 100
-}
-})
+// Generate AI image combining user & clothing
+const imageResponse = await openai.images.generate({
+model: "gpt-image-1",
+prompt: `Combine this person ${selfImage} wearing this clothing ${clothImage} in realistic style`,
+size: "1024x1024"
 });
 
-const data = await response.json();
-let resultUrl = data.output && data.output[0] ? data.output[0] : '';
-res.json({ output_url: resultUrl });
+// Save generated image as base64 URL
+const aiImageBase64 = imageResponse.data[0].b64_json;
+const aiImageUrl = `data:image/png;base64,${aiImageBase64}`;
 
-} catch(err) {
+// Generate AI video placeholder (for full video generation, you would need an actual video API)
+// Here we can return a placeholder video or integrate with a video generation AI if available
+const aiVideoUrl = 'https://www.w3schools.com/html/mov_bbb.mp4';
+
+res.json({ aiImageUrl, aiVideoUrl });
+
+} catch (err) {
 console.error(err);
-res.status(500).json({ error: "Failed to generate AI try-on photo" });
-}
-});
-
-// Generate AI try-on video (optional)
-app.post('/api/generate-tryon-video', async (req, res) => {
-const { person_image, cloth_image } = req.body;
-
-try {
-const response = await fetch('https://api.replicate.com/v1/predictions', {
-method: 'POST',
-headers: {
-'Authorization': `Token ${REPLICATE_API_TOKEN}`,
-'Content-Type': 'application/json'
-},
-body: JSON.stringify({
-version: "YOUR_VIDEO_MODEL_VERSION", // Replace with correct video model version
-input: {
-person_image,
-cloth_image
-}
-})
-});
-
-const data = await response.json();
-let resultUrl = data.output && data.output[0] ? data.output[0] : '';
-res.json({ output_url: resultUrl });
-
-} catch(err) {
-console.error(err);
-res.status(500).json({ error: "Failed to generate AI try-on video" });
+res.status(500).json({ error: 'Failed to generate AI content' });
 }
 });
 
