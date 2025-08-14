@@ -3,179 +3,125 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fitted Threads - Try On</title>
+<title>Fitted Threads Try-On</title>
+<link rel="stylesheet" href="style.css">
 <style>
-body {
-font-family: Arial, sans-serif;
-margin: 0;
-padding: 0;
-background-color: #f9f9f9;
-}
-header {
-background-color: #333;
-color: #fff;
-padding: 1rem;
-text-align: center;
-}
-header h1 {
-margin: 0;
-font-size: 2rem;
-}
-main {
-padding: 2rem;
-}
-.image-preview {
-display: flex;
-gap: 1rem;
-margin-bottom: 2rem;
-}
-.image-preview img {
-width: 45%;
-border: 1px solid #ccc;
-border-radius: 5px;
-}
-.ai-results {
-display: flex;
-gap: 2rem;
-margin-bottom: 2rem;
-}
-.ai-results div {
-flex: 1;
-text-align: center;
-}
-.ai-results img, .ai-results video {
-width: 100%;
-border: 1px solid #ccc;
-border-radius: 5px;
-}
-.save-btn {
-display: block;
-margin: 1rem auto;
-padding: 0.75rem 2rem;
-background-color: #007BFF;
-color: #fff;
-border: none;
-border-radius: 5px;
-cursor: pointer;
-font-size: 1rem;
-}
-.catalog-section {
-background-color: #fff;
-padding: 1rem;
-margin-top: 2rem;
-border-top: 2px solid #ccc;
-}
-.catalog-section h2 {
-text-align: center;
-}
-.catalog-items {
-display: flex;
-gap: 1rem;
-overflow-x: auto;
-padding: 1rem 0;
-}
-.catalog-item {
-flex: 0 0 auto;
-width: 120px;
-text-align: center;
-cursor: pointer;
-}
-.catalog-item img {
-width: 100%;
-border: 1px solid #ccc;
-border-radius: 5px;
-}
-footer {
-background-color: #333;
-color: #fff;
-padding: 1rem;
-text-align: center;
-}
-footer a {
-color: #fff;
-margin: 0 0.5rem;
-text-decoration: none;
-}
+body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #f5f5f5; text-align: center; }
+header { background: #fff; padding: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+header h1 { margin:0; font-size:36px; color:#333; }
+.slogan { font-size:18px; color:#555; margin:5px 0; }
+#uploaded-images, #ai-results { display:flex; justify-content:center; gap:20px; margin:20px 0; }
+#uploaded-images img, #ai-results img, #ai-results video { max-width:300px; max-height:300px; border-radius:10px; background:#ddd; }
+.save-btn { margin:20px 0; padding:10px 20px; font-size:16px; background:#28a745; color:#fff; border:none; border-radius:5px; cursor:pointer; }
+section { background:#fff; margin:20px auto; padding:20px; max-width:900px; text-align:left; border-radius:10px; box-shadow:0 2px 4px rgba(0,0,0,0.1); }
+h2 { text-align:center; color:#333; }
+#catalog { display:flex; flex-wrap:wrap; justify-content:center; gap:15px; margin-top:10px; }
+#catalog img { width:100px; height:100px; object-fit:cover; border-radius:5px; cursor:pointer; border:2px solid transparent; }
+#catalog img:hover { border-color:#007bff; }
 </style>
 </head>
 <body>
 <header>
 <h1>Fitted Threads</h1>
-<p>Try on clothes virtually with AI!</p>
+<p class="slogan">Find Your Inspiration</p>
+<p class="slogan">Build Your Confidence</p>
+<p class="slogan">Elevate Your Threads</p>
 </header>
 
-<main>
-<section class="image-preview">
-<img id="userImage" src="" alt="Your Photo">
-<img id="clothingImage" src="" alt="Clothing/Accessory">
-</section>
-
-<section class="ai-results">
-<div>
-<h2>AI Photo Result</h2>
-<img id="aiPhoto" src="https://via.placeholder.com/400x500?text=AI+Photo" alt="AI Try-On Result">
+<div id="uploaded-images">
+<img id="selfPreview" src="" alt="Self Image">
+<img id="clothPreview" src="" alt="Clothing Image">
 </div>
-<div>
-<h2>AI Video Result</h2>
-<video id="aiVideo" controls poster="https://via.placeholder.com/400x500?text=AI+Video+Placeholder">
+
+<div id="ai-results">
+<img id="aiPhoto" src="" alt="AI Try-On Photo">
+<video id="aiVideo" controls>
 <source src="" type="video/mp4">
 Your browser does not support the video tag.
 </video>
 </div>
-</section>
 
-<button class="save-btn" onclick="alert('Save functionality to be added')">Save AI Result</button>
+<button class="save-btn" id="saveResultBtn">Save AI Result</button>
 
-<section class="catalog-section">
+<section>
 <h2>Clothing Catalog</h2>
-<div class="catalog-items">
-<div class="catalog-item" onclick="replaceClothing('https://via.placeholder.com/150x200?text=Jacket')">
-<img src="https://via.placeholder.com/150x200?text=Jacket" alt="Jacket">
-<p>Jacket</p>
-</div>
-<div class="catalog-item" onclick="replaceClothing('https://via.placeholder.com/150x200?text=Shirt')">
-<img src="https://via.placeholder.com/150x200?text=Shirt" alt="Shirt">
-<p>Shirt</p>
-</div>
-<div class="catalog-item" onclick="replaceClothing('https://via.placeholder.com/150x200?text=Dress')">
-<img src="https://via.placeholder.com/150x200?text=Dress" alt="Dress">
-<p>Dress</p>
-</div>
-<div class="catalog-item" onclick="replaceClothing('https://via.placeholder.com/150x200?text=Coat')">
-<img src="https://via.placeholder.com/150x200?text=Coat" alt="Coat">
-<p>Coat</p>
-</div>
+<div id="catalog">
+<img src="https://replicate.delivery/pbxt/MjVInxdHWaHcHcbQcmiEyf7vm9gMwo59uItGH3vYAaK1G1ir/example_jacket.png" alt="Jacket" data-src="https://replicate.delivery/pbxt/MjVInxdHWaHcHcbQcmiEyf7vm9gMwo59uItGH3vYAaK1G1ir/example_jacket.png">
+<img src="https://replicate.delivery/pbxt/abcd1234/example_shirt.png" alt="Shirt" data-src="https://replicate.delivery/pbxt/abcd1234/example_shirt.png">
+<img src="https://replicate.delivery/pbxt/abcd5678/example_pants.png" alt="Pants" data-src="https://replicate.delivery/pbxt/abcd5678/example_pants.png">
 </div>
 </section>
-</main>
-
-<footer>
-<p>Follow us on
-<a href="#">Instagram</a> |
-<a href="#">Facebook</a> |
-<a href="#">Twitter</a>
-</p>
-<p>&copy; 2025 Fitted Threads</p>
-</footer>
 
 <script>
-// Load uploaded images from localStorage (set by index.html)
-const userImgSrc = localStorage.getItem('userImage');
-const clothingImgSrc = localStorage.getItem('clothingImage');
-
-if (userImgSrc) {
-document.getElementById('userImage').src = userImgSrc;
-}
-if (clothingImgSrc) {
-document.getElementById('clothingImage').src = clothingImgSrc;
-}
-
-// Replace clothing image in AI photo placeholder
-function replaceClothing(newClothingSrc) {
+const selfPreview = document.getElementById('selfPreview');
+const clothPreview = document.getElementById('clothPreview');
 const aiPhoto = document.getElementById('aiPhoto');
-// For now, simulate AI result by combining user image + new clothing
-aiPhoto.src = newClothingSrc.replace('150x200', '400x500'); // enlarge for AI photo
+const aiVideo = document.getElementById('aiVideo');
+const saveBtn = document.getElementById('saveResultBtn');
+
+// Load uploaded images from localStorage
+const selfImageSrc = localStorage.getItem('selfImage');
+const clothImageSrc = localStorage.getItem('clothImage');
+
+if (selfImageSrc && clothImageSrc) {
+selfPreview.src = selfImageSrc;
+clothPreview.src = clothImageSrc;
+
+generateAITryOn(selfImageSrc, clothImageSrc);
+generateAIVideo(selfImageSrc, clothImageSrc);
 }
+
+async function generateAITryOn(personImage, clothImage) {
+aiPhoto.src = "";
+try {
+const response = await fetch("https://api.replicate.com/v1/predictions", {
+method: "POST",
+headers: {
+"Authorization": "Token YOUR_REPLICATE_API_TOKEN",
+"Content-Type": "application/json"
+},
+body: JSON.stringify({
+version: "a9758a2b6b6d0c1c94f93d0e0a7c5c59d76c96d55a6b9f5a5db0f7a5cb1f1c0b",
+input: {
+cloth_type: "upper",
+cloth_image: clothImage,
+person_image: personImage,
+output_format: "png",
+output_quality: 100
+}
+})
+});
+const data = await response.json();
+if (data.output) aiPhoto.src = data.output[0];
+else aiPhoto.alt = "AI result processing...";
+} catch (err) {
+console.error("Error generating AI photo:", err);
+aiPhoto.alt = "Failed to generate AI try-on photo";
+}
+}
+
+async function generateAIVideo(personImage, clothImage) {
+aiVideo.src = ""; // clear previous
+// Placeholder: show same image as short looping video simulation
+// For real AI video, integrate a video generation model
+aiVideo.src = personImage;
+}
+
+// Save AI result
+saveBtn.addEventListener('click', () => {
+alert("AI result saved! (You can link to your save page here)");
+});
+
+// Clothing catalog
+const catalog = document.getElementById('catalog');
+catalog.addEventListener('click', (e) => {
+if(e.target.tagName === 'IMG') {
+const newClothSrc = e.target.dataset.src;
+clothPreview.src = newClothSrc;
+generateAITryOn(selfPreview.src, newClothSrc);
+generateAIVideo(selfPreview.src, newClothSrc);
+}
+});
 </script>
 </body>
 </html>
