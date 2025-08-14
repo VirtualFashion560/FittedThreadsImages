@@ -1,232 +1,218 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
- <meta charset="UTF-8">
- <meta name="viewport" content="width=device-width, initial-scale=1.0">
- <title>Fitted Threads - Virtual Try-On</title>
- <style>
- body {
- font-family: Arial, sans-serif;
- margin: 0;
- padding: 0;
- background-color: #f9f9f9;
- }
- header {
- background-color: #333;
- color: #fff;
- padding: 1rem;
- text-align: center;
- }
- header h1 {
- margin: 0;
- font-size: 2rem;
- }
- main {
- padding: 2rem;
- max-width: 1000px;
- margin: auto;
- }
- .upload-section {
- display: flex;
- gap: 2rem;
- margin-bottom: 1rem;
- }
- .upload-btn {
- padding: 1rem 2rem;
- background-color: #007BFF;
- color: #fff;
- border: none;
- border-radius: 5px;
- cursor: pointer;
- }
- .preview-section {
- display: flex;
- gap: 1rem;
- margin: 1rem 0;
- }
- .preview-section img {
- width: 45%;
- border: 1px solid #ccc;
- border-radius: 5px;
- }
- .action-buttons {
- margin-top: 1rem;
- display: none;
- gap: 1rem;
- }
- .action-buttons button {
- padding: 0.75rem 2rem;
- border: none;
- border-radius: 5px;
- cursor: pointer;
- font-size: 1rem;
- }
- .continue-btn {
- background-color: #28a745;
- color: #fff;
- }
- .retake-btn {
- background-color: #dc3545;
- color: #fff;
- }
- section {
- margin-top: 2rem;
- }
- h2 {
- margin-bottom: 1rem;
- }
- ul {
- list-style: none;
- padding-left: 0;
- }
- li {
- margin-bottom: 0.5rem;
- }
- footer {
- background-color: #333;
- color: #fff;
- padding: 1rem;
- text-align: center;
- }
- footer a {
- color: #fff;
- margin: 0 0.5rem;
- text-decoration: none;
- }
- input[type="file"] {
- display: none;
- }
- </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fitted Threads</title>
+<link rel="stylesheet" href="style.css">
+<style>
+body {
+font-family: Arial, sans-serif;
+margin: 0;
+padding: 0;
+text-align: center;
+background-color: #f5f5f5;
+}
+header {
+background-color: #fff;
+padding: 20px;
+box-shadow: 0px 2px 4px rgba(0,0,0,0.1);
+}
+header h1 {
+margin: 0;
+font-size: 36px;
+color: #333;
+}
+.slogan {
+font-size: 18px;
+font-weight: 500;
+margin: 5px 0;
+color: #555;
+}
+.upload-section {
+margin: 30px 0;
+}
+.upload-btn {
+display: inline-block;
+padding: 10px 20px;
+margin: 10px;
+background-color: #007bff;
+color: #fff;
+border: none;
+cursor: pointer;
+border-radius: 5px;
+font-size: 16px;
+}
+#image-previews {
+display: flex;
+justify-content: center;
+gap: 20px;
+margin: 20px 0;
+}
+#image-previews img {
+max-width: 300px;
+max-height: 300px;
+border-radius: 10px;
+display: none;
+}
+.action-buttons {
+margin: 20px 0;
+}
+.action-buttons button {
+display: none;
+padding: 10px 20px;
+margin: 0 10px;
+font-size: 16px;
+border-radius: 5px;
+border: none;
+cursor: pointer;
+}
+.action-buttons #retake-btn {
+background-color: #dc3545;
+color: #fff;
+}
+.action-buttons #continue-btn {
+background-color: #28a745;
+color: #fff;
+}
+section {
+background-color: #fff;
+margin: 20px auto;
+padding: 20px;
+max-width: 800px;
+text-align: left;
+border-radius: 10px;
+box-shadow: 0px 2px 4px rgba(0,0,0,0.1);
+}
+h2 {
+text-align: center;
+color: #333;
+}
+ul, ol {
+padding-left: 20px;
+}
+li {
+margin: 10px 0;
+}
+footer {
+background-color: #333;
+color: #fff;
+padding: 20px;
+}
+footer a {
+margin: 0 10px;
+color: #fff;
+text-decoration: none;
+font-size: 18px;
+}
+</style>
 </head>
 <body>
- <header>
- <h1>Fitted Threads</h1>
- <p>Virtual Try-On: See yourself in the clothes you love!</p>
- </header>
+<header>
+<h1>Fitted Threads</h1>
+<p class="slogan">Find Your Inspiration</p>
+<p class="slogan">Build Your Confidence</p>
+<p class="slogan">Elevate Your Threads</p>
+</header>
 
- <main>
- <!-- Upload Buttons -->
- <div class="upload-section">
- <label class="upload-btn">
- Upload Self Image
- <input type="file" id="userImageInput" accept="image/*">
- </label>
- <label class="upload-btn">
- Upload Clothing/Accessory
- <input type="file" id="clothingImageInput" accept="image/*">
- </label>
- </div>
+<div class="upload-section">
+<input type="file" id="selfImage" accept="image/*" style="display:none;">
+<button class="upload-btn" onclick="document.getElementById('selfImage').click();">Upload Self Image</button>
 
- <!-- Image Previews -->
- <div class="preview-section" id="previewSection" style="display:none;">
- <img id="userImagePreview" alt="Your Photo">
- <img id="clothingImagePreview" alt="Clothing/Accessory">
- </div>
+<input type="file" id="clothImage" accept="image/*" style="display:none;">
+<button class="upload-btn" onclick="document.getElementById('clothImage').click();">Upload Clothing/Accessory</button>
+</div>
 
- <!-- Action Buttons -->
- <div class="action-buttons" id="actionButtons">
- <button class="retake-btn" id="retakeBtn">Retake</button>
- <button class="continue-btn" id="continueBtn">Continue</button>
- </div>
+<div id="image-previews">
+<img id="selfPreview" src="" alt="Self Image Preview">
+<img id="clothPreview" src="" alt="Clothing Image Preview">
+</div>
 
- <!-- How to Use -->
- <section>
- <h2>How to Use</h2>
- <ol>
- <li>Upload a clear photo of yourself.</li>
- <li>Upload a clothing or accessory item you want to try on.</li>
- <li>Preview your uploaded images.</li>
- <li>Click "Continue" to see your AI try-on results!</li>
- </ol>
- </section>
+<div class="action-buttons">
+<button id="retake-btn">Retake</button>
+<button id="continue-btn">Continue</button>
+</div>
 
- <!-- Key Features -->
- <section>
- <h2>Key Features</h2>
- <ul>
- <li><strong>AI-Powered Try-On:</strong> Instantly see how clothes fit and look on your uploaded photo.</li>
- <li><strong>Wide Variety of Styles:</strong> Explore trendy clothing and accessories from our extensive catalog.</li>
- <li><strong>Easy Mix & Match:</strong> Combine tops, bottoms, and accessories to create unique outfits.</li>
- <li><strong>Photo Management:</strong> Retake, replace, or continue with your photos at any time.</li>
- <li><strong>Save & Share:</strong> Keep your favorite outfits or share them with friends for feedback.</li>
- <li><strong>User-Friendly Interface:</strong> Simple navigation makes virtual styling fun and easy.</li>
- </ul>
- </section>
- </main>
+<section>
+<h2>How to Use</h2>
+<ol>
+<li>Upload your photo and your desired clothing item.</li>
+<li>Preview your uploaded images above.</li>
+<li>Click "Continue" to see your AI-generated try-on result.</li>
+<li>Use the Retake button if you want to upload new images.</li>
+</ol>
+</section>
 
- <footer>
- <p>Follow us on 
- <a href="#">Instagram</a> | 
- <a href="#">Facebook</a> | 
- <a href="#">Twitter</a>
- </p>
- <p>&copy; 2025 Fitted Threads</p>
- </footer>
+<section>
+<h2>Key Features</h2>
+<ul>
+<li><strong>AI-Powered Try-On:</strong> Instantly see how clothes fit and look on your uploaded photo.</li>
+<li><strong>Wide Variety of Styles:</strong> Explore trendy clothing and accessories from our extensive catalog.</li>
+<li><strong>Easy Mix & Match:</strong> Combine tops, bottoms, and accessories to create unique outfits.</li>
+<li><strong>Photo Management:</strong> Retake, replace, or continue with your photos at any time.</li>
+<li><strong>Save & Share:</strong> Keep your favorite outfits or share them with friends for feedback.</li>
+<li><strong>User-Friendly Interface:</strong> Simple navigation makes virtual styling fun and easy.</li>
+</ul>
+</section>
 
- <script>
- const userInput = document.getElementById('userImageInput');
- const clothingInput = document.getElementById('clothingImageInput');
- const userPreview = document.getElementById('userImagePreview');
- const clothingPreview = document.getElementById('clothingImagePreview');
- const previewSection = document.getElementById('previewSection');
- const actionButtons = document.getElementById('actionButtons');
- const retakeBtn = document.getElementById('retakeBtn');
- const continueBtn = document.getElementById('continueBtn');
+<footer>
+<a href="#"><img src="facebook-icon.png" alt="Facebook" width="24"></a>
+<a href="#"><img src="instagram-icon.png" alt="Instagram" width="24"></a>
+<a href="#"><img src="twitter-icon.png" alt="Twitter" width="24"></a>
+</footer>
 
- let userImageLoaded = false;
- let clothingImageLoaded = false;
+<script>
+const selfImage = document.getElementById('selfImage');
+const clothImage = document.getElementById('clothImage');
+const selfPreview = document.getElementById('selfPreview');
+const clothPreview = document.getElementById('clothPreview');
+const retakeBtn = document.getElementById('retake-btn');
+const continueBtn = document.getElementById('continue-btn');
 
- function checkBothImages() {
- if (userImageLoaded && clothingImageLoaded) {
- previewSection.style.display = 'flex';
- actionButtons.style.display = 'flex';
- }
- }
+function checkImages() {
+if (selfPreview.src && clothPreview.src) {
+retakeBtn.style.display = 'inline-block';
+continueBtn.style.display = 'inline-block';
+} else {
+retakeBtn.style.display = 'none';
+continueBtn.style.display = 'none';
+}
+}
 
- userInput.addEventListener('change', (e) => {
- const file = e.target.files[0];
- if (file) {
- const reader = new FileReader();
- reader.onload = function(event) {
- userPreview.src = event.target.result;
- userImageLoaded = true;
- localStorage.setItem('userImage', event.target.result);
- checkBothImages();
- }
- reader.readAsDataURL(file);
- }
- });
+selfImage.addEventListener('change', function(event) {
+const file = event.target.files[0];
+if (file) {
+selfPreview.src = URL.createObjectURL(file);
+selfPreview.style.display = 'inline-block';
+checkImages();
+}
+});
 
- clothingInput.addEventListener('change', (e) => {
- const file = e.target.files[0];
- if (file) {
- const reader = new FileReader();
- reader.onload = function(event) {
- clothingPreview.src = event.target.result;
- clothingImageLoaded = true;
- localStorage.setItem('clothingImage', event.target.result);
- checkBothImages();
- }
- reader.readAsDataURL(file);
- }
- });
+clothImage.addEventListener('change', function(event) {
+const file = event.target.files[0];
+if (file) {
+clothPreview.src = URL.createObjectURL(file);
+clothPreview.style.display = 'inline-block';
+checkImages();
+}
+});
 
- retakeBtn.addEventListener('click', () => {
- userPreview.src = '';
- clothingPreview.src = '';
- previewSection.style.display = 'none';
- actionButtons.style.display = 'none';
- userInput.value = '';
- clothingInput.value = '';
- userImageLoaded = false;
- clothingImageLoaded = false;
- localStorage.removeItem('userImage');
- localStorage.removeItem('clothingImage');
- });
+retakeBtn.addEventListener('click', function() {
+selfPreview.src = '';
+clothPreview.src = '';
+selfPreview.style.display = 'none';
+clothPreview.style.display = 'none';
+selfImage.value = '';
+clothImage.value = '';
+checkImages();
+});
 
- continueBtn.addEventListener('click', () => {
- window.location.href = 'tryon.html';
- });
- </script>
+continueBtn.addEventListener('click', function() {
+// Save uploaded image data to localStorage for tryon.html
+localStorage.setItem('selfImage', selfPreview.src);
+localStorage.setItem('clothImage', clothPreview.src);
+window.location.href = 'tryon.html';
+});
+</script>
 </body>
 </html>
