@@ -4,40 +4,20 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Fitted Threads</title>
-
-<!-- Google Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
-
 <style>
- body {
- margin:0;
- background:linear-gradient(135deg,#a46237,#d9b382);
- color:#4b3221;
- font-family:'Poppins',sans-serif;
- text-align:center;
- padding:20px;
- min-height:100vh;
- overflow-x:hidden;
- }
+ body { margin:0; background:linear-gradient(135deg,#a46237,#d9b382); color:#4b3221; font-family:'Poppins',sans-serif; text-align:center; padding:20px; min-height:100vh; overflow-x:hidden;}
  h1 { font-family:'Pacifico',cursive; font-size:3.5rem; color:#6e4b26; margin-bottom:0.3em; }
  .slogan { font-style:italic; font-weight:600; color:#7a5a34; font-size:1.4rem; margin-bottom:0.8em; }
  .upload-buttons { display:flex; justify-content:center; gap:20px; margin:1em 0; }
  .btn { padding:10px 25px; font-size:1.1rem; font-weight:600; border:none; border-radius:8px; cursor:pointer; background-color:#6e4b26; color:#fff; transition:0.3s; }
  .btn:hover { background-color:#7a5a34; }
- .preview-container { display:flex; justify-content:center; gap:20px; margin:1em 0; }
- .preview-container img { max-width:250px; max-height:250px; border-radius:12px; display:none; }
+ .preview-container { display:none; justify-content:center; gap:20px; margin:1em 0; }
+ .preview-container img { max-width:250px; max-height:250px; border-radius:12px; }
  .section { background: rgba(217,179,130,0.85); padding:1.5em 2em; border-radius:12px; max-width:600px; margin:2em auto; color:#4b3221; text-align:center; box-shadow:0 0 10px rgba(141,102,58,0.3); }
  .section h2 { font-size:1.8rem; margin-bottom:1em; color:#6e4b26; }
  .section ol, .section ul { padding-left:1em; text-align:left; display:inline-block; }
- footer.cutoff-footer {
- background:linear-gradient(135deg,#7e521f,#b58332);
- color:white;
- clip-path: polygon(0 10%, 100% 0%, 100% 100%, 0% 100%);
- padding:2em 1em;
- margin-top:3em;
- text-align:center;
- font-size:0.9rem;
- }
+ footer.cutoff-footer { background:linear-gradient(135deg,#7e521f,#b58332); color:white; clip-path: polygon(0 10%, 100% 0%, 100% 100%, 0% 100%); padding:2em 1em; margin-top:3em; text-align:center; font-size:0.9rem; }
  .footer-links { list-style:none; padding:0; margin:0 0 1.5em 0; }
  .footer-links li { margin:5px 0; }
  .footer-links a { color:white; text-decoration:none; font-weight:500; }
@@ -46,6 +26,7 @@
  .social-link { display:inline-block; margin:0 10px; color:white; transition:color 0.3s ease; font-size:1.5rem; }
  .social-link:hover { color:#d9b382; }
  .social-link svg { width:28px; height:28px; vertical-align:middle; }
+ #actionBtns { display:none; margin-top:1em; gap:20px; }
 </style>
 </head>
 <body>
@@ -68,32 +49,32 @@
  <img id="clothPreview" src="" alt="Clothing Preview"/>
 </div>
 
-<div>
- <button class="btn" id="retakeBtn" style="display:none;">Retake</button>
- <button class="btn" id="continueBtn" style="display:none;">Continue</button>
+<div id="actionBtns">
+ <button class="btn" id="retakeBtn">Retake</button>
+ <button class="btn" id="continueBtn">Continue</button>
 </div>
 
 <div class="section">
  <h2>How to Use</h2>
  <ol>
- <li><strong>Upload Your Photos:</strong> Upload a photo of yourself and optionally a clothing item.</li>
- <li><strong>Preview Your Photos:</strong> Make sure your photo and the item are clear.</li>
- <li><strong>Retake if Needed:</strong> Replace any photo if it’s not perfect.</li>
- <li><strong>Continue:</strong> Tap "Continue" to proceed to the virtual try-on page.</li>
- <li><strong>Explore Styles:</strong> Browse, mix, and match outfits to find your perfect look.</li>
- <li><strong>Save & Share:</strong> Keep your favorite looks or share them with friends.</li>
+ <li>Upload a photo of yourself and a clothing item.</li>
+ <li>Preview both images to ensure clarity.</li>
+ <li>Retake if needed.</li>
+ <li>Click "Continue" to go to try-on page.</li>
+ <li>Explore styles and mix & match outfits.</li>
+ <li>Save & share your favorite looks.</li>
  </ol>
 </div>
 
 <div class="section">
  <h2>Key Features</h2>
  <ul>
- <li><strong>AI-Powered Try-On:</strong> See how clothes fit on your uploaded photo.</li>
- <li><strong>Wide Variety of Styles:</strong> Explore trendy clothing from our catalog.</li>
- <li><strong>Easy Mix & Match:</strong> Combine tops, bottoms, and accessories easily.</li>
- <li><strong>Photo Management:</strong> Retake, replace, or continue with your photos anytime.</li>
- <li><strong>Save & Share:</strong> Keep your favorite outfits or share with friends.</li>
- <li><strong>User-Friendly Interface:</strong> Simple and fun navigation.</li>
+ <li>AI-Powered Try-On</li>
+ <li>Wide Variety of Styles</li>
+ <li>Easy Mix & Match</li>
+ <li>Photo Management</li>
+ <li>Save & Share</li>
+ <li>User-Friendly Interface</li>
  </ul>
 </div>
 
@@ -116,76 +97,51 @@
 </footer>
 
 <script>
- const selfBtn = document.getElementById('selfBtn');
- const clothBtn = document.getElementById('clothBtn');
- const selfInput = document.getElementById('selfInput');
- const clothInput = document.getElementById('clothInput');
- const selfPreview = document.getElementById('selfPreview');
- const clothPreview = document.getElementById('clothPreview');
- const previewContainer = document.getElementById('previewContainer');
- const retakeBtn = document.getElementById('retakeBtn');
- const continueBtn = document.getElementById('continueBtn');
+const selfBtn = document.getElementById('selfBtn');
+const clothBtn = document.getElementById('clothBtn');
+const selfInput = document.getElementById('selfInput');
+const clothInput = document.getElementById('clothInput');
+const selfPreview = document.getElementById('selfPreview');
+const clothPreview = document.getElementById('clothPreview');
+const previewContainer = document.getElementById('previewContainer');
+const actionBtns = document.getElementById('actionBtns');
+const retakeBtn = document.getElementById('retakeBtn');
+const continueBtn = document.getElementById('continueBtn');
 
- let selfImageData = null;
- let clothImageData = null;
+selfBtn.addEventListener('click', () => selfInput.click());
+clothBtn.addEventListener('click', () => clothInput.click());
 
- selfBtn.addEventListener('click', () => selfInput.click());
- clothBtn.addEventListener('click', () => clothInput.click());
+function updatePreviews() {
+ if (selfInput.files[0] && clothInput.files[0]) {
+ const selfReader = new FileReader();
+ selfReader.onload = () => selfPreview.src = selfReader.result;
+ selfReader.readAsDataURL(selfInput.files[0]);
 
- function showPreviews() {
- if (selfImageData) {
- selfPreview.src = selfImageData;
- selfPreview.style.display = 'block';
+ const clothReader = new FileReader();
+ clothReader.onload = () => clothPreview.src = clothReader.result;
+ clothReader.readAsDataURL(clothInput.files[0]);
+
+ previewContainer.style.display = 'flex';
+ actionBtns.style.display = 'flex';
  }
- if (clothImageData) {
- clothPreview.src = clothImageData;
- clothPreview.style.display = 'block';
- }
- if (selfImageData || clothImageData) retakeBtn.style.display = 'inline-block';
- if (selfImageData && clothImageData) continueBtn.style.display = 'inline-block';
- }
+}
 
- selfInput.addEventListener('change', e => {
- const file = e.target.files[0];
- if (file) {
- const reader = new FileReader();
- reader.onload = () => { selfImageData = reader.result; localStorage.setItem('selfImage', selfImageData); showPreviews(); };
- reader.readAsDataURL(file);
- }
- });
+selfInput.addEventListener('change', updatePreviews);
+clothInput.addEventListener('change', updatePreviews);
 
- clothInput.addEventListener('change', e => {
- const file = e.target.files[0];
- if (file) {
- const reader = new FileReader();
- reader.onload = () => { clothImageData = reader.result; localStorage.setItem('clothImage', clothImageData); showPreviews(); };
- reader.readAsDataURL(file);
- }
- });
+retakeBtn.addEventListener('click', () => {
+ selfInput.value = '';
+ clothInput.value = '';
+ previewContainer.style.display = 'none';
+ actionBtns.style.display = 'none';
+});
 
- retakeBtn.addEventListener('click', () => {
- selfImageData = null;
- clothImageData = null;
- localStorage.removeItem('selfImage');
- localStorage.removeItem('clothImage');
- selfPreview.style.display = 'none';
- clothPreview.style.display = 'none';
- retakeBtn.style.display = 'none';
- continueBtn.style.display = 'none';
- });
-
- continueBtn.addEventListener('click', () => {
- if (selfImageData && clothImageData) {
+continueBtn.addEventListener('click', () => {
+ // Store images in localStorage to pass to tryon.html
+ localStorage.setItem('selfImage', selfPreview.src);
+ localStorage.setItem('clothImage', clothPreview.src);
  window.location.href = 'tryon.html';
- }
- });
-
- // Load previews if user comes back
- window.addEventListener('load', () => {
- selfImageData = localStorage.getItem('selfImage');
- clothImageData = localStorage.getItem('clothImage');
- showPreviews();
- });
+});
 </script>
 
 </body>
