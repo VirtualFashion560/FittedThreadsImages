@@ -1,125 +1,181 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Fitted Threads - Try On</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
-
 <style>
-body { margin:0; font-family:'Poppins',sans-serif; background:linear-gradient(135deg,#a46237,#d9b382); color:#4b3221; text-align:center; padding:20px; }
-h1 { font-family:'Pacifico',cursive; font-size:3rem; color:#6e4b26; margin-bottom:0.2em; }
-h2 { color:#6e4b26; }
-img, video { max-width:350px; border-radius:12px; margin:10px; }
-#tryon-container { display:flex; justify-content:center; align-items:flex-start; gap:30px; flex-wrap:wrap; margin-top:2em; }
-#ai-results { display:flex; flex-direction:column; align-items:center; gap:20px; }
-#catalog { position:fixed; top:100px; right:20px; background:rgba(217,179,130,0.9); padding:1em; border-radius:12px; box-shadow:0 0 10px rgba(0,0,0,0.3); max-width:250px; }
-#catalog select { width:100%; padding:0.5em; margin-top:0.5em; }
-#saveBtn { margin-top:20px; padding:10px 25px; font-size:1.1rem; font-weight:600; border:none; border-radius:8px; cursor:pointer; background-color:#6e4b26; color:#fff; transition:0.3s; }
-#saveBtn:hover { background-color:#7a5a34; }
+body {
+font-family: Arial, sans-serif;
+margin: 0;
+padding: 0;
+background-color: #f9f9f9;
+}
+header {
+background-color: #333;
+color: #fff;
+padding: 1rem;
+text-align: center;
+}
+header h1 {
+margin: 0;
+font-size: 2rem;
+}
+main {
+padding: 2rem;
+}
+.image-preview {
+display: flex;
+gap: 1rem;
+margin-bottom: 2rem;
+}
+.image-preview img {
+width: 45%;
+border: 1px solid #ccc;
+border-radius: 5px;
+}
+.ai-results {
+display: flex;
+gap: 2rem;
+margin-bottom: 2rem;
+}
+.ai-results div {
+flex: 1;
+text-align: center;
+}
+.ai-results img, .ai-results video {
+width: 100%;
+border: 1px solid #ccc;
+border-radius: 5px;
+}
+.save-btn {
+display: block;
+margin: 1rem auto;
+padding: 0.75rem 2rem;
+background-color: #007BFF;
+color: #fff;
+border: none;
+border-radius: 5px;
+cursor: pointer;
+font-size: 1rem;
+}
+.catalog-section {
+background-color: #fff;
+padding: 1rem;
+margin-top: 2rem;
+border-top: 2px solid #ccc;
+}
+.catalog-section h2 {
+text-align: center;
+}
+.catalog-items {
+display: flex;
+gap: 1rem;
+overflow-x: auto;
+padding: 1rem 0;
+}
+.catalog-item {
+flex: 0 0 auto;
+width: 120px;
+text-align: center;
+cursor: pointer;
+}
+.catalog-item img {
+width: 100%;
+border: 1px solid #ccc;
+border-radius: 5px;
+}
+footer {
+background-color: #333;
+color: #fff;
+padding: 1rem;
+text-align: center;
+}
+footer a {
+color: #fff;
+margin: 0 0.5rem;
+text-decoration: none;
+}
 </style>
 </head>
 <body>
+<header>
+<h1>Fitted Threads</h1>
+<p>Try on clothes virtually with AI!</p>
+</header>
 
-<h1>Fitted Threads - Try On</h1>
-<div id="tryon-container">
- <div>
- <h2>Uploaded Images</h2>
- <img id="selfPreview" src="" alt="Self Preview"/>
- <img id="clothPreview" src="" alt="Clothing Preview"/>
- </div>
+<main>
+<section class="image-preview">
+<img id="userImage" src="" alt="Your Photo">
+<img id="clothingImage" src="" alt="Clothing/Accessory">
+</section>
 
- <div id="ai-results">
- <h2>AI Try-On Results</h2>
- <img id="aiPhoto" src="" alt="AI Photo Result"/>
- <video id="aiVideo" controls autoplay loop muted></video>
- <button id="saveBtn">Save AI Result</button>
- </div>
+<section class="ai-results">
+<div>
+<h2>AI Photo Result</h2>
+<img id="aiPhoto" src="https://via.placeholder.com/400x500?text=AI+Photo" alt="AI Try-On Result">
 </div>
-
-<div id="catalog">
- <h2>Clothing Catalog</h2>
- <select id="clothingSelect">
- <option value="">--Choose Clothing--</option>
- <option value="https://replicate.delivery/pbxt/MjVInxdHWaHcHcbQcmiEyf7vm9gMwo59uItGH3vYAaK1G1ir/example_jacket.png">Jacket</option>
- <option value="https://replicate.delivery/pbxt/MjVIo8ENgFG5SBbMep5WKSJFakH3AxBX9YDzROldiNVK53VK/model%201.jpg">Shirt</option>
- <option value="https://replicate.delivery/pbxt/ExampleDress.png">Dress</option>
- <option value="https://replicate.delivery/pbxt/ExampleHat.png">Hat</option>
- </select>
+<div>
+<h2>AI Video Result</h2>
+<video id="aiVideo" controls poster="https://via.placeholder.com/400x500?text=AI+Video+Placeholder">
+<source src="" type="video/mp4">
+Your browser does not support the video tag.
+</video>
 </div>
+</section>
+
+<button class="save-btn" onclick="alert('Save functionality to be added')">Save AI Result</button>
+
+<section class="catalog-section">
+<h2>Clothing Catalog</h2>
+<div class="catalog-items">
+<div class="catalog-item" onclick="replaceClothing('https://via.placeholder.com/150x200?text=Jacket')">
+<img src="https://via.placeholder.com/150x200?text=Jacket" alt="Jacket">
+<p>Jacket</p>
+</div>
+<div class="catalog-item" onclick="replaceClothing('https://via.placeholder.com/150x200?text=Shirt')">
+<img src="https://via.placeholder.com/150x200?text=Shirt" alt="Shirt">
+<p>Shirt</p>
+</div>
+<div class="catalog-item" onclick="replaceClothing('https://via.placeholder.com/150x200?text=Dress')">
+<img src="https://via.placeholder.com/150x200?text=Dress" alt="Dress">
+<p>Dress</p>
+</div>
+<div class="catalog-item" onclick="replaceClothing('https://via.placeholder.com/150x200?text=Coat')">
+<img src="https://via.placeholder.com/150x200?text=Coat" alt="Coat">
+<p>Coat</p>
+</div>
+</div>
+</section>
+</main>
+
+<footer>
+<p>Follow us on
+<a href="#">Instagram</a> |
+<a href="#">Facebook</a> |
+<a href="#">Twitter</a>
+</p>
+<p>&copy; 2025 Fitted Threads</p>
+</footer>
 
 <script>
-const selfPreview = document.getElementById('selfPreview');
-const clothPreview = document.getElementById('clothPreview');
-const aiPhoto = document.getElementById('aiPhoto');
-const aiVideo = document.getElementById('aiVideo');
-const clothingSelect = document.getElementById('clothingSelect');
-const saveBtn = document.getElementById('saveBtn');
+// Load uploaded images from localStorage (set by index.html)
+const userImgSrc = localStorage.getItem('userImage');
+const clothingImgSrc = localStorage.getItem('clothingImage');
 
-// Load uploaded images from localStorage
-selfPreview.src = localStorage.getItem('selfImage') || '';
-clothPreview.src = localStorage.getItem('clothImage') || '';
-
-// Update cloth image if user picks from catalog
-clothingSelect.addEventListener('change', () => {
- if(clothingSelect.value){
- clothPreview.src = clothingSelect.value;
- localStorage.setItem('clothImage', clothingSelect.value);
- generateAIResult();
- }
-});
-
-// Function to call Replicate API for AI try-on photo
-async function generateAIResult(){
- const person = selfPreview.src;
- const cloth = clothPreview.src;
- if(!person || !cloth) return;
-
- // Replace with your own API token in environment variable
- const REPLICATE_API_TOKEN = "YOUR_REPLICATE_API_TOKEN";
-
- const response = await fetch("https://api.replicate.com/v1/predictions", {
- method:"POST",
- headers:{
- "Authorization": `Token ${REPLICATE_API_TOKEN}`,
- "Content-Type":"application/json"
- },
- body: JSON.stringify({
- version: "YOUR_MODEL_VERSION_ID",
- input: {
- person_image: person,
- cloth_image: cloth,
- cloth_type: "upper",
- output_format: "png",
- output_quality: 100
- }
- })
- });
- const data = await response.json();
- 
- // Poll for result until completed
- let prediction = data;
- while(prediction.status !== "succeeded" && prediction.status !== "failed"){
- await new Promise(r => setTimeout(r,2000));
- const poll = await fetch(`https://api.replicate.com/v1/predictions/${prediction.id}`, {
- headers: { "Authorization": `Token ${REPLICATE_API_TOKEN}` }
- });
- prediction = await poll.json();
- }
- if(prediction.status === "succeeded"){
- aiPhoto.src = prediction.output[0]; // For image result
- aiVideo.src = prediction.output[1] || ""; // For video if available
- }
+if (userImgSrc) {
+document.getElementById('userImage').src = userImgSrc;
+}
+if (clothingImgSrc) {
+document.getElementById('clothingImage').src = clothingImgSrc;
 }
 
-// Initial AI generation
-generateAIResult();
-
-// Save button functionality
-saveBtn.addEventListener('click', () => {
- alert("Save button clicked! You can link this to another page to save the AI result.");
-});
+// Replace clothing image in AI photo placeholder
+function replaceClothing(newClothingSrc) {
+const aiPhoto = document.getElementById('aiPhoto');
+// For now, simulate AI result by combining user image + new clothing
+aiPhoto.src = newClothingSrc.replace('150x200', '400x500'); // enlarge for AI photo
+}
 </script>
 </body>
 </html>
