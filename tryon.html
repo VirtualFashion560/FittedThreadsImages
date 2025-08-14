@@ -1,127 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fitted Threads Try-On</title>
-<link rel="stylesheet" href="style.css">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Fitted Threads - Try On</title>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
 <style>
-body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #f5f5f5; text-align: center; }
-header { background: #fff; padding: 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-header h1 { margin:0; font-size:36px; color:#333; }
-.slogan { font-size:18px; color:#555; margin:5px 0; }
-#uploaded-images, #ai-results { display:flex; justify-content:center; gap:20px; margin:20px 0; }
-#uploaded-images img, #ai-results img, #ai-results video { max-width:300px; max-height:300px; border-radius:10px; background:#ddd; }
-.save-btn { margin:20px 0; padding:10px 20px; font-size:16px; background:#28a745; color:#fff; border:none; border-radius:5px; cursor:pointer; }
-section { background:#fff; margin:20px auto; padding:20px; max-width:900px; text-align:left; border-radius:10px; box-shadow:0 2px 4px rgba(0,0,0,0.1); }
-h2 { text-align:center; color:#333; }
-#catalog { display:flex; flex-wrap:wrap; justify-content:center; gap:15px; margin-top:10px; }
-#catalog img { width:100px; height:100px; object-fit:cover; border-radius:5px; cursor:pointer; border:2px solid transparent; }
-#catalog img:hover { border-color:#007bff; }
+body { margin:0; font-family:'Poppins',sans-serif; background:#f9f3ef; color:#4b3221; text-align:center; padding:20px;}
+h1 { font-family:'Pacifico',cursive; font-size:3rem; color:#6e4b26; margin-bottom:0.3em; }
+.images { display:flex; justify-content:center; gap:20px; margin:20px 0; flex-wrap:wrap;}
+.images img { max-width:250px; max-height:250px; border-radius:12px; border:2px solid #6e4b26; }
+.generated { margin-top:2em; }
+.generated img, .generated video { max-width:400px; border-radius:12px; margin:10px 0; border:2px solid #6e4b26; }
+.btn { padding:10px 25px; font-size:1.1rem; font-weight:600; border:none; border-radius:8px; cursor:pointer; background-color:#6e4b26; color:#fff; transition:0.3s; margin-top:1em;}
+.btn:hover { background-color:#7a5a34; }
+.loader { border: 6px solid #f3f3f3; border-top: 6px solid #6e4b26; border-radius: 50%; width:50px; height:50px; animation: spin 1s linear infinite; margin:20px auto; display:none;}
+@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 </style>
 </head>
 <body>
-<header>
-<h1>Fitted Threads</h1>
-<p class="slogan">Find Your Inspiration</p>
-<p class="slogan">Build Your Confidence</p>
-<p class="slogan">Elevate Your Threads</p>
-</header>
 
-<div id="uploaded-images">
-<img id="selfPreview" src="" alt="Self Image">
-<img id="clothPreview" src="" alt="Clothing Image">
+<h1>Fitted Threads - Try On</h1>
+
+<div class="images">
+<img id="selfPreview" src="" alt="Self Image"/>
+<img id="clothPreview" src="" alt="Clothing Image"/>
 </div>
 
-<div id="ai-results">
-<img id="aiPhoto" src="" alt="AI Try-On Photo">
-<video id="aiVideo" controls>
-<source src="" type="video/mp4">
-Your browser does not support the video tag.
-</video>
+<div class="generated">
+<h2>AI Generated Image</h2>
+<div class="loader" id="imageLoader"></div>
+<img id="aiImage" src="" alt="AI Try-On Result"/>
 </div>
 
-<button class="save-btn" id="saveResultBtn">Save AI Result</button>
-
-<section>
-<h2>Clothing Catalog</h2>
-<div id="catalog">
-<img src="https://replicate.delivery/pbxt/MjVInxdHWaHcHcbQcmiEyf7vm9gMwo59uItGH3vYAaK1G1ir/example_jacket.png" alt="Jacket" data-src="https://replicate.delivery/pbxt/MjVInxdHWaHcHcbQcmiEyf7vm9gMwo59uItGH3vYAaK1G1ir/example_jacket.png">
-<img src="https://replicate.delivery/pbxt/abcd1234/example_shirt.png" alt="Shirt" data-src="https://replicate.delivery/pbxt/abcd1234/example_shirt.png">
-<img src="https://replicate.delivery/pbxt/abcd5678/example_pants.png" alt="Pants" data-src="https://replicate.delivery/pbxt/abcd5678/example_pants.png">
+<div class="generated">
+<h2>AI Generated Video</h2>
+<div class="loader" id="videoLoader"></div>
+<video id="aiVideo" controls autoplay loop></video>
 </div>
-</section>
+
+<button class="btn" id="regenerateBtn">Regenerate</button>
 
 <script>
 const selfPreview = document.getElementById('selfPreview');
 const clothPreview = document.getElementById('clothPreview');
-const aiPhoto = document.getElementById('aiPhoto');
+const aiImage = document.getElementById('aiImage');
 const aiVideo = document.getElementById('aiVideo');
-const saveBtn = document.getElementById('saveResultBtn');
+const imageLoader = document.getElementById('imageLoader');
+const videoLoader = document.getElementById('videoLoader');
+const regenerateBtn = document.getElementById('regenerateBtn');
 
-// Load uploaded images from localStorage
-const selfImageSrc = localStorage.getItem('selfImage');
-const clothImageSrc = localStorage.getItem('clothImage');
+const selfData = localStorage.getItem('selfImage');
+const clothData = localStorage.getItem('clothImage');
 
-if (selfImageSrc && clothImageSrc) {
-selfPreview.src = selfImageSrc;
-clothPreview.src = clothImageSrc;
-
-generateAITryOn(selfImageSrc, clothImageSrc);
-generateAIVideo(selfImageSrc, clothImageSrc);
+if(!selfData || !clothData){
+alert("Please upload images first on the home page.");
+window.location.href = "index.html";
+} else {
+selfPreview.src = selfData;
+clothPreview.src = clothData;
+generateAI();
 }
 
-async function generateAITryOn(personImage, clothImage) {
-aiPhoto.src = "";
+regenerateBtn.addEventListener('click', generateAI);
+
+async function generateAI() {
+aiImage.src = '';
+aiVideo.src = '';
+imageLoader.style.display = 'block';
+videoLoader.style.display = 'block';
+
 try {
-const response = await fetch("https://api.replicate.com/v1/predictions", {
-method: "POST",
-headers: {
-"Authorization": "Token YOUR_REPLICATE_API_TOKEN",
-"Content-Type": "application/json"
-},
-body: JSON.stringify({
-version: "a9758a2b6b6d0c1c94f93d0e0a7c5c59d76c96d55a6b9f5a5db0f7a5cb1f1c0b",
-input: {
-cloth_type: "upper",
-cloth_image: clothImage,
-person_image: personImage,
-output_format: "png",
-output_quality: 100
-}
-})
+// Generate AI Image
+const imgResp = await fetch('/generate-image', {
+method:'POST',
+headers: { 'Content-Type':'application/json' },
+body: JSON.stringify({ selfImage: selfData, clothImage: clothData })
 });
-const data = await response.json();
-if (data.output) aiPhoto.src = data.output[0];
-else aiPhoto.alt = "AI result processing...";
-} catch (err) {
-console.error("Error generating AI photo:", err);
-aiPhoto.alt = "Failed to generate AI try-on photo";
-}
-}
+const imgData = await imgResp.json();
+aiImage.src = imgData.url;
+imageLoader.style.display = 'none';
 
-async function generateAIVideo(personImage, clothImage) {
-aiVideo.src = ""; // clear previous
-// Placeholder: show same image as short looping video simulation
-// For real AI video, integrate a video generation model
-aiVideo.src = personImage;
-}
-
-// Save AI result
-saveBtn.addEventListener('click', () => {
-alert("AI result saved! (You can link to your save page here)");
+// Generate AI Video
+const vidResp = await fetch('/generate-video', {
+method:'POST',
+headers: { 'Content-Type':'application/json' },
+body: JSON.stringify({ selfImage: selfData, clothImage: clothData })
 });
+const vidData = await vidResp.json();
+aiVideo.src = vidData.url;
+videoLoader.style.display = 'none';
 
-// Clothing catalog
-const catalog = document.getElementById('catalog');
-catalog.addEventListener('click', (e) => {
-if(e.target.tagName === 'IMG') {
-const newClothSrc = e.target.dataset.src;
-clothPreview.src = newClothSrc;
-generateAITryOn(selfPreview.src, newClothSrc);
-generateAIVideo(selfPreview.src, newClothSrc);
+} catch(e) {
+console.error(e);
+alert("Error generating AI results. Try again.");
+imageLoader.style.display = 'none';
+videoLoader.style.display = 'none';
 }
-});
+}
 </script>
+
 </body>
 </html>
