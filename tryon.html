@@ -1,56 +1,143 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI Try-On</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Fitted Threads - Try On</title>
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+
 <style>
-body { font-family:'Poppins',sans-serif; text-align:center; background:#f7f3ee; color:#4b3221; padding:20px;}
-h1 { font-family:'Pacifico',cursive; font-size:2.8rem; color:#6e4b26; margin-bottom:0.5em;}
-img { max-width:250px; max-height:250px; border-radius:12px; margin:10px;}
-video { max-width:400px; margin:10px; border-radius:12px; }
+body {
+ margin:0;
+ font-family:'Poppins',sans-serif;
+ background:linear-gradient(135deg,#a46237,#d9b382);
+ color:#4b3221;
+ text-align:center;
+ padding:20px;
+ min-height:100vh;
+ overflow-x:hidden;
+}
+h1 { font-family:'Pacifico',cursive; font-size:3rem; color:#6e4b26; margin-bottom:0.3em; }
+.slogan { font-style:italic; font-weight:600; color:#7a5a34; font-size:1.4rem; margin-bottom:0.8em; }
+img { max-width:250px; max-height:250px; border-radius:12px; margin:10px; }
+.preview-section, .ai-section, .catalog-section { margin:2em auto; max-width:800px; }
+button.btn { padding:10px 25px; font-size:1.1rem; font-weight:600; border:none; border-radius:8px; cursor:pointer; background-color:#6e4b26; color:#fff; transition:0.3s; margin:10px; }
+button.btn:hover { background-color:#7a5a34; }
+.return-home { position:absolute; top:20px; left:20px; font-size:1.5rem; text-decoration:none; color:#fff; display:flex; align-items:center; }
+.return-home:hover { color:#d9b382; }
+.return-home span { font-size:2rem; margin-right:5px; }
+
+footer.cutoff-footer {
+ background:linear-gradient(135deg,#7e521f,#b58332);
+ color:white;
+ clip-path: polygon(0 10%, 100% 0%, 100% 100%, 0% 100%);
+ padding:2em 1em;
+ margin-top:3em;
+ text-align:center;
+ font-size:0.9rem;
+}
+.footer-links { list-style:none; padding:0; margin:0 0 1.5em 0; }
+.footer-links li { margin:5px 0; }
+.footer-links a { color:white; text-decoration:none; font-weight:500; }
+.footer-links a:hover { color:#d9b382; }
+.social { margin-top:1em; }
+.social-link { display:inline-block; margin:0 10px; color:white; transition:color 0.3s ease; font-size:1.5rem; }
+.social-link:hover { color:#d9b382; }
 </style>
 </head>
 <body>
 
-<h1>AI Virtual Try-On</h1>
+<a href="index.html" class="return-home"><span>←</span>Home</a>
 
-<div id="uploaded-previews">
-<h2>Your Uploads</h2>
-<img id="selfPreview" src="" alt="Self">
-<img id="clothPreview" src="" alt="Clothing">
+<h1>Fitted Threads</h1>
+<p class="slogan">Find Your Inspiration</p>
+<p class="slogan">Build Your Confidence</p>
+<p class="slogan">Elevate Your Threads</p>
+
+<div class="preview-section">
+ <h2>Your Uploaded Photos</h2>
+ <img id="selfPreview" src="" alt="Self Image"/>
+ <img id="clothPreview" src="" alt="Clothing Image"/>
 </div>
 
-<div>
-<h2>AI Try-On Image</h2>
-<img id="aiImage" src="" alt="AI Result">
+<div class="ai-section">
+ <h2>AI Generated Result</h2>
+ <div id="aiResultContainer">
+ <p>Generating AI result, please wait...</p>
+ </div>
 </div>
 
-<div>
-<h2>AI Try-On Video</h2>
-<video id="aiVideo" controls></video>
+<button class="btn" id="saveBtn">Save AI Result</button>
+
+<div class="catalog-section cutoff-footer">
+ <h2>Clothing Catalog</h2>
+ <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:10px;">
+ <img src="https://images.unsplash.com/photo-1618354693942-bfbf4e85b42d?auto=format&fit=crop&w=200&q=80" alt="Clothing 1"/>
+ <img src="https://images.unsplash.com/photo-1580239289373-3f9fa3b6f02b?auto=format&fit=crop&w=200&q=80" alt="Clothing 2"/>
+ <img src="https://images.unsplash.com/photo-1521335629791-ce4aec67dd47?auto=format&fit=crop&w=200&q=80" alt="Clothing 3"/>
+ <img src="https://images.unsplash.com/photo-1618354693830-fdbf4f4d7c6c?auto=format&fit=crop&w=200&q=80" alt="Clothing 4"/>
+ <img src="https://images.unsplash.com/photo-1593032465179-2d8e1a798109?auto=format&fit=crop&w=200&q=80" alt="Clothing 5"/>
+ </div>
 </div>
+
+<footer class="cutoff-footer">
+ <ul class="footer-links">
+ <li><a href="privacy.html">Privacy Policy</a></li>
+ <li><a href="terms.html">Terms & Conditions</a></li>
+ <li><a href="about.html">About Us</a></li>
+ <li><a href="contact.html">Contact Us</a></li>
+ </ul>
+
+ <div class="social">
+ <a href="https://facebook.com/fittedthreads" target="_blank" class="social-link">FB</a>
+ <a href="https://instagram.com/fittedthreads" target="_blank" class="social-link">IG</a>
+ </div>
+</footer>
 
 <script>
-async function generateTryOn() {
-const self = localStorage.getItem('selfImage');
-const clothing = localStorage.getItem('clothImage');
+window.addEventListener('DOMContentLoaded', () => {
+ const selfPreview = document.getElementById('selfPreview');
+ const clothPreview = document.getElementById('clothPreview');
+ const aiContainer = document.getElementById('aiResultContainer');
+ const saveBtn = document.getElementById('saveBtn');
 
-document.getElementById('selfPreview').src = self;
-document.getElementById('clothPreview').src = clothing;
+ // Load uploaded images from localStorage
+ selfPreview.src = localStorage.getItem('selfImage') || '';
+ clothPreview.src = localStorage.getItem('clothImage') || '';
 
-const resp = await fetch('/api/generate-tryon', {
-method:'POST',
-headers:{'Content-Type':'application/json'},
-body:JSON.stringify({self, clothing})
+ // Fetch AI generated image from backend
+ const selfImage = localStorage.getItem('selfImage');
+ const clothingImage = localStorage.getItem('clothImage');
+
+ if(selfImage && clothingImage){
+ fetch('/generate-ai', {
+ method:'POST',
+ headers:{'Content-Type':'application/json'},
+ body:JSON.stringify({ selfImage, clothingImage })
+ })
+ .then(res=>res.json())
+ .then(data=>{
+ if(data.aiResultUrl){
+ aiContainer.innerHTML = `<img src="${data.aiResultUrl}" alt="AI Result"/>`;
+ } else {
+ aiContainer.innerHTML = '<p>AI generation failed. Try again.</p>';
+ }
+ })
+ .catch(err=>{
+ console.error(err);
+ aiContainer.innerHTML = '<p>Error generating AI result.</p>';
+ });
+ } else {
+ aiContainer.innerHTML = '<p>Please upload images first.</p>';
+ }
+
+ // Save button placeholder
+ saveBtn.addEventListener('click', ()=>{
+ alert('Save AI Result clicked! Redirect or save functionality to be implemented.');
+ });
 });
-
-const data = await resp.json();
-document.getElementById('aiImage').src = data.aiImage;
-document.getElementById('aiVideo').src = data.aiVideo;
-}
-
-generateTryOn();
 </script>
 </body>
 </html>
