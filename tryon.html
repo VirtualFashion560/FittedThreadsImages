@@ -1,84 +1,104 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Virtual Try-On</title>
-<style>
-/* Add your CSS styles here */
-</style>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>AI Try-On</title>
+ <style>
+ /* Your existing styles */
+ </style>
 </head>
 <body>
-<h1>Virtual Try-On</h1>
-<input type="file" id="selfImageInput" accept="image/*">
-<input type="file" id="clothingImageInput" accept="image/*">
-<button id="generateBtn">Generate Try-On</button>
-<div id="output">
-<img id="selfImage" src="" alt="Self Image" style="display:none;">
-<img id="clothingImage" src="" alt="Clothing Image" style="display:none;">
-<img id="tryOnResult" src="" alt="Try-On Result" style="display:none;">
+
+<h1>AI Try-On</h1>
+
+<div class="section">
+ <div>
+ <h2>Your Photo</h2>
+ <img id="userImage" src="" alt="User Image"/>
+ <h2>Clothing Item</h2>
+ <img id="clothImage" src="" alt="Clothing Item"/>
+ </div>
+
+ <div>
+ <h2>AI Try-On Result</h2>
+ <img id="aiResult" src="" alt="AI Result"/>
+ <br/>
+ <button id="saveBtn">Save Result</button>
+
+ <h3>Clothing Catalog</h3>
+ <select id="catalog">
+ <option value="https://example.com/jacket.png">Jacket</option>
+ <option value="https://example.com/shirt.png">Shirt</option>
+ <option value="https://example.com/dress.png">Dress</option>
+ </select>
+ <br/>
+ <button id="applyCatalog">Apply Selected Item</button>
+
+ <h2>AI Try-On Video</h2>
+ <video id="aiVideo" controls></video>
+ <br/>
+ <button id="saveVideoBtn">Save Video</button>
+ </div>
 </div>
 
 <script>
-const selfImageInput = document.getElementById('selfImageInput');
-const clothingImageInput = document.getElementById('clothingImageInput');
-const generateBtn = document.getElementById('generateBtn');
-const selfImage = document.getElementById('selfImage');
-const clothingImage = document.getElementById('clothingImage');
-const tryOnResult = document.getElementById('tryOnResult');
+ const userImage = document.getElementById('userImage');
+ const clothImage = document.getElementById('clothImage');
+ const aiResult = document.getElementById('aiResult');
+ const aiVideo = document.getElementById('aiVideo');
+ const catalog = document.getElementById('catalog');
+ const applyCatalog = document.getElementById('applyCatalog');
+ const saveBtn = document.getElementById('saveBtn');
+ const saveVideoBtn = document.getElementById('saveVideoBtn');
 
-let selfImageData = null;
-let clothingImageData = null;
+ // Load images from localStorage
+ userImage.src = localStorage.getItem('userImage') || '';
+ clothImage.src = localStorage.getItem('clothImage') || '';
 
-selfImageInput.addEventListener('change', (e) => {
-const file = e.target.files[0];
-if (file) {
-selfImageData = URL.createObjectURL(file);
-selfImage.src = selfImageData;
-selfImage.style.display = 'block';
-}
-});
+ async function generateTryOn(clothUrl, userUrl) {
+ // Replace with your API call to generate the AI try-on image
+ const aiImageUrl = await fetchAIImage(clothUrl, userUrl);
+ aiResult.src = aiImageUrl;
 
-clothingImageInput.addEventListener('change', (e) => {
-const file = e.target.files[0];
-if (file) {
-clothingImageData = URL.createObjectURL(file);
-clothingImage.src = clothingImageData;
-clothingImage.style.display = 'block';
-}
-});
+ // Generate the AI try-on video
+ const aiVideoUrl = await generateAIVideo(clothUrl, userUrl);
+ aiVideo.src = aiVideoUrl;
+ }
 
-generateBtn.addEventListener('click', async () => {
-if (!selfImageData || !clothingImageData) {
-alert('Please upload both images.');
-return;
-}
+ async function fetchAIImage(clothUrl, userUrl) {
+ // Placeholder for your AI image generation logic
+ return 'https://example.com/generated-image.png';
+ }
 
-try {
-const response = await fetch('https://api.segmind.com/v1/try-on-diffusion', {
-method: 'POST',
-headers: {
-'Authorization': 'Bearer YOUR_API_KEY',
-'Content-Type': 'application/json'
-},
-body: JSON.stringify({
-person_image_url: selfImageData,
-clothing_image_url: clothingImageData
-})
-});
+ async function generateAIVideo(clothUrl, userUrl) {
+ // Placeholder for your AI video generation logic
+ return 'https://example.com/generated-video.mp4';
+ }
 
-const data = await response.json();
-if (data.generated_image_url) {
-tryOnResult.src = data.generated_image_url;
-tryOnResult.style.display = 'block';
-} else {
-alert('Error generating try-on image.');
-}
-} catch (error) {
-console.error('Error:', error);
-alert('An error occurred while generating the try-on image.');
-}
-});
+ // Catalog selection
+ applyCatalog.addEventListener('click', () => {
+ const selectedUrl = catalog.value;
+ clothImage.src = selectedUrl;
+ generateTryOn(selectedUrl, userImage.src);
+ });
+
+ // Save AI result
+ saveBtn.addEventListener('click', () => {
+ const a = document.createElement('a');
+ a.href = aiResult.src;
+ a.download = 'ai_tryon.png';
+ a.click();
+ });
+
+ // Save AI video
+ saveVideoBtn.addEventListener('click', () => {
+ const a = document.createElement('a');
+ a.href = aiVideo.src;
+ a.download = 'ai_tryon_video.mp4';
+ a.click();
+ });
 </script>
+
 </body>
 </html>
