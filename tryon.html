@@ -1,104 +1,109 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
- <meta charset="UTF-8">
- <meta name="viewport" content="width=device-width, initial-scale=1.0">
- <title>AI Try-On</title>
- <style>
- /* Your existing styles */
- </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Try-On</title>
+<style>
+body { font-family: Arial, sans-serif; padding: 20px; display: flex; flex-direction: column; align-items: center; }
+.container { display: flex; flex-direction: row; gap: 20px; }
+.preview, .ai-result { display: flex; flex-direction: column; gap: 10px; }
+.catalog { margin-left: 20px; }
+img, video { max-width: 300px; border: 1px solid #ccc; }
+button { margin-top: 10px; padding: 10px 20px; }
+</style>
 </head>
 <body>
 
-<h1>AI Try-On</h1>
+<h1>AI Try-On Results</h1>
 
-<div class="section">
- <div>
- <h2>Your Photo</h2>
- <img id="userImage" src="" alt="User Image"/>
- <h2>Clothing Item</h2>
- <img id="clothImage" src="" alt="Clothing Item"/>
- </div>
+<div class="container">
+<div class="preview">
+<h3>Your Uploaded Images</h3>
+<img id="userImage" alt="User Photo">
+<img id="clothImage" alt="Clothing Photo">
+</div>
 
- <div>
- <h2>AI Try-On Result</h2>
- <img id="aiResult" src="" alt="AI Result"/>
- <br/>
- <button id="saveBtn">Save Result</button>
+<div class="ai-result">
+<h3>AI Try-On</h3>
+<img id="aiImage" alt="AI Generated Try-On">
+<video id="aiVideo" controls></video>
+<button id="saveBtn">Save AI Result</button>
+</div>
 
- <h3>Clothing Catalog</h3>
- <select id="catalog">
- <option value="https://example.com/jacket.png">Jacket</option>
- <option value="https://example.com/shirt.png">Shirt</option>
- <option value="https://example.com/dress.png">Dress</option>
- </select>
- <br/>
- <button id="applyCatalog">Apply Selected Item</button>
-
- <h2>AI Try-On Video</h2>
- <video id="aiVideo" controls></video>
- <br/>
- <button id="saveVideoBtn">Save Video</button>
- </div>
+<div class="catalog">
+<h3>Clothing Catalog</h3>
+<select id="catalogSelect">
+<option value="">Select an item</option>
+<option value="https://replicate.delivery/pbxt/MjVInxdHWaHcHcbQcmiEyf7vm9gMwo59uItGH3vYAaK1G1ir/example_jacket.png">Jacket</option>
+<option value="https://replicate.delivery/pbxt/abcd1234/example_shirt.png">Shirt</option>
+<option value="https://replicate.delivery/pbxt/efgh5678/example_dress.png">Dress</option>
+</select>
+</div>
 </div>
 
 <script>
- const userImage = document.getElementById('userImage');
- const clothImage = document.getElementById('clothImage');
- const aiResult = document.getElementById('aiResult');
- const aiVideo = document.getElementById('aiVideo');
- const catalog = document.getElementById('catalog');
- const applyCatalog = document.getElementById('applyCatalog');
- const saveBtn = document.getElementById('saveBtn');
- const saveVideoBtn = document.getElementById('saveVideoBtn');
+// Load uploaded images from localStorage (from index.html)
+const userImage = document.getElementById('userImage');
+const clothImage = document.getElementById('clothImage');
 
- // Load images from localStorage
- userImage.src = localStorage.getItem('userImage') || '';
- clothImage.src = localStorage.getItem('clothImage') || '';
+userImage.src = localStorage.getItem('userImage') || '';
+clothImage.src = localStorage.getItem('clothImage') || '';
 
- async function generateTryOn(clothUrl, userUrl) {
- // Replace with your API call to generate the AI try-on image
- const aiImageUrl = await fetchAIImage(clothUrl, userUrl);
- aiResult.src = aiImageUrl;
+const aiImage = document.getElementById('aiImage');
+const aiVideo = document.getElementById('aiVideo');
 
- // Generate the AI try-on video
- const aiVideoUrl = await generateAIVideo(clothUrl, userUrl);
- aiVideo.src = aiVideoUrl;
- }
+async function generateAI(selectedCloth=null) {
+const clothSrc = selectedCloth || clothImage.src;
+if (!userImage.src || !clothSrc) return;
 
- async function fetchAIImage(clothUrl, userUrl) {
- // Placeholder for your AI image generation logic
- return 'https://example.com/generated-image.png';
- }
+aiImage.alt = "Generating AI Try-On...";
+aiVideo.src = "";
 
- async function generateAIVideo(clothUrl, userUrl) {
- // Placeholder for your AI video generation logic
- return 'https://example.com/generated-video.mp4';
- }
+try {
+const response = await fetch("http://localhost:3000/generate-ai", {
+method: "POST",
+headers: { "Content-Type": "application/json" },
+body: JSON.stringify({ person_image: userImage.src, cloth_image: clothSrc })
+});
 
- // Catalog selection
- applyCatalog.addEventListener('click', () => {
- const selectedUrl = catalog.value;
- clothImage.src = selectedUrl;
- generateTryOn(selectedUrl, userImage.src);
- });
+const data = await response.json();
 
- // Save AI result
- saveBtn.addEventListener('click', () => {
- const a = document.createElement('a');
- a.href = aiResult.src;
- a.download = 'ai_tryon.png';
- a.click();
- });
+// Poll for prediction result (example using Replicate)
+let outputUrl = null;
+if (data.output) {
+outputUrl = data.output[0]; // assuming API returns array
+}
 
- // Save AI video
- saveVideoBtn.addEventListener('click', () => {
- const a = document.createElement('a');
- a.href = aiVideo.src;
- a.download = 'ai_tryon_video.mp4';
- a.click();
- });
+if (outputUrl) {
+aiImage.src = outputUrl;
+// Example for video, if your API supports
+// aiVideo.src = outputUrl.replace('.png', '.mp4');
+} else {
+aiImage.alt = "AI generation failed.";
+}
+} catch (err) {
+aiImage.alt = "Error generating AI try-on.";
+console.error(err);
+}
+}
+
+// Generate AI on page load
+generateAI();
+
+// Catalog change handler
+document.getElementById('catalogSelect').addEventListener('change', (e) => {
+const selectedCloth = e.target.value;
+if (selectedCloth) generateAI(selectedCloth);
+});
+
+// Save button
+document.getElementById('saveBtn').addEventListener('click', () => {
+const link = document.createElement('a');
+link.href = aiImage.src;
+link.download = 'ai_tryon.png';
+link.click();
+});
 </script>
-
 </body>
 </html>
