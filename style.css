@@ -1,0 +1,86 @@
+body {
+font-family: Arial, sans-serif;
+background: #f9f9f9;
+margin: 0;
+color: #333;
+}
+
+header {
+text-align: center;
+padding: 20px;
+background: #222;
+color: white;
+}
+
+header h1 {
+margin: 0;
+}
+
+.slogan {
+font-style: italic;
+margin: 5px 0;
+}
+
+main {
+max-width: 900px;
+margin: 20px auto;
+padding: 10px;
+}
+
+button {
+padding: 10px 20px;
+margin: 10px 5px;
+cursor: pointer;
+border: none;
+background: #222;
+color: white;
+border-radius: 5px;
+}
+
+button:hover {
+background: #555;
+}
+
+footer {
+text-align: center;
+padding: 20px;
+background: #222;
+color: white;
+}
+
+.footer-links, .social-icons {
+list-style: none;
+padding: 0;
+margin: 10px 0;
+}
+
+.footer-links li {
+display: inline;
+margin: 0 10px;
+}
+
+.footer-links a, .social-icons a img {
+color: white;
+text-decoration: none;
+}
+
+.upload-section img, #uploadedPreview img, #aiResult img, .catalog-grid img {
+border: 2px solid #ccc;
+border-radius: 5px;
+}
+
+.catalog-grid {
+display: flex;
+flex-wrap: wrap;
+gap: 10px;
+justify-content: center;
+}
+
+.back-btn {
+position: absolute;
+left: 20px;
+top: 20px;
+background: none;
+color: white;
+font-size: 20px;
+}
