@@ -3,7 +3,104 @@
 <head>
  <meta charset="UTF-8">
  <title>Fitted Threads</title>
- <link rel="stylesheet" href="style.css">
+ <style>
+ :root {
+ --primary-color: #B65E2E;
+ --secondary-color: #D9A066;
+ --accent-color: #8C3B12;
+ --background-color: #FFF5E6;
+ --text-color: #3A1F0B;
+ }
+
+ body {
+ background-color: var(--background-color);
+ color: var(--text-color);
+ font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+ margin: 0;
+ padding: 0;
+ }
+
+ header, footer {
+ text-align: center;
+ padding: 20px;
+ }
+
+ h1, h2 {
+ color: var(--primary-color);
+ }
+
+ .slogan {
+ font-weight: bold;
+ font-size: 1.2em;
+ margin: 5px 0;
+ }
+
+ .upload-btn {
+ background-color: var(--secondary-color);
+ padding: 12px 24px;
+ margin: 10px;
+ cursor: pointer;
+ display: inline-block;
+ }
+
+ .upload-btn:hover {
+ background-color: var(--accent-color);
+ color: #FFF;
+ }
+
+ .preview-img {
+ width: 250px;
+ height: 350px;
+ object-fit: cover;
+ border: 2px solid var(--primary-color);
+ margin: 10px;
+ }
+
+ .action-buttons button {
+ background-color: var(--secondary-color);
+ color: var(--text-color);
+ border: none;
+ padding: 10px 20px;
+ margin: 10px;
+ cursor: pointer;
+ }
+
+ .action-buttons button:hover {
+ background-color: var(--accent-color);
+ color: #FFF;
+ }
+
+ footer {
+ background-color: var(--secondary-color);
+ padding: 15px;
+ }
+
+ .footer-links, .footer-links li {
+ list-style: none;
+ display: inline;
+ margin: 0 10px;
+ }
+
+ .footer-links a {
+ color: var(--text-color);
+ text-decoration: none;
+ }
+
+ .footer-links a:hover {
+ text-decoration: underline;
+ }
+
+ .social-icons img {
+ width: 30px;
+ margin: 0 10px;
+ }
+
+ .section {
+ text-align: center;
+ margin: 20px auto;
+ max-width: 800px;
+ }
+ </style>
 </head>
 <body>
  <header>
@@ -71,6 +168,44 @@
  </ul>
  </footer>
 
- <script src="script.js"></script>
+ <script>
+ const photoUpload = document.getElementById('photoUpload');
+ const clothingUpload = document.getElementById('clothingUpload');
+ const photoPreview = document.getElementById('photoPreview');
+ const clothingPreview = document.getElementById('clothingPreview');
+ const continueBtn = document.getElementById('continueBtn');
+ const retakeBtn = document.getElementById('retakeBtn');
+
+ photoUpload.addEventListener('change', () => previewImage(photoUpload, photoPreview));
+ clothingUpload.addEventListener('change', () => previewImage(clothingUpload, clothingPreview));
+
+ function previewImage(input, preview) {
+ const file = input.files[0];
+ if (file) {
+ const reader = new FileReader();
+ reader.onload = e => {
+ preview.src = e.target.result;
+ };
+ reader.readAsDataURL(file);
+ }
+ }
+
+ retakeBtn.addEventListener('click', () => {
+ photoPreview.src = '';
+ clothingPreview.src = '';
+ photoUpload.value = '';
+ clothingUpload.value = '';
+ });
+
+ continueBtn.addEventListener('click', () => {
+ if(photoPreview.src && clothingPreview.src){
+ sessionStorage.setItem('userPhoto', photoPreview.src);
+ sessionStorage.setItem('clothingItem', clothingPreview.src);
+ window.location.href = 'tryon.html';
+ } else {
+ alert("Please upload both images before continuing.");
+ }
+ });
+ </script>
 </body>
 </html>
