@@ -1,109 +1,168 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
- <meta charset="UTF-8">
- <meta name="viewport" content="width=device-width, initial-scale=1.0">
- <title>Fitted Threads</title>
- <style>
- /* Theme & Layout */
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fitted Threads</title>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
  body {
- font-family: Arial, sans-serif;
- background-color: #FFF8F0; /* Autumn light beige */
- color: #4B2E2E; /* Dark autumn brown */
- text-align: center;
  margin: 0;
- padding: 0;
+ padding: 20px;
+ font-family: 'Poppins', sans-serif;
+ background: linear-gradient(135deg, #a46237, #d9b382);
+ color: #4b3221;
+ text-align: center;
+ min-height: 100vh;
  }
+
  h1 {
- margin-top: 30px;
- font-size: 3em;
- color: #A63D40;
+ font-family: 'Pacifico', cursive;
+ font-size: 3.5rem;
+ color: #6e4b26;
+ margin-bottom: 0.3em;
  }
+
  .slogan {
- margin: 5px 0;
- font-size: 1.2em;
- color: #B85C4B;
+ font-style: italic;
+ font-weight: 600;
+ color: #7a5a34;
+ font-size: 1.4rem;
+ margin-bottom: 0.8em;
  }
- .upload-section {
- margin: 30px 0;
+
+ .section {
+ background: rgba(217, 179, 130, 0.85);
+ padding: 1.5em 2em;
+ border-radius: 12px;
+ max-width: 520px;
+ margin: 1.5em auto;
+ text-align: left;
+ font-weight: 600;
+ font-size: 1.1rem;
+ box-shadow: 0 0 10px rgba(141,102,58,0.3);
  }
- .upload-btn {
- display: inline-block;
- padding: 10px 20px;
- margin: 10px;
- background-color: #D97C6C;
- border: none;
+
+ .section h2 {
+ text-align: center;
+ margin-bottom: 1em;
+ color: #6e4b26;
+ font-weight: 700;
+ font-size: 1.8rem;
+ }
+
+ ol, ul {
+ padding-left: 1.4em;
+ }
+
+ .upload-btns {
+ margin: 2em 0;
+ }
+
+ .upload-btns button {
+ background-color: #7a5a34;
  color: white;
- font-size: 1em;
+ border: none;
+ padding: 0.8em 1.6em;
+ margin: 0.5em;
+ font-size: 1rem;
+ font-weight: 700;
+ border-radius: 8px;
  cursor: pointer;
- border-radius: 5px;
  }
- .upload-btn:hover { background-color: #C46C5C; }
- input[type="file"] { display: none; }
- .preview-container {
+
+ .upload-btns button:hover {
+ background-color: #6e4b26;
+ }
+
+ .image-preview {
  display: flex;
  justify-content: center;
- gap: 20px;
- margin: 20px 0;
+ flex-wrap: wrap;
+ gap: 1em;
+ margin-top: 1em;
  }
- .preview-container img {
+
+ .image-preview img {
  width: 200px;
  height: 200px;
  object-fit: cover;
- border-radius: 10px;
- border: 2px solid #B85C4B;
+ border-radius: 8px;
+ border: 2px solid #6e4b26;
  }
- .action-btns {
- margin: 20px 0;
- }
- .action-btns button {
- padding: 10px 20px;
- margin: 0 10px;
- background-color: #A63D40;
+
+ .continue-btn {
+ margin-top: 2em;
+ background-color: #7a5a34;
  color: white;
  border: none;
+ padding: 1em 2em;
+ font-size: 1.2rem;
+ font-weight: 700;
+ border-radius: 10px;
  cursor: pointer;
- border-radius: 5px;
  }
- .action-btns button:hover { background-color: #892F35; }
- .section { margin: 40px 20px; }
- .section h2 { font-size: 2em; color: #A63D40; }
- .section ol, .section ul { text-align: left; max-width: 600px; margin: 10px auto; }
- footer {
- background-color: #D97C6C;
+
+ .continue-btn:hover {
+ background-color: #6e4b26;
+ }
+
+ footer.cutoff-footer {
+ background: linear-gradient(135deg, #7e521f, #b58332);
  color: white;
- padding: 20px 0;
+ clip-path: polygon(0 10%, 100% 0%, 100% 100%, 0% 100%);
+ padding: 2em 1em;
+ margin-top: 3em;
+ font-size: 0.9rem;
  }
- footer a { color: white; margin: 0 10px; text-decoration: none; }
- footer img { width: 30px; margin: 0 5px; vertical-align: middle; }
- </style>
+
+ .footer-links {
+ list-style: none;
+ padding: 0;
+ margin: 0 0 1.5em 0;
+ }
+
+ .footer-links li { margin: 5px 0; }
+ .footer-links a {
+ color: white;
+ text-decoration: none;
+ font-weight: 500;
+ }
+ .footer-links a:hover { color: #d9b382; }
+
+ .social {
+ margin-top: 1em;
+ }
+ .social-link { margin: 0 10px; color: white; font-size: 1.5rem; display: inline-block; }
+ .social-link:hover { color: #d9b382; }
+ .social-link svg { width: 28px; height: 28px; vertical-align: middle; }
+
+ @media (max-width: 600px) {
+ h1 { font-size: 2.5rem; }
+ .slogan { font-size: 1.1rem; }
+ .section { font-size: 1rem; padding: 1em; }
+ .image-preview img { width: 150px; height: 150px; }
+ }
+</style>
 </head>
 <body>
 
- <h1>Fitted Threads</h1>
- <p class="slogan">Find Your Inspiration</p>
- <p class="slogan">Build Your Confidence</p>
- <p class="slogan">Elevate Your Threads</p>
+<h1>Fitted Threads</h1>
+<p class="slogan">Find Your Inspiration</p>
+<p class="slogan">Build Your Confidence</p>
+<p class="slogan">Elevate Your Threads</p>
 
- <div class="upload-section">
- <label class="upload-btn" for="userPhoto">Upload Photo</label>
- <input type="file" id="userPhoto" accept="image/*">
- 
- <label class="upload-btn" for="clothingPhoto">Upload Clothing</label>
- <input type="file" id="clothingPhoto" accept="image/*">
- </div>
+<div class="upload-btns">
+ <button id="uploadSelfie">Upload Photo</button>
+ <button id="uploadClothing">Upload Clothing</button>
+</div>
 
- <div class="preview-container">
- <img id="userPreview" src="" alt="" style="display:none;">
- <img id="clothingPreview" src="" alt="" style="display:none;">
- </div>
+<div class="image-preview" id="previewArea">
+ <!-- Uploaded images will appear here -->
+</div>
 
- <div class="action-btns">
- <button id="retakeBtn" style="display:none;">Retake</button>
- <button id="continueBtn" style="display:none;">Continue</button>
- </div>
-
- <div class="section">
+<div class="section">
  <h2>How to Use</h2>
  <ol>
  <li><strong>Upload Your Photos:</strong> First upload a photo of yourself and optionally a clothing item or accessory.</li>
@@ -113,9 +172,9 @@
  <li><strong>Explore Styles:</strong> Browse, mix, and match outfits to find your perfect look.</li>
  <li><strong>Save & Share:</strong> Keep your favorite looks or share them with friends.</li>
  </ol>
- </div>
+</div>
 
- <div class="section">
+<div class="section">
  <h2>Key Features</h2>
  <ul>
  <li><strong>AI-Powered Try-On:</strong> Instantly see how clothes fit and look on your uploaded photo.</li>
@@ -125,68 +184,57 @@
  <li><strong>Save & Share:</strong> Keep your favorite outfits or share them with friends for feedback.</li>
  <li><strong>User-Friendly Interface:</strong> Simple navigation makes virtual styling fun and easy.</li>
  </ul>
- </div>
+</div>
 
- <footer>
- <div>
- <a href="privacy.html">Privacy Policy</a> |
- <a href="terms.html">Terms & Conditions</a> |
- <a href="about.html">About Us</a> |
- <a href="contact.html">Contact Us</a>
- </div>
- <div style="margin-top:10px;">
- <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook"></a>
- <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="Twitter"></a>
- </div>
- </footer>
+<button class="continue-btn" id="continueBtn">Continue</button>
 
- <script>
- const userPhoto = document.getElementById('userPhoto');
- const clothingPhoto = document.getElementById('clothingPhoto');
- const userPreview = document.getElementById('userPreview');
- const clothingPreview = document.getElementById('clothingPreview');
- const retakeBtn = document.getElementById('retakeBtn');
+<footer class="cutoff-footer">
+ <ul class="footer-links">
+ <li><a href="privacy.html">Privacy Policy</a></li>
+ <li><a href="terms.html">Terms & Conditions</a></li>
+ <li><a href="about.html">About Us</a></li>
+ <li><a href="contact.html">Contact Us</a></li>
+ </ul>
+
+ <div class="social">
+ <a href="https://facebook.com/fittedthreads" target="_blank" class="social-link" aria-label="Facebook">
+ <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.877v-6.987h-2.54V12h2.54v-2.173c0-2.507 1.492-3.89 3.777-3.89 1.094 0 2.238.196 2.238.196v2.46h-1.26c-1.243 0-1.63.772-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.987C18.343 21.128 22 16.991 22 12z"/></svg>
+ </a>
+ <a href="https://instagram.com/fittedthreads" target="_blank" class="social-link" aria-label="Instagram">
+ <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.849.07 1.17.056 1.98.247 2.443.415a4.92 4.92 0 011.708 1.112 4.918 4.918 0 011.112 1.708c.168.463.359 1.273.415 2.443.058 1.265.07 1.645.07 4.849s-.012 3.584-.07 4.849c-.056 1.17-.247 1.98-.415 2.443a4.918 4.918 0 01-1.112 1.708 4.92 4.92 0 01-1.708 1.112c-.463.168-1.273.359-2.443.415-1.265.058-1.645.07-4.849.07s-3.584-.012-4.849-.07c-1.17-.056-1.98-.247-2.443-.415a4.92 4.92 0 01-1.708-1.112 4.918 4.918 0 01-1.112-1.708c-.168-.463-.359-1.273-.415-2.443C2.175 15.584 2.163 15.204 2.163 12s.012-3.584.07-4.849c.056-1.17.247-1.98.415-2.443a4.918 4.918 0 011.112-1.708 4.92 4.92 0 011.708-1.112c.463-.168 1.273-.359 2.443-.415C8.416 2.175 8.796 2.163 12 2.163zm0-2.163C8.741 0 8.332.014 7.052.072 5.775.13 4.83.34 4.042.657a6.887 6.887 0 00-2.495 1.64 6.887 6.887 0 00-1.64 2.495C.34 5.17.13 6.115.072 7.392.014 8.672 0 9.081 0 12c0 2.919.014 3.328.072 4.608.058 1.277.268 2.222.657 3.01a6.887 6.887 0 001.64 2.495 6.887 6.887 0 002.495 1.64c.788.389 1.733.599 3.01.657 1.28.058 1.689.072 4.608.072s3.328-.014 4.608-.072c1.277-.058 2.222-.268 3.01-.657a6.887 6.887 0 002.495-1.64 6.887 6.887 0 001.64-2.495c.389-.788.599-1.733.657-3.01.058-1.28.072-1.689.072-4.608s-.014-3.328-.072-4.608c-.058-1.277-.268-2.222-.657-3.01a6.887 6.887 0 00-1.64-2.495 6.887 6.887 0 00-2.495-1.64c-.788-.389-1.733-.599-3.01-.657C15.328.014 14.919 0 12 0z"/></svg>
+ </a>
+ </div>
+</footer>
+
+<script>
+ const uploadSelfieBtn = document.getElementById('uploadSelfie');
+ const uploadClothingBtn = document.getElementById('uploadClothing');
+ const previewArea = document.getElementById('previewArea');
  const continueBtn = document.getElementById('continueBtn');
 
- function previewImage(input, preview) {
- const file = input.files[0];
- if(file) {
+ function createFileInput(callback) {
+ const input = document.createElement('input');
+ input.type = 'file';
+ input.accept = 'image/*';
+ input.onchange = e => callback(e.target.files[0]);
+ input.click();
+ }
+
+ function addPreview(file) {
  const reader = new FileReader();
- reader.onload = () => {
- preview.src = reader.result;
- preview.style.display = 'inline';
- checkContinue();
+ reader.onload = function(e) {
+ const img = document.createElement('img');
+ img.src = e.target.result;
+ previewArea.appendChild(img);
  }
  reader.readAsDataURL(file);
  }
- }
 
- function checkContinue() {
- if(userPhoto.files.length && clothingPhoto.files.length) {
- retakeBtn.style.display = 'inline-block';
- continueBtn.style.display = 'inline-block';
- }
- }
+ uploadSelfieBtn.onclick = () => createFileInput(addPreview);
+ uploadClothingBtn.onclick = () => createFileInput(addPreview);
 
- userPhoto.addEventListener('change', () => previewImage(userPhoto, userPreview));
- clothingPhoto.addEventListener('change', () => previewImage(clothingPhoto, clothingPreview));
-
- retakeBtn.addEventListener('click', () => {
- userPhoto.value = '';
- clothingPhoto.value = '';
- userPreview.style.display = 'none';
- clothingPreview.style.display = 'none';
- retakeBtn.style.display = 'none';
- continueBtn.style.display = 'none';
- });
-
- continueBtn.addEventListener('click', () => {
- // Pass images to tryon.html using sessionStorage
- sessionStorage.setItem('userPhoto', userPreview.src);
- sessionStorage.setItem('clothingPhoto', clothingPreview.src);
- window.location.href = 'tryon.html';
- });
- </script>
+ continueBtn.onclick = () => window.location.href = 'tryon.html';
+</script>
 
 </body>
 </html>
