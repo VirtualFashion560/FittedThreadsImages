@@ -1,133 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Fitted Threads</title>
-<link rel="stylesheet" href="style.css">
+ <meta charset="UTF-8">
+ <title>Fitted Threads</title>
+ <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<header>
-<h1>Fitted Threads</h1>
-<p class="slogan">Find Your Inspiration</p>
-<p class="slogan">Build Your Confidence</p>
-<p class="slogan">Elevate Your Threads</p>
-</header>
+ <header>
+ <h1>Fitted Threads</h1>
+ <p class="slogan">Find Your Inspiration</p>
+ <p class="slogan">Build Your Confidence</p>
+ <p class="slogan">Elevate Your Threads</p>
+ </header>
 
-<main>
-<section class="upload-section">
-<h2>Upload Photos</h2>
-<input type="file" id="userPhoto" accept="image/*" hidden>
-<input type="file" id="clothingPhoto" accept="image/*" hidden>
+ <main>
+ <div class="upload-section">
+ <label class="upload-btn">Upload Photo
+ <input type="file" id="photoUpload" accept="image/*" hidden>
+ </label>
+ <label class="upload-btn">Upload Clothing
+ <input type="file" id="clothingUpload" accept="image/*" hidden>
+ </label>
+ </div>
 
-<button onclick="document.getElementById('userPhoto').click()">Upload Your Photo</button>
-<button onclick="document.getElementById('clothingPhoto').click()">Upload Clothing Item</button>
+ <div class="preview-section">
+ <img id="photoPreview" class="preview-img" src="" alt="Your Photo Preview">
+ <img id="clothingPreview" class="preview-img" src="" alt="Clothing Preview">
+ </div>
 
-<div id="previewContainer"></div>
+ <div class="action-buttons">
+ <button id="retakeBtn">Retake</button>
+ <button id="continueBtn">Continue</button>
+ </div>
 
-<div class="buttons">
-<button id="retakeBtn" style="display:none;">Retake</button>
-<button id="continueBtn" style="display:none;">Continue</button>
-</div>
-</section>
+ <div class="section">
+ <h2>How to Use</h2>
+ <ol>
+ <li><strong>Upload Your Photos:</strong> First upload a photo of yourself and optionally a clothing item or accessory.</li>
+ <li><strong>Preview Your Photos:</strong> Make sure your photo and the item are clear and correctly positioned.</li>
+ <li><strong>Retake if Needed:</strong> Adjust or replace any photo if it’s not perfect.</li>
+ <li><strong>Continue:</strong> Tap "Continue" to proceed to the virtual try-on page.</li>
+ <li><strong>Explore Styles:</strong> Browse, mix, and match outfits to find your perfect look.</li>
+ <li><strong>Save & Share:</strong> Keep your favorite looks or share them with friends.</li>
+ </ol>
+ </div>
 
-<section class="section">
-<h2>How to Use</h2>
-<ol>
-<li><strong>Upload Your Photos:</strong> First upload a photo of yourself and optionally a clothing item or accessory.</li>
-<li><strong>Preview Your Photos:</strong> Make sure your photo and the item are clear and correctly positioned.</li>
-<li><strong>Retake if Needed:</strong> Adjust or replace any photo if it’s not perfect.</li>
-<li><strong>Continue:</strong> Tap "Continue" to proceed to the virtual try-on page.</li>
-<li><strong>Explore Styles:</strong> Browse, mix, and match outfits to find your perfect look.</li>
-<li><strong>Save & Share:</strong> Keep your favorite looks or share them with friends.</li>
-</ol>
-</section>
+ <div class="section">
+ <h2>Key Features</h2>
+ <ul>
+ <li><strong>AI-Powered Try-On:</strong> Instantly see how clothes fit and look on your uploaded photo.</li>
+ <li><strong>Wide Variety of Styles:</strong> Explore trendy clothing and accessories from our extensive catalog.</li>
+ <li><strong>Easy Mix & Match:</strong> Combine tops, bottoms, and accessories to create unique outfits.</li>
+ <li><strong>Photo Management:</strong> Retake, replace, or continue with your photos at any time.</li>
+ <li><strong>Save & Share:</strong> Keep your favorite outfits or share them with friends for feedback.</li>
+ <li><strong>User-Friendly Interface:</strong> Simple navigation makes virtual styling fun and easy.</li>
+ </ul>
+ </div>
+ </main>
 
-<section class="section">
-<h2>Key Features</h2>
-<ul>
-<li><strong>AI-Powered Try-On:</strong> Instantly see how clothes fit and look on your uploaded photo.</li>
-<li><strong>Wide Variety of Styles:</strong> Explore trendy clothing and accessories from our extensive catalog.</li>
-<li><strong>Easy Mix & Match:</strong> Combine tops, bottoms, and accessories to create unique outfits.</li>
-<li><strong>Photo Management:</strong> Retake, replace, or continue with your photos at any time.</li>
-<li><strong>Save & Share:</strong> Keep your favorite outfits or share them with friends for feedback.</li>
-<li><strong>User-Friendly Interface:</strong> Simple navigation makes virtual styling fun and easy.</li>
-</ul>
-</section>
-</main>
+ <footer>
+ <div class="social-icons">
+ <a href="https://facebook.com" target="_blank"><img src="facebook.png" alt="Facebook"></a>
+ <a href="https://instagram.com" target="_blank"><img src="instagram.png" alt="Instagram"></a>
+ </div>
+ <ul class="footer-links">
+ <li><a href="privacy.html">Privacy Policy</a></li>
+ <li><a href="terms.html">Terms & Conditions</a></li>
+ <li><a href="about.html">About Us</a></li>
+ <li><a href="contact.html">Contact Us</a></li>
+ </ul>
+ </footer>
 
-<footer>
-<ul class="footer-links">
-<li><a href="privacy.html">Privacy Policy</a></li>
-<li><a href="terms.html">Terms & Conditions</a></li>
-<li><a href="about.html">About Us</a></li>
-<li><a href="contact.html">Contact Us</a></li>
-</ul>
-<div class="social-icons">
-<a href="#"><img src="facebook.png" alt="Facebook"></a>
-<a href="#"><img src="instagram.png" alt="Instagram"></a>
-</div>
-</footer>
-
-<script>
-const userInput = document.getElementById('userPhoto');
-const clothingInput = document.getElementById('clothingPhoto');
-const previewContainer = document.getElementById('previewContainer');
-const continueBtn = document.getElementById('continueBtn');
-const retakeBtn = document.getElementById('retakeBtn');
-
-let userPhotoFile, clothingPhotoFile;
-
-function showPreview() {
-previewContainer.innerHTML = '';
-if (userPhotoFile) {
-const img = document.createElement('img');
-img.src = URL.createObjectURL(userPhotoFile);
-img.width = 150;
-previewContainer.appendChild(img);
-}
-if (clothingPhotoFile) {
-const img = document.createElement('img');
-img.src = URL.createObjectURL(clothingPhotoFile);
-img.width = 150;
-previewContainer.appendChild(img);
-}
-if (userPhotoFile && clothingPhotoFile) {
-continueBtn.style.display = 'inline-block';
-retakeBtn.style.display = 'inline-block';
-}
-}
-
-userInput.addEventListener('change', e => {
-userPhotoFile = e.target.files[0];
-showPreview();
-});
-clothingInput.addEventListener('change', e => {
-clothingPhotoFile = e.target.files[0];
-showPreview();
-});
-
-retakeBtn.addEventListener('click', () => {
-userPhotoFile = null;
-clothingPhotoFile = null;
-previewContainer.innerHTML = '';
-continueBtn.style.display = 'none';
-retakeBtn.style.display = 'none';
-userInput.value = '';
-clothingInput.value = '';
-});
-
-continueBtn.addEventListener('click', () => {
-const formData = new FormData();
-formData.append('userPhoto', userPhotoFile);
-formData.append('clothingPhoto', clothingPhotoFile);
-fetch('/api/save-uploads', {
-method: 'POST',
-body: formData
-}).then(() => {
-window.location.href = 'tryon.html';
-});
-});
-</script>
+ <script src="script.js"></script>
 </body>
 </html>
