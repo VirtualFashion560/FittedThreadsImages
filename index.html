@@ -1,219 +1,167 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Fitted Threads</title>
-
-<!-- Google Fonts -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fitted Threads | Upload Photos</title>
 <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
  body {
+ font-family: 'Poppins', sans-serif;
  margin: 0;
+ padding: 20px;
  background: linear-gradient(135deg, #a46237, #d9b382);
  color: #4b3221;
- font-family: 'Poppins', sans-serif;
  text-align: center;
- padding: 20px;
  }
-
- h1 {
- font-family: 'Pacifico', cursive;
- font-size: 3rem;
- color: #6e4b26;
- margin-bottom: 0.3em;
- }
-
- .slogan {
- font-style: italic;
- font-weight: 600;
- color: #7a5a34;
- font-size: 1.2rem;
- margin-bottom: 0.8em;
- }
-
- .upload-buttons {
- margin: 1em 0 2em 0;
- }
-
- .upload-buttons button {
- background-color: #6e4b26;
- color: #fff;
- border: none;
+ h1 { font-family: 'Pacifico', cursive; font-size: 2.5rem; margin-bottom: 0.5em; }
+ .button-upload {
  padding: 12px 20px;
- margin: 0 10px;
- border-radius: 8px;
- font-size: 1rem;
- cursor: pointer;
- }
-
- .upload-buttons button:hover {
- background-color: #7a5a34;
- }
-
- .section {
- background: rgba(217, 179, 130, 0.85);
- padding: 1.5em 2em;
- border-radius: 12px;
- max-width: 600px;
- margin: 1.5em auto;
- text-align: left;
- font-weight: 500;
- font-size: 1rem;
- }
-
- .section h2 {
- text-align: center;
- margin-bottom: 1em;
- color: #6e4b26;
- }
-
- .section ol, .section ul {
- padding-left: 1.4em;
- }
-
- #retake, #continue {
- display: none;
- margin-top: 1em;
- padding: 10px 18px;
- font-size: 1rem;
+ margin: 10px;
  border-radius: 8px;
  border: none;
+ background-color: #6e4b26;
+ color: white;
+ cursor: pointer;
+ font-size: 1rem;
+ }
+ .button-upload:hover { background-color: #7a5a34; }
+ .hidden-input { display: none; }
+ .previews { display: flex; justify-content: center; gap: 20px; margin: 20px 0; }
+ .previews img {
+ max-width: 150px;
+ border-radius: 12px;
+ border: 2px solid #6e4b26;
+ }
+ .action-buttons { display: none; margin-top: 10px; }
+ .action-buttons button {
+ padding: 10px 18px;
+ margin: 0 10px;
+ border-radius: 6px;
+ border: none;
+ font-weight: 600;
  cursor: pointer;
  }
+ .retake { background-color: #d9534f; color: white; }
+ .retake:hover { background-color: #c9302c; }
+ .continue { background-color: #5cb85c; color: white; }
+ .continue:hover { background-color: #4cae4c; }
 
- #retake { background-color: #d9534f; color: white; }
- #retake:hover { background-color: #c9302c; }
- #continue { background-color: #5cb85c; color: white; }
- #continue:hover { background-color: #4cae4c; }
+ .section { text-align: left; max-width: 600px; margin: 0 auto; }
+ h2 { font-size: 1.5rem; margin-top: 2em; }
 
  footer {
- background: linear-gradient(135deg, #7e521f, #b58332);
- color: white;
- padding: 2em 1em;
- text-align: center;
  margin-top: 2em;
+ text-align: center;
  }
-
- .footer-links { list-style: none; padding: 0; margin: 0 0 1em 0; }
- .footer-links li { margin: 5px 0; }
- .footer-links a { color: white; text-decoration: none; }
- .footer-links a:hover { color: #d9b382; }
-
- .social { margin-top: 1em; }
- .social a { margin: 0 10px; color: white; font-size: 1.5rem; }
+ .social a { margin: 0 10px; font-size: 1.5rem; color: white; text-decoration: none; }
  .social a:hover { color: #d9b382; }
 
- @media (max-width: 600px) {
- h1 { font-size: 2.5rem; }
- .upload-buttons button { margin: 5px 0; width: 80%; }
- .section { padding: 1em; font-size: 0.95rem; }
+ @media(max-width:600px){
+ .previews { flex-direction: column; }
+ .previews img { max-width: 120px; }
  }
 </style>
 </head>
 <body>
 
 <h1>Fitted Threads</h1>
-<p class="slogan">Find Your Inspiration</p>
-<p class="slogan">Build Your Confidence</p>
-<p class="slogan">Elevate Your Threads</p>
+<p>Try on clothes virtually with AI powered styling</p>
 
-<div class="upload-buttons">
- <button id="uploadUser">Upload Selfie</button>
- <button id="uploadClothing">Upload Clothing</button>
- <input type="file" id="userFile" style="display:none;" accept="image/*">
- <input type="file" id="clothingFile" style="display:none;" accept="image/*">
+<!-- Upload Buttons -->
+<button class="button-upload" id="uploadUserBtn">Upload Your Photo</button>
+<input type="file" accept="image/*" id="uploadUser" class="hidden-input">
+
+<button class="button-upload" id="uploadClothingBtn">Upload Clothing Item</button>
+<input type="file" accept="image/*" id="uploadClothing" class="hidden-input">
+
+<!-- Previews -->
+<div class="previews">
+ <img id="userPreview" src="" alt="Your Photo">
+ <img id="clothingPreview" src="" alt="Clothing Item">
 </div>
 
-<div class="section" id="howToUse">
+<!-- Retake & Continue Buttons -->
+<div class="action-buttons" id="actionButtons">
+ <button class="retake" id="retakeBtn">Retake</button>
+ <button class="continue" id="continueBtn">Continue</button>
+</div>
+
+<!-- How to Use & Key Features -->
+<div class="section">
  <h2>How to Use</h2>
  <ol>
- <li><strong>Upload Your Photos:</strong> Upload a selfie and optionally a clothing item.</li>
- <li><strong>Preview:</strong> Check that your images are clear and correctly positioned.</li>
- <li><strong>Retake if Needed:</strong> Replace any photo if you’re not happy.</li>
+ <li><strong>Upload Your Photos:</strong> Upload a photo of yourself and optionally a clothing item.</li>
+ <li><strong>Preview Your Photos:</strong> Make sure your photo and the item are clear.</li>
+ <li><strong>Retake if Needed:</strong> Adjust or replace any photo if it’s not perfect.</li>
  <li><strong>Continue:</strong> Tap "Continue" to go to the virtual try-on page.</li>
- <li><strong>Explore Styles:</strong> Mix and match outfits to find your perfect look.</li>
- <li><strong>Save & Share:</strong> Keep or share your favorite looks.</li>
+ <li><strong>Explore Styles:</strong> Mix and match outfits.</li>
  </ol>
-</div>
-
-<div class="section" id="keyFeatures">
  <h2>Key Features</h2>
  <ul>
- <li><strong>AI-Powered Try-On:</strong> See how clothes fit instantly.</li>
- <li><strong>Wide Variety of Styles:</strong> Browse a large clothing catalog.</li>
- <li><strong>Mix & Match:</strong> Combine tops, bottoms, and accessories.</li>
- <li><strong>Photo Management:</strong> Retake or continue with your photos.</li>
- <li><strong>Save & Share:</strong> Keep or share your favorite outfits.</li>
- <li><strong>User-Friendly:</strong> Simple interface for easy styling.</li>
+ <li><strong>AI Try-On:</strong> See clothes on your photo instantly.</li>
+ <li><strong>Wide Catalog:</strong> Browse clothing & accessories.</li>
+ <li><strong>Mix & Match:</strong> Combine outfits easily.</li>
+ <li><strong>Retake & Save:</strong> Manage photos anytime.</li>
  </ul>
-</div>
-
-<div>
- <button id="retake">Retake</button>
- <button id="continue">Continue</button>
 </div>
 
 <footer>
- <ul class="footer-links">
- <li><a href="privacy.html">Privacy Policy</a></li>
- <li><a href="terms.html">Terms & Conditions</a></li>
- <li><a href="about.html">About Us</a></li>
- <li><a href="contact.html">Contact Us</a></li>
- </ul>
  <div class="social">
- <a href="https://facebook.com/fittedthreads" target="_blank">Facebook</a>
- <a href="https://instagram.com/fittedthreads" target="_blank">Instagram</a>
+ <a href="https://facebook.com/fittedthreads" target="_blank"><i class="fab fa-facebook"></i></a>
+ <a href="https://instagram.com/fittedthreads" target="_blank"><i class="fab fa-instagram"></i></a>
  </div>
 </footer>
 
 <script>
+ const uploadUserBtn = document.getElementById('uploadUserBtn');
+ const uploadClothingBtn = document.getElementById('uploadClothingBtn');
  const uploadUser = document.getElementById('uploadUser');
  const uploadClothing = document.getElementById('uploadClothing');
- const userFile = document.getElementById('userFile');
- const clothingFile = document.getElementById('clothingFile');
- const retake = document.getElementById('retake');
- const continueBtn = document.getElementById('continue');
+ const userPreview = document.getElementById('userPreview');
+ const clothingPreview = document.getElementById('clothingPreview');
+ const actionButtons = document.getElementById('actionButtons');
+ const retakeBtn = document.getElementById('retakeBtn');
+ const continueBtn = document.getElementById('continueBtn');
 
- let userImage, clothingImage;
+ uploadUserBtn.onclick = () => uploadUser.click();
+ uploadClothingBtn.onclick = () => uploadClothing.click();
 
- uploadUser.addEventListener('click', () => userFile.click());
- uploadClothing.addEventListener('click', () => clothingFile.click());
-
- userFile.addEventListener('change', (e) => {
- userImage = e.target.files[0];
- checkImages();
- });
-
- clothingFile.addEventListener('change', (e) => {
- clothingImage = e.target.files[0];
- checkImages();
- });
-
- retake.addEventListener('click', () => {
- userFile.value = '';
- clothingFile.value = '';
- userImage = null;
- clothingImage = null;
- retake.style.display = 'none';
- continueBtn.style.display = 'none';
- });
-
- continueBtn.addEventListener('click', () => {
- // Save images to sessionStorage and go to tryon.html
- if (userImage) sessionStorage.setItem('userImage', URL.createObjectURL(userImage));
- if (clothingImage) sessionStorage.setItem('clothingImage', URL.createObjectURL(clothingImage));
- window.location.href = 'tryon.html';
- });
-
- function checkImages() {
- if (userImage || clothingImage) {
- retake.style.display = 'inline-block';
- continueBtn.style.display = 'inline-block';
+ function previewImage(fileInput, previewImg) {
+ const file = fileInput.files[0];
+ if (file) {
+ const reader = new FileReader();
+ reader.onload = function(e) {
+ previewImg.src = e.target.result;
+ checkBothImages();
+ };
+ reader.readAsDataURL(file);
  }
+ }
+
+ function checkBothImages() {
+ if(userPreview.src && clothingPreview.src) {
+ actionButtons.style.display = 'block';
+ }
+ }
+
+ uploadUser.onchange = () => previewImage(uploadUser, userPreview);
+ uploadClothing.onchange = () => previewImage(uploadClothing, clothingPreview);
+
+ retakeBtn.onclick = () => {
+ uploadUser.value = '';
+ uploadClothing.value = '';
+ userPreview.src = '';
+ clothingPreview.src = '';
+ actionButtons.style.display = 'none';
+ }
+
+ continueBtn.onclick = () => {
+ sessionStorage.setItem('userImage', userPreview.src);
+ sessionStorage.setItem('clothingImage', clothingPreview.src);
+ window.location.href = 'tryon.html';
  }
 </script>
-
 </body>
 </html>
