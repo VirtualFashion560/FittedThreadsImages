@@ -1,143 +1,141 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Fitted Threads - Try On</title>
-
-<!-- Google Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
-
-<style>
-body {
- margin:0;
- font-family:'Poppins',sans-serif;
- background:linear-gradient(135deg,#a46237,#d9b382);
- color:#4b3221;
- text-align:center;
- padding:20px;
- min-height:100vh;
- overflow-x:hidden;
-}
-h1 { font-family:'Pacifico',cursive; font-size:3rem; color:#6e4b26; margin-bottom:0.3em; }
-.slogan { font-style:italic; font-weight:600; color:#7a5a34; font-size:1.4rem; margin-bottom:0.8em; }
-img { max-width:250px; max-height:250px; border-radius:12px; margin:10px; }
-.preview-section, .ai-section, .catalog-section { margin:2em auto; max-width:800px; }
-button.btn { padding:10px 25px; font-size:1.1rem; font-weight:600; border:none; border-radius:8px; cursor:pointer; background-color:#6e4b26; color:#fff; transition:0.3s; margin:10px; }
-button.btn:hover { background-color:#7a5a34; }
-.return-home { position:absolute; top:20px; left:20px; font-size:1.5rem; text-decoration:none; color:#fff; display:flex; align-items:center; }
-.return-home:hover { color:#d9b382; }
-.return-home span { font-size:2rem; margin-right:5px; }
-
-footer.cutoff-footer {
- background:linear-gradient(135deg,#7e521f,#b58332);
- color:white;
- clip-path: polygon(0 10%, 100% 0%, 100% 100%, 0% 100%);
- padding:2em 1em;
- margin-top:3em;
- text-align:center;
- font-size:0.9rem;
-}
-.footer-links { list-style:none; padding:0; margin:0 0 1.5em 0; }
-.footer-links li { margin:5px 0; }
-.footer-links a { color:white; text-decoration:none; font-weight:500; }
-.footer-links a:hover { color:#d9b382; }
-.social { margin-top:1em; }
-.social-link { display:inline-block; margin:0 10px; color:white; transition:color 0.3s ease; font-size:1.5rem; }
-.social-link:hover { color:#d9b382; }
-</style>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Fitted Threads Try-On</title>
+ <link rel="stylesheet" href="styles.css">
+ <style>
+ body { font-family: Arial, sans-serif; text-align: center; margin: 0; padding: 0; background: #f5f5f5; }
+ header { display: flex; align-items: center; padding: 10px; background: #fff; }
+ header a { text-decoration: none; color: #333; font-size: 24px; margin-right: auto; }
+ h1 { margin: 20px 0 10px; }
+ #uploads, #aiResultContainer { display: flex; justify-content: center; gap: 20px; margin: 20px 0; flex-wrap: wrap; }
+ img { max-width: 200px; border: 2px solid #ccc; border-radius: 5px; }
+ button { padding: 10px 20px; margin: 10px; cursor: pointer; font-size: 16px; }
+ #catalog { display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin: 20px 0; overflow-x: auto; }
+ #catalog img { width: 150px; height: 200px; object-fit: cover; cursor: pointer; border: 2px solid transparent; }
+ #catalog img:hover { border-color: #007bff; }
+ footer { background: #333; color: #fff; padding: 20px; }
+ footer a { color: #fff; margin: 0 10px; text-decoration: none; }
+ .social-icons img { width: 32px; height: 32px; margin: 0 5px; }
+ </style>
 </head>
 <body>
 
-<a href="index.html" class="return-home"><span>←</span>Home</a>
+<header>
+ <a href="index.html">&#8592; Home</a>
+</header>
 
-<h1>Fitted Threads</h1>
-<p class="slogan">Find Your Inspiration</p>
-<p class="slogan">Build Your Confidence</p>
-<p class="slogan">Elevate Your Threads</p>
+<h1>Fitted Threads Try-On</h1>
 
-<div class="preview-section">
- <h2>Your Uploaded Photos</h2>
- <img id="selfPreview" src="" alt="Self Image"/>
- <img id="clothPreview" src="" alt="Clothing Image"/>
+<div id="uploads">
+ <img id="photoPreview" src="" alt="User Photo" style="display:none;">
+ <img id="clothingPreview" src="" alt="Clothing Item" style="display:none;">
 </div>
 
-<div class="ai-section">
- <h2>AI Generated Result</h2>
- <div id="aiResultContainer">
- <p>Generating AI result, please wait...</p>
+<div>
+ <button id="retakeBtn">Retake</button>
+ <button id="generateBtn">Generate AI</button>
+</div>
+
+<div id="aiResultContainer">
+ <img id="aiResult" src="" alt="AI Result" style="display:none;">
+</div>
+
+<div>
+ <button id="saveBtn">Save AI Result</button>
+</div>
+
+<h2>Clothing Catalog</h2>
+<div id="catalog">
+ <img src="https://images.unsplash.com/photo-1618354699263-8396f80c5f5c?auto=format&fit=crop&w=150&q=80" alt="Clothing 1">
+ <img src="https://images.unsplash.com/photo-1602810310343-7d024f1fc4f3?auto=format&fit=crop&w=150&q=80" alt="Clothing 2">
+ <img src="https://images.unsplash.com/photo-1618354699263-8396f80c5f5c?auto=format&fit=crop&w=150&q=80" alt="Clothing 3">
+ <img src="https://images.unsplash.com/photo-1602810310343-7d024f1fc4f3?auto=format&fit=crop&w=150&q=80" alt="Clothing 4">
+</div>
+
+<footer>
+ <div class="social-icons">
+ <a href="#"><img src="icons/facebook.png" alt="Facebook"></a>
+ <a href="#"><img src="icons/instagram.png" alt="Instagram"></a>
  </div>
-</div>
-
-<button class="btn" id="saveBtn">Save AI Result</button>
-
-<div class="catalog-section cutoff-footer">
- <h2>Clothing Catalog</h2>
- <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:10px;">
- <img src="https://images.unsplash.com/photo-1618354693942-bfbf4e85b42d?auto=format&fit=crop&w=200&q=80" alt="Clothing 1"/>
- <img src="https://images.unsplash.com/photo-1580239289373-3f9fa3b6f02b?auto=format&fit=crop&w=200&q=80" alt="Clothing 2"/>
- <img src="https://images.unsplash.com/photo-1521335629791-ce4aec67dd47?auto=format&fit=crop&w=200&q=80" alt="Clothing 3"/>
- <img src="https://images.unsplash.com/photo-1618354693830-fdbf4f4d7c6c?auto=format&fit=crop&w=200&q=80" alt="Clothing 4"/>
- <img src="https://images.unsplash.com/photo-1593032465179-2d8e1a798109?auto=format&fit=crop&w=200&q=80" alt="Clothing 5"/>
- </div>
-</div>
-
-<footer class="cutoff-footer">
- <ul class="footer-links">
- <li><a href="privacy.html">Privacy Policy</a></li>
- <li><a href="terms.html">Terms & Conditions</a></li>
- <li><a href="about.html">About Us</a></li>
- <li><a href="contact.html">Contact Us</a></li>
- </ul>
-
- <div class="social">
- <a href="https://facebook.com/fittedthreads" target="_blank" class="social-link">FB</a>
- <a href="https://instagram.com/fittedthreads" target="_blank" class="social-link">IG</a>
+ <div>
+ <a href="privacy.html">Privacy Policy</a> |
+ <a href="terms.html">Terms & Conditions</a> |
+ <a href="about.html">About Us</a> |
+ <a href="contact.html">Contact Us</a>
  </div>
 </footer>
 
 <script>
-window.addEventListener('DOMContentLoaded', () => {
- const selfPreview = document.getElementById('selfPreview');
- const clothPreview = document.getElementById('clothPreview');
- const aiContainer = document.getElementById('aiResultContainer');
- const saveBtn = document.getElementById('saveBtn');
+ // Load uploaded images from sessionStorage
+ const photoFile = sessionStorage.getItem('photoFile');
+ const clothingFile = sessionStorage.getItem('clothingFile');
 
- // Load uploaded images from localStorage
- selfPreview.src = localStorage.getItem('selfImage') || '';
- clothPreview.src = localStorage.getItem('clothImage') || '';
-
- // Fetch AI generated image from backend
- const selfImage = localStorage.getItem('selfImage');
- const clothingImage = localStorage.getItem('clothImage');
-
- if(selfImage && clothingImage){
- fetch('/generate-ai', {
- method:'POST',
- headers:{'Content-Type':'application/json'},
- body:JSON.stringify({ selfImage, clothingImage })
- })
- .then(res=>res.json())
- .then(data=>{
- if(data.aiResultUrl){
- aiContainer.innerHTML = `<img src="${data.aiResultUrl}" alt="AI Result"/>`;
- } else {
- aiContainer.innerHTML = '<p>AI generation failed. Try again.</p>';
+ if(photoFile) {
+ const photoPreview = document.getElementById('photoPreview');
+ photoPreview.src = photoFile;
+ photoPreview.style.display = 'inline-block';
  }
- })
- .catch(err=>{
- console.error(err);
- aiContainer.innerHTML = '<p>Error generating AI result.</p>';
+ if(clothingFile) {
+ const clothingPreview = document.getElementById('clothingPreview');
+ clothingPreview.src = clothingFile;
+ clothingPreview.style.display = 'inline-block';
+ }
+
+ // Retake
+ document.getElementById('retakeBtn').onclick = () => {
+ sessionStorage.removeItem('photoFile');
+ sessionStorage.removeItem('clothingFile');
+ window.location.href = 'index.html';
+ }
+
+ // Generate AI
+ document.getElementById('generateBtn').onclick = async () => {
+ const aiResult = document.getElementById('aiResult');
+ aiResult.style.display = 'block';
+ aiResult.src = 'loading.gif'; // optional loading gif
+
+ const formData = new FormData();
+ formData.append('photo', dataURLtoFile(photoFile, 'photo.png'));
+ formData.append('clothing', dataURLtoFile(clothingFile, 'clothing.png'));
+
+ const response = await fetch('http://localhost:3000/generate-ai', {
+ method: 'POST',
+ body: formData
  });
- } else {
- aiContainer.innerHTML = '<p>Please upload images first.</p>';
+
+ const result = await response.json();
+ aiResult.src = result.image;
  }
 
  // Save button placeholder
- saveBtn.addEventListener('click', ()=>{
- alert('Save AI Result clicked! Redirect or save functionality to be implemented.');
+ document.getElementById('saveBtn').onclick = () => {
+ alert('Redirect to save page (set up later)');
+ }
+
+ // Helper to convert dataURL to File
+ function dataURLtoFile(dataurl, filename) {
+ let arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1];
+ let bstr = atob(arr[1]);
+ let n = bstr.length;
+ let u8arr = new Uint8Array(n);
+ while(n--){
+ u8arr[n] = bstr.charCodeAt(n);
+ }
+ return new File([u8arr], filename, {type:mime});
+ }
+
+ // Clothing catalog swap
+ const catalogImgs = document.querySelectorAll('#catalog img');
+ catalogImgs.forEach(img => {
+ img.addEventListener('click', () => {
+ const clothingPreview = document.getElementById('clothingPreview');
+ clothingPreview.src = img.src;
  });
-});
+ });
 </script>
+
 </body>
 </html>
