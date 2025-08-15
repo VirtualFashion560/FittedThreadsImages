@@ -2,194 +2,129 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Fitted Threads Try-On</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Try-On</title>
 <style>
-:root {
---primary-color: #B65E2E;
---secondary-color: #D9A066;
---accent-color: #8C3B12;
---background-color: #FFF5E6;
---text-color: #3A1F0B;
-}
-
 body {
+font-family: Arial, sans-serif;
+background-color: #FFF8F0;
+color: #4B2E2E;
+text-align: center;
 margin: 0;
-font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-background-color: var(--background-color);
-color: var(--text-color);
+padding: 0;
 }
-
 header {
+padding: 20px;
 display: flex;
 align-items: center;
-padding: 10px 20px;
-background-color: var(--secondary-color);
 }
-
-.home-btn {
-cursor: pointer;
-font-size: 1.5em;
-color: var(--text-color);
+header a {
 text-decoration: none;
+color: #A63D40;
+font-size: 1.5em;
 margin-right: 20px;
 }
-
-header h1 {
-margin: 0;
-color: var(--primary-color);
-font-size: 1.8em;
+h1 { color: #A63D40; }
+.preview-container {
+display: flex;
+justify-content: center;
+gap: 20px;
+margin: 20px 0;
 }
-
-.main-section {
-text-align: center;
-padding: 20px;
-}
-
-.preview-img, .ai-img {
-width: 250px;
-height: 350px;
+.preview-container img {
+width: 200px;
+height: 200px;
 object-fit: cover;
-border: 2px solid var(--primary-color);
-margin: 10px;
+border-radius: 10px;
+border: 2px solid #B85C4B;
 }
-
-.ai-video {
-width: 500px;
-height: 300px;
-margin: 10px;
-border: 2px solid var(--primary-color);
+.ai-result {
+margin: 30px 0;
 }
-
+.ai-result img, .ai-result video {
+max-width: 400px;
+border-radius: 10px;
+border: 2px solid #B85C4B;
+}
 .clothing-catalog {
-margin: 40px auto;
-max-width: 1000px;
 display: flex;
 flex-wrap: wrap;
 justify-content: center;
+gap: 15px;
+margin: 40px 0;
 }
-
-.clothing-item {
-margin: 10px;
-text-align: center;
-}
-
-.clothing-item img {
+.clothing-catalog a img {
 width: 150px;
 height: 200px;
 object-fit: cover;
-border: 1px solid var(--primary-color);
+border-radius: 5px;
+border: 1px solid #B85C4B;
 }
-
-.social-icons img {
-width: 30px;
-margin: 0 10px;
-}
-
 footer {
-background-color: var(--secondary-color);
-text-align: center;
-padding: 15px;
+background-color: #D97C6C;
+color: white;
+padding: 20px 0;
 }
-
-.search-bar input[type="text"] {
-padding: 8px;
-width: 200px;
-}
-
-.search-bar button {
-padding: 8px 12px;
-background-color: var(--accent-color);
-color: #fff;
-border: none;
-cursor: pointer;
-}
-
-.search-bar button:hover {
-background-color: var(--primary-color);
-}
+footer a { color: white; margin: 0 10px; text-decoration: none; }
+footer img { width: 30px; margin: 0 5px; vertical-align: middle; }
 </style>
 </head>
 <body>
 
 <header>
-<a class="home-btn" href="index.html">&#8592;</a>
+<a href="index.html">&#8592; Home</a>
 <h1>Fitted Threads Try-On</h1>
 </header>
 
-<main class="main-section">
-<h2>Your Photo & Clothing</h2>
-<div>
-<img id="userPhoto" class="preview-img" src="" alt="Your Photo">
-<img id="userClothing" class="preview-img" src="" alt="Your Clothing">
+<div class="preview-container">
+<img id="userPreview" src="" alt="">
+<img id="clothingPreview" src="" alt="">
 </div>
 
-<h2>AI Try-On Results</h2>
-<div>
-<img id="aiImage" class="ai-img" src="" alt="AI Generated Result">
-</div>
-<div>
-<video id="aiVideo" class="ai-video" controls>
-<source src="" type="video/mp4">
-Your browser does not support the video tag.
+<div class="ai-result">
+<h2>AI Generated Result</h2>
+<img id="aiImage" src="https://via.placeholder.com/400x400?text=AI+Try-On" alt="AI Result">
+<br><br>
+<video id="aiVideo" controls>
+<source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
 </video>
+<br><br>
+<button onclick="saveResult()">Save AI Result</button>
 </div>
 
-<div class="search-bar">
-<input type="text" id="searchInput" placeholder="Search clothing online">
-<button id="searchBtn">Search</button>
-</div>
-
-<div class="clothing-catalog" id="clothingCatalog">
-<!-- Example items -->
-<div class="clothing-item">
-<a href="https://www.zara.com/us/en/woman-coats-l1110.html" target="_blank">
-<img src="https://static.zara.net/photos///woman-coat.jpg" alt="Coat">
-<p>Woman Coat</p>
+<div class="clothing-catalog">
+<a href="https://www.zara.com/us/en/woman-blouses-l1000.html" target="_blank">
+<img src="https://static.zara.net/photos/2023/I/0/2/p/1234/567/800/2/w/800/1234567800_1_1_1.jpg" alt="Blouse">
+</a>
+<a href="https://www.hm.com/us/productpage.12345678.html" target="_blank">
+<img src="https://lp2.hm.com/hmgoepprod?set=source[/f5/3d/f53d8c....]" alt="Top">
+</a>
+<a href="https://www.asos.com/women/tops/cat/?cid=2636" target="_blank">
+<img src="https://images.asos-media.com/products/top/12345678-1?$XXL$" alt="ASOS Top">
 </a>
 </div>
-<div class="clothing-item">
-<a href="https://www.hm.com/us/products/women/jackets" target="_blank">
-<img src="https://lp2.hm.com/hmgoepprod?set=source[/women-jacket.jpg]" alt="Jacket">
-<p>Jacket</p>
-</a>
-</div>
-<div class="clothing-item">
-<a href="https://www.asos.com/women/coats-jackets/cat/?cid=2648" target="_blank">
-<img src="https://images.asos-media.com/products/women-coat.jpg" alt="Coat">
-<p>ASOS Coat</p>
-</a>
-</div>
-<!-- Add more catalog items as needed -->
-</div>
-</main>
 
 <footer>
-<div class="social-icons">
-<a href="https://facebook.com" target="_blank"><img src="facebook.png" alt="Facebook"></a>
-<a href="https://instagram.com" target="_blank"><img src="instagram.png" alt="Instagram"></a>
+<div>
+<a href="privacy.html">Privacy Policy</a> |
+<a href="terms.html">Terms & Conditions</a> |
+<a href="about.html">About Us</a> |
+<a href="contact.html">Contact Us</a>
+</div>
+<div style="margin-top:10px;">
+<a href="#"><img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook"></a>
+<a href="#"><img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="Twitter"></a>
 </div>
 </footer>
 
 <script>
-// Display uploaded images from index.html
-document.getElementById('userPhoto').src = sessionStorage.getItem('userPhoto') || '';
-document.getElementById('userClothing').src = sessionStorage.getItem('clothingItem') || '';
+// Load images from sessionStorage
+document.getElementById('userPreview').src = sessionStorage.getItem('userPhoto') || '';
+document.getElementById('clothingPreview').src = sessionStorage.getItem('clothingPhoto') || '';
 
-// Dummy AI generation (replace with backend call)
-document.getElementById('aiImage').src = document.getElementById('userPhoto').src; // placeholder
-// AI video placeholder
-const aiVideo = document.getElementById('aiVideo');
-aiVideo.querySelector('source').src = ""; // add AI video source URL
-aiVideo.load();
-
-// Search bar functionality
-const searchBtn = document.getElementById('searchBtn');
-searchBtn.addEventListener('click', () => {
-const query = document.getElementById('searchInput').value.trim();
-if(query) {
-window.open(`https://www.google.com/search?q=${encodeURIComponent(query)}+clothing`, '_blank');
+function saveResult() {
+alert("AI Result saved! (Setup redirection or backend later)");
 }
-});
 </script>
 
 </body>
