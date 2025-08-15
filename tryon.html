@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Fitted Threads - Try On</title>
-<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
-
-<style>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1">
+ <title>Fitted Threads – Try On</title>
+ <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+ <style>
  body {
  margin: 0;
  padding: 20px;
@@ -16,129 +15,74 @@
  text-align: center;
  min-height: 100vh;
  }
-
- h1 {
- font-family: 'Pacifico', cursive;
- font-size: 3rem;
- margin-bottom: 0.3em;
- color: #6e4b26;
+ h1 { font-family: 'Pacifico', cursive; font-size: 3rem; color: #6e4b26; }
+ .preview { display: flex; justify-content: center; gap: 20px; margin-top: 15px; flex-wrap: wrap; }
+ .preview img {
+ width: 200px; height: 250px; object-fit: cover;
+ border-radius: 8px; background: #fff;
+ box-shadow: 0 0 5px rgba(0,0,0,0.3);
  }
-
- .slogan {
- font-style: italic;
- font-weight: 600;
- color: #7a5a34;
- font-size: 1.2rem;
- margin-bottom: 1em;
+ input[type="file"], input[type="text"] {
+ margin: 15px; padding: 8px;
+ border-radius: 6px; border: 1px solid #7e521f;
  }
-
- .section {
- background: rgba(217, 179, 130, 0.85);
- padding: 1.5em 2em;
+ button {
+ background: #7e521f; color: white;
+ border: none; padding: 8px 14px;
+ border-radius: 6px; cursor: pointer;
+ }
+ button:hover { background: #a46237; }
+ .catalog {
+ margin-top: 20px;
+ overflow-x: auto; white-space: nowrap;
+ padding: 10px; background: rgba(255,255,255,0.7);
  border-radius: 12px;
- max-width: 600px;
- margin: 1.5em auto;
- text-align: left;
- font-weight: 600;
- font-size: 1.1rem;
- box-shadow: 0 0 10px rgba(141,102,58,0.3);
  }
-
- .section h2 {
+ .catalog-item {
+ display: inline-block; margin: 0 10px;
  text-align: center;
- margin-bottom: 1em;
- color: #6e4b26;
- font-weight: 700;
- font-size: 1.5rem;
  }
-
- .image-preview, .tryon-preview {
- display: flex;
- justify-content: center;
- flex-wrap: wrap;
- gap: 1em;
- margin-top: 1em;
+ .catalog-item img {
+ width: 120px; height: 160px; object-fit: cover;
+ border-radius: 6px; cursor: pointer;
+ box-shadow: 0 0 5px rgba(0,0,0,0.3);
  }
-
- .image-preview img, .tryon-preview img {
- width: 200px;
- height: 200px;
- object-fit: cover;
- border-radius: 8px;
- border: 2px solid #6e4b26;
- }
-
- .controls {
- margin-top: 1.5em;
- }
-
- .controls button {
- background-color: #7a5a34;
- color: white;
- border: none;
- padding: 0.8em 1.6em;
- margin: 0.5em;
- font-size: 1rem;
- font-weight: 700;
- border-radius: 8px;
- cursor: pointer;
- }
-
- .controls button:hover { background-color: #6e4b26; }
-
  footer.cutoff-footer {
  background: linear-gradient(135deg, #7e521f, #b58332);
  color: white;
  clip-path: polygon(0 10%, 100% 0%, 100% 100%, 0% 100%);
- padding: 2em 1em;
- margin-top: 3em;
+ padding: 2em 1em; margin-top: 3em;
  font-size: 0.9rem;
  }
-
- .footer-links {
- list-style: none;
- padding: 0;
- margin: 0 0 1em 0;
+ .footer-links, .footer-links li {
+ list-style: none; padding: 0; margin: 0 0 1.5em 0;
  }
-
- .footer-links li { margin: 5px 0; }
- .footer-links a { color: white; text-decoration: none; font-weight: 500; }
+ .footer-links a {
+ color: white; text-decoration: none; font-weight: 500;
+ }
  .footer-links a:hover { color: #d9b382; }
-
- @media (max-width: 600px) {
- h1 { font-size: 2.2rem; }
- .slogan { font-size: 1rem; }
- .image-preview img, .tryon-preview img { width: 150px; height: 150px; }
- .section { font-size: 1rem; padding: 1em; }
+ .social { margin-top: 1em; }
+ .social-link {
+ display: inline-block; margin: 0 10px; color: white;
+ font-size: 1.5rem;
  }
-</style>
+ .social-link:hover { color: #d9b382; }
+ </style>
 </head>
 <body>
 
-<h1>Fitted Threads</h1>
-<p class="slogan">Your Virtual Try-On Experience</p>
-
-<div class="section">
- <h2>Uploaded Images</h2>
- <div class="image-preview" id="previewArea">
- <!-- User uploaded images appear here -->
- </div>
+<h1>Virtual Try-On</h1>
+<div class="preview">
+ <img id="userImage" src="" alt="You">
+ <img id="clothingImage" src="" alt="Clothing">
 </div>
+<input type="file" id="replaceClothing" accept="image/*"><br>
 
-<div class="section">
- <h2>Try-On Preview</h2>
- <div class="tryon-preview" id="tryonArea">
- <!-- Generated try-on images appear here -->
- <p style="color:#6e4b26;">Your AI-generated try-on will appear here.</p>
- </div>
-</div>
+<h2>Search Catalog</h2>
+<input type="text" id="searchQuery" placeholder="Search clothing items...">
+<button id="searchBtn">Search</button>
 
-<div class="controls">
- <button id="addClothing">Add Clothing Item</button>
- <button id="generateTryOn">Generate Try-On</button>
- <button id="saveOutfit">Save Outfit</button>
- <button id="backBtn">Back</button>
-</div>
+<div class="catalog" id="catalog"></div>
 
 <footer class="cutoff-footer">
  <ul class="footer-links">
@@ -147,53 +91,47 @@
  <li><a href="about.html">About Us</a></li>
  <li><a href="contact.html">Contact Us</a></li>
  </ul>
+ <div class="social">
+ <a href="#" class="social-link"> </a>
+ <a href="#" class="social-link"> </a>
+ <a href="#" class="social-link"> </a>
+ </div>
 </footer>
 
 <script>
- const previewArea = document.getElementById('previewArea');
- const tryonArea = document.getElementById('tryonArea');
- const addClothingBtn = document.getElementById('addClothing');
- const generateBtn = document.getElementById('generateTryOn');
- const saveBtn = document.getElementById('saveOutfit');
- const backBtn = document.getElementById('backBtn');
+const userImg = document.getElementById('userImage');
+const clothImg = document.getElementById('clothingImage');
+userImg.src = localStorage.getItem('userImage') || '';
+clothImg.src = localStorage.getItem('clothingImage') || '';
 
- function createFileInput(callback) {
- const input = document.createElement('input');
- input.type = 'file';
- input.accept = 'image/*';
- input.onchange = e => callback(e.target.files[0]);
- input.click();
- }
+document.getElementById('replaceClothing').addEventListener('change', function(){
+ clothImg.src = URL.createObjectURL(this.files[0]);
+});
 
- function addPreview(file) {
- const reader = new FileReader();
- reader.onload = function(e) {
- const img = document.createElement('img');
- img.src = e.target.result;
- previewArea.appendChild(img);
- }
- reader.readAsDataURL(file);
- }
+document.getElementById('searchBtn').addEventListener('click', async () => {
+ const query = document.getElementById('searchQuery').value.trim();
+ if (!query) return alert('Enter search term.');
+ 
+ const API_KEY = 'YOUR_API_KEY';
+ const CX = 'YOUR_CSE_ID';
+ const url = `https://www.googleapis.com/customsearch/v1?key=${API_KEY}&cx=${CX}&searchType=image&q=${encodeURIComponent(query)}&num=8`;
 
- addClothingBtn.onclick = () => createFileInput(addPreview);
-
- generateBtn.onclick = () => {
- tryonArea.innerHTML = '';
- const images = previewArea.querySelectorAll('img');
- if(images.length === 0){
- tryonArea.innerHTML = '<p style="color:#6e4b26;">Upload images first!</p>';
- return;
- }
- images.forEach(img => {
- const tryImg = document.createElement('img');
- tryImg.src = img.src; // Placeholder: replace with AI-generated image
- tryonArea.appendChild(tryImg);
+ try {
+ const res = await fetch(url);
+ const data = await res.json();
+ const catalog = document.getElementById('catalog');
+ catalog.innerHTML = '';
+ (data.items || []).forEach(item => {
+ const div = document.createElement('div');
+ div.className = 'catalog-item';
+ div.innerHTML = `<img src="${item.link}" alt="${item.title}">`;
+ div.firstChild.onclick = () => clothImg.src = item.link;
+ catalog.appendChild(div);
  });
- };
-
- saveBtn.onclick = () => alert('Your outfit has been saved!');
-
- backBtn.onclick = () => window.location.href = 'index.html';
+ } catch {
+ alert('Search failed.');
+ }
+});
 </script>
 
 </body>
