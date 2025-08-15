@@ -2,82 +2,40 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Try On - Fitted Threads</title>
+<title>Fitted Threads Try-On</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <header>
-<button onclick="window.location.href='index.html'" class="back-btn">← Home</button>
-<h1>Fitted Threads - Try On</h1>
+<a href="index.html" class="home-btn">← Return to Home</a>
+<h1>Try-On Page</h1>
 </header>
 
 <main>
-<section class="tryon-section">
-<h2>Your Uploaded Photos</h2>
-<div id="uploadedPreview"></div>
-
-<h2>AI Generated Result</h2>
-<div id="aiResult">
-<p>Loading AI result...</p>
+<div class="tryon-display">
+<img id="userPhoto" class="preview-img" src="" alt="User Photo">
+<img id="clothingItem" class="preview-img" src="" alt="Clothing Item">
+<div id="aiResult"></div>
 </div>
 
-<button id="saveBtn">Save AI Result</button>
-</section>
+<button id="saveResultBtn">Save AI Result</button>
 
-<section class="catalog-section">
+<div class="clothing-catalog">
 <h2>Clothing Catalog</h2>
 <div class="catalog-grid">
-<a href="https://www.zara.com/"><img src="https://static.zara.net/photos/catalogue/item1.jpg" alt="Item1"></a>
-<a href="https://www.h&m.com/"><img src="https://lp2.hm.com/hmgoepprod?set=source[/item2.jpg]" alt="Item2"></a>
-<a href="https://www.forever21.com/"><img src="https://www.forever21.com/images/item3.jpg" alt="Item3"></a>
-<a href="https://www.asos.com/"><img src="https://images.asos-media.com/item4.jpg" alt="Item4"></a>
+<a href="#"><img src="https://example.com/shirt1.jpg" alt="Shirt 1"></a>
+<a href="#"><img src="https://example.com/shirt2.jpg" alt="Shirt 2"></a>
+<a href="#"><img src="https://example.com/shirt3.jpg" alt="Shirt 3"></a>
+<a href="#"><img src="https://example.com/shirt4.jpg" alt="Shirt 4"></a>
 </div>
-</section>
+</div>
+
+<div class="social-icons">
+<a href="https://facebook.com" target="_blank"><img src="facebook.png" alt="Facebook"></a>
+<a href="https://instagram.com" target="_blank"><img src="instagram.png" alt="Instagram"></a>
+</div>
 </main>
 
-<footer>
-<ul class="footer-links">
-<li><a href="privacy.html">Privacy Policy</a></li>
-<li><a href="terms.html">Terms & Conditions</a></li>
-<li><a href="about.html">About Us</a></li>
-<li><a href="contact.html">Contact Us</a></li>
-</ul>
-<div class="social-icons">
-<a href="#"><img src="facebook.png" alt="Facebook"></a>
-<a href="#"><img src="instagram.png" alt="Instagram"></a>
-</div>
-</footer>
-
-<script>
-window.onload = () => {
-// Load uploaded images
-fetch('/api/get-uploads')
-.then(res => res.json())
-.then(data => {
-const container = document.getElementById('uploadedPreview');
-container.innerHTML = '';
-data.userPhoto && container.appendChild(createImg(data.userPhoto));
-data.clothingPhoto && container.appendChild(createImg(data.clothingPhoto));
-
-// Placeholder AI result
-const aiContainer = document.getElementById('aiResult');
-aiContainer.innerHTML = '';
-data.userPhoto && aiContainer.appendChild(createImg(data.userPhoto)); // just show user photo for demo
-});
-};
-
-function createImg(src) {
-const img = document.createElement('img');
-img.src = src;
-img.width = 200;
-img.style.margin = '10px';
-return img;
-}
-
-document.getElementById('saveBtn').addEventListener('click', () => {
-alert('Save AI Result functionality can be implemented here.');
-});
-</script>
+<script src="tryon.js"></script>
 </body>
 </html>
