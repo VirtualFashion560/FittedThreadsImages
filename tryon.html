@@ -3,39 +3,194 @@
 <head>
 <meta charset="UTF-8">
 <title>Fitted Threads Try-On</title>
-<link rel="stylesheet" href="style.css">
+<style>
+:root {
+--primary-color: #B65E2E;
+--secondary-color: #D9A066;
+--accent-color: #8C3B12;
+--background-color: #FFF5E6;
+--text-color: #3A1F0B;
+}
+
+body {
+margin: 0;
+font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+background-color: var(--background-color);
+color: var(--text-color);
+}
+
+header {
+display: flex;
+align-items: center;
+padding: 10px 20px;
+background-color: var(--secondary-color);
+}
+
+.home-btn {
+cursor: pointer;
+font-size: 1.5em;
+color: var(--text-color);
+text-decoration: none;
+margin-right: 20px;
+}
+
+header h1 {
+margin: 0;
+color: var(--primary-color);
+font-size: 1.8em;
+}
+
+.main-section {
+text-align: center;
+padding: 20px;
+}
+
+.preview-img, .ai-img {
+width: 250px;
+height: 350px;
+object-fit: cover;
+border: 2px solid var(--primary-color);
+margin: 10px;
+}
+
+.ai-video {
+width: 500px;
+height: 300px;
+margin: 10px;
+border: 2px solid var(--primary-color);
+}
+
+.clothing-catalog {
+margin: 40px auto;
+max-width: 1000px;
+display: flex;
+flex-wrap: wrap;
+justify-content: center;
+}
+
+.clothing-item {
+margin: 10px;
+text-align: center;
+}
+
+.clothing-item img {
+width: 150px;
+height: 200px;
+object-fit: cover;
+border: 1px solid var(--primary-color);
+}
+
+.social-icons img {
+width: 30px;
+margin: 0 10px;
+}
+
+footer {
+background-color: var(--secondary-color);
+text-align: center;
+padding: 15px;
+}
+
+.search-bar input[type="text"] {
+padding: 8px;
+width: 200px;
+}
+
+.search-bar button {
+padding: 8px 12px;
+background-color: var(--accent-color);
+color: #fff;
+border: none;
+cursor: pointer;
+}
+
+.search-bar button:hover {
+background-color: var(--primary-color);
+}
+</style>
 </head>
 <body>
+
 <header>
-<a href="index.html" class="home-btn">← Return to Home</a>
-<h1>Try-On Page</h1>
+<a class="home-btn" href="index.html">&#8592;</a>
+<h1>Fitted Threads Try-On</h1>
 </header>
 
-<main>
-<div class="tryon-display">
-<img id="userPhoto" class="preview-img" src="" alt="User Photo">
-<img id="clothingItem" class="preview-img" src="" alt="Clothing Item">
-<div id="aiResult"></div>
+<main class="main-section">
+<h2>Your Photo & Clothing</h2>
+<div>
+<img id="userPhoto" class="preview-img" src="" alt="Your Photo">
+<img id="userClothing" class="preview-img" src="" alt="Your Clothing">
 </div>
 
-<button id="saveResultBtn">Save AI Result</button>
-
-<div class="clothing-catalog">
-<h2>Clothing Catalog</h2>
-<div class="catalog-grid">
-<a href="#"><img src="https://example.com/shirt1.jpg" alt="Shirt 1"></a>
-<a href="#"><img src="https://example.com/shirt2.jpg" alt="Shirt 2"></a>
-<a href="#"><img src="https://example.com/shirt3.jpg" alt="Shirt 3"></a>
-<a href="#"><img src="https://example.com/shirt4.jpg" alt="Shirt 4"></a>
+<h2>AI Try-On Results</h2>
+<div>
+<img id="aiImage" class="ai-img" src="" alt="AI Generated Result">
 </div>
+<div>
+<video id="aiVideo" class="ai-video" controls>
+<source src="" type="video/mp4">
+Your browser does not support the video tag.
+</video>
 </div>
 
+<div class="search-bar">
+<input type="text" id="searchInput" placeholder="Search clothing online">
+<button id="searchBtn">Search</button>
+</div>
+
+<div class="clothing-catalog" id="clothingCatalog">
+<!-- Example items -->
+<div class="clothing-item">
+<a href="https://www.zara.com/us/en/woman-coats-l1110.html" target="_blank">
+<img src="https://static.zara.net/photos///woman-coat.jpg" alt="Coat">
+<p>Woman Coat</p>
+</a>
+</div>
+<div class="clothing-item">
+<a href="https://www.hm.com/us/products/women/jackets" target="_blank">
+<img src="https://lp2.hm.com/hmgoepprod?set=source[/women-jacket.jpg]" alt="Jacket">
+<p>Jacket</p>
+</a>
+</div>
+<div class="clothing-item">
+<a href="https://www.asos.com/women/coats-jackets/cat/?cid=2648" target="_blank">
+<img src="https://images.asos-media.com/products/women-coat.jpg" alt="Coat">
+<p>ASOS Coat</p>
+</a>
+</div>
+<!-- Add more catalog items as needed -->
+</div>
+</main>
+
+<footer>
 <div class="social-icons">
 <a href="https://facebook.com" target="_blank"><img src="facebook.png" alt="Facebook"></a>
 <a href="https://instagram.com" target="_blank"><img src="instagram.png" alt="Instagram"></a>
 </div>
-</main>
+</footer>
 
-<script src="tryon.js"></script>
+<script>
+// Display uploaded images from index.html
+document.getElementById('userPhoto').src = sessionStorage.getItem('userPhoto') || '';
+document.getElementById('userClothing').src = sessionStorage.getItem('clothingItem') || '';
+
+// Dummy AI generation (replace with backend call)
+document.getElementById('aiImage').src = document.getElementById('userPhoto').src; // placeholder
+// AI video placeholder
+const aiVideo = document.getElementById('aiVideo');
+aiVideo.querySelector('source').src = ""; // add AI video source URL
+aiVideo.load();
+
+// Search bar functionality
+const searchBtn = document.getElementById('searchBtn');
+searchBtn.addEventListener('click', () => {
+const query = document.getElementById('searchInput').value.trim();
+if(query) {
+window.open(`https://www.google.com/search?q=${encodeURIComponent(query)}+clothing`, '_blank');
+}
+});
+</script>
+
 </body>
 </html>
