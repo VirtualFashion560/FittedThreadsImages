@@ -1,86 +1,102 @@
-body {
-font-family: Arial, sans-serif;
-background: #f9f9f9;
-margin: 0;
-color: #333;
+:root {
+--primary-color: #B65E2E;
+--secondary-color: #D9A066;
+--accent-color: #8C3B12;
+--background-color: #FFF5E6;
+--text-color: #3A1F0B;
 }
 
-header {
+body {
+background-color: var(--background-color);
+color: var(--text-color);
+font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+margin: 0;
+padding: 0;
+}
+
+header, footer {
 text-align: center;
 padding: 20px;
-background: #222;
-color: white;
 }
 
-header h1 {
-margin: 0;
+h1, h2 {
+color: var(--primary-color);
 }
 
 .slogan {
-font-style: italic;
+font-weight: bold;
+font-size: 1.2em;
 margin: 5px 0;
 }
 
-main {
-max-width: 900px;
-margin: 20px auto;
-padding: 10px;
-}
-
-button {
-padding: 10px 20px;
-margin: 10px 5px;
+.upload-btn {
+background-color: var(--secondary-color);
+padding: 12px 24px;
+margin: 10px;
 cursor: pointer;
-border: none;
-background: #222;
-color: white;
-border-radius: 5px;
+display: inline-block;
 }
 
-button:hover {
-background: #555;
+.upload-btn:hover {
+background-color: var(--accent-color);
+color: #FFF;
+}
+
+.preview-img {
+width: 250px;
+height: 350px;
+object-fit: cover;
+border: 2px solid var(--primary-color);
+margin: 10px;
+}
+
+.action-buttons button {
+background-color: var(--secondary-color);
+color: var(--text-color);
+border: none;
+padding: 10px 20px;
+margin: 10px;
+cursor: pointer;
+}
+
+.action-buttons button:hover {
+background-color: var(--accent-color);
+color: #FFF;
 }
 
 footer {
-text-align: center;
-padding: 20px;
-background: #222;
-color: white;
+background-color: var(--secondary-color);
+padding: 15px;
 }
 
-.footer-links, .social-icons {
+.footer-links, .footer-links li {
 list-style: none;
-padding: 0;
-margin: 10px 0;
-}
-
-.footer-links li {
 display: inline;
 margin: 0 10px;
 }
 
-.footer-links a, .social-icons a img {
-color: white;
+.footer-links a {
+color: var(--text-color);
 text-decoration: none;
 }
 
-.upload-section img, #uploadedPreview img, #aiResult img, .catalog-grid img {
-border: 2px solid #ccc;
-border-radius: 5px;
+.footer-links a:hover {
+text-decoration: underline;
+}
+
+.social-icons img {
+width: 30px;
+margin: 0 10px;
 }
 
 .catalog-grid {
 display: flex;
 flex-wrap: wrap;
-gap: 10px;
 justify-content: center;
 }
 
-.back-btn {
-position: absolute;
-left: 20px;
-top: 20px;
-background: none;
-color: white;
-font-size: 20px;
+.catalog-grid a img {
+width: 150px;
+margin: 10px;
+border: 2px solid var(--primary-color);
 }
