@@ -117,24 +117,21 @@
    100% { transform: rotate(360deg); }
  }
 
- .catalog {
-   position: fixed;
-   right: 0;
-   top: 150px;
-   width: 150px;
-   max-height: 70%;
-   overflow-y: auto;
-   background: rgba(217, 179, 130, 0.85);
-   border-radius: 12px 0 0 12px;
-   padding: 10px;
+ /* Dropdown Catalog */
+ .catalog-dropdown {
+   margin: 1em auto;
+   max-width: 300px;
  }
-
- .catalog img {
+ .catalog-dropdown select {
    width: 100%;
-   margin-bottom: 10px;
+   padding: 10px;
    border-radius: 8px;
-   cursor: pointer;
    border: 2px solid #7a5a34;
+   font-size: 1rem;
+   font-weight: 600;
+   cursor: pointer;
+   background: #f5e3d0;
+   color: #4b3221;
  }
 
  .save-button {
@@ -224,8 +221,17 @@
 <p class="slogan">Build Your Confidence</p>
 <p class="slogan">Elevate Your Threads</p>
 
-<div class="previews" id="imagePreviews">
- <!-- Uploaded images from index.html will appear here -->
+<div class="previews" id="imagePreviews"></div>
+
+<!-- Dropdown instead of fixed catalog -->
+<div class="catalog-dropdown">
+ <select id="catalogSelect" onchange="swapItem(this.value)">
+   <option value="">Choose an outfit item...</option>
+   <option value="https://via.placeholder.com/180x180?text=Top+1">Top 1</option>
+   <option value="https://via.placeholder.com/180x180?text=Top+2">Top 2</option>
+   <option value="https://via.placeholder.com/180x180?text=Bottom+1">Bottom 1</option>
+   <option value="https://via.placeholder.com/180x180?text=Bottom+2">Bottom 2</option>
+ </select>
 </div>
 
 <div class="ai-results">
@@ -234,13 +240,6 @@
 </div>
 
 <button class="save-button" onclick="location.href='save.html'">Save Outfit</button>
-
-<div class="catalog" id="catalog">
- <img src="https://via.placeholder.com/150x150?text=Top+1" alt="Top 1" onclick="swapItem(this)">
- <img src="https://via.placeholder.com/150x150?text=Top+2" alt="Top 2" onclick="swapItem(this)">
- <img src="https://via.placeholder.com/150x150?text=Bottom+1" alt="Bottom 1" onclick="swapItem(this)">
- <img src="https://via.placeholder.com/150x150?text=Bottom+2" alt="Bottom 2" onclick="swapItem(this)">
-</div>
 
 <!-- Google Custom Search -->
 <script async src="https://cse.google.com/cse.js?cx=a6c263093879d47b6"></script>
@@ -265,45 +264,51 @@
 </footer>
 
 <script>
- // Load uploaded images from index.html
  const previews = document.getElementById('imagePreviews');
  const storedUserImage = sessionStorage.getItem('userImage');
  const storedClothingImage = sessionStorage.getItem('clothingImage');
  const aiPlaceholders = document.querySelectorAll('.ai-placeholder');
 
- if(storedUserImage){
+ // Always restore both previews if available
+ if (storedUserImage) {
    const img = document.createElement('img');
    img.src = storedUserImage;
+   img.alt = "User Uploaded";
    previews.appendChild(img);
  }
- if(storedClothingImage){
+ if (storedClothingImage) {
    const img = document.createElement('img');
    img.src = storedClothingImage;
+   img.alt = "Clothing Uploaded";
    previews.appendChild(img);
  }
 
- // Swap clothing catalog item with uploaded clothing image + trigger AI loading
- function swapItem(item){
+ function swapItem(selectedSrc){
+   if (!selectedSrc) return;
+
    let previewImages = previews.querySelectorAll('img');
 
-   // Ensure user image slot exists
-   if(previewImages.length === 0){
+   // Ensure user preview exists
+   if (previewImages.length === 0 && storedUserImage) {
      const img = document.createElement('img');
-     img.src = storedUserImage || "https://via.placeholder.com/180x180?text=User";
+     img.src = storedUserImage;
+     img.alt = "User Uploaded";
      previews.appendChild(img);
+     previewImages = previews.querySelectorAll('img');
    }
 
-   // Add/replace clothing image
-   if(previewImages.length < 2){
+   // Add/replace clothing preview
+   if (previewImages.length < 2) {
      const img = document.createElement('img');
-     img.src = item.src;
+     img.src = selectedSrc;
+     img.alt = "Selected Outfit";
      previews.appendChild(img);
    } else {
-     previewImages[1].src = item.src;
+     previewImages[1].src = selectedSrc;
    }
 
-   // Save new clothing choice
-   sessionStorage.setItem('clothingImage', item.src);
+   // Save clothing choice
+   sessionStorage.setItem('clothingImage', selectedSrc);
 
    // Show AI loading animation
    aiPlaceholders.forEach(ph => {
@@ -311,14 +316,12 @@
      ph.innerHTML = "";
    });
 
-   // Simulate AI response delay (replace with actual API call later)
+   // Fake AI result after 3s
    setTimeout(() => {
-     // Image Result
      aiPlaceholders[0].classList.remove('loading');
-     aiPlaceholders[0].innerHTML = `<img src="https://via.placeholder.com/300x300?text=AI+Image+Preview" 
-                                     alt="AI Image Preview" style="width:100%; height:100%; object-fit:cover; border-radius:12px;">`;
+     aiPlaceholders[0].innerHTML = `<img src="https://via.placeholder.com/300x300?text=AI+Image" 
+                                     alt="AI Image Result" style="width:100%; height:100%; object-fit:cover; border-radius:12px;">`;
 
-     // Video Result (simulated with a looping video placeholder)
      aiPlaceholders[1].classList.remove('loading');
      aiPlaceholders[1].innerHTML = `
        <video width="300" height="300" autoplay muted loop style="border-radius:12px; object-fit:cover;">
